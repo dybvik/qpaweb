@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from django.view.generic import TemplateView
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -6,7 +7,7 @@ from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^helloworld$', django.views.generic.base.TemplateView.as_view()),
+    url(r'^helloworld$', TemplateView.as_view(template_name="test.html")),
     # url(r'^$', 'qpaweb.views.home', name='home'),
     # url(r'^qpaweb/', include('qpaweb.foo.urls')),
 
