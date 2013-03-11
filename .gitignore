@@ -1,0 +1,6 @@
+*.pyc
+*.pyo
+Thumbs.db
+*.log
+*~
+local_settings.py
