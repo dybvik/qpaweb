@@ -155,6 +155,6 @@ LOGGING = {
 }
 
 try:
-    from local_settings import *
+    from qpaweb.local_settings import *
 except ImportError:
     pass
