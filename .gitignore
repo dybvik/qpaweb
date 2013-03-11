@@ -3,4 +3,5 @@
 Thumbs.db
 *.log
 *~
+.idea/*
 local_settings.py
