@@ -6,6 +6,7 @@ from django.conf.urls import patterns, include, url
 
 urlpatterns = patterns('',
     # Examples:
+    url(r'^helloworld$', django.views.generic.base.TemplateView.as_view()),
     # url(r'^$', 'qpaweb.views.home', name='home'),
     # url(r'^qpaweb/', include('qpaweb.foo.urls')),
 
