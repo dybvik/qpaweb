@@ -1,5 +1,10 @@
 # Django settings for qpaweb project.
 
+import os
+
+SITE_ROOTDIR = os.path.dirname(os.path.realpath('__file__'))
+
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -69,6 +74,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
+    
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -107,6 +113,7 @@ ROOT_URLCONF = 'qpaweb.urls'
 WSGI_APPLICATION = 'qpaweb.wsgi.application'
 
 TEMPLATE_DIRS = (
+    os.path.join(SITE_ROOTDIR, 'templates'),
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
