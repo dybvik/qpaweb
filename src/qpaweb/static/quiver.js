@@ -49,12 +49,12 @@ function quiverPanel(id)
     });
 }
 
-var ArrowGfx = fabric.util.createClass(fabric.Line, {
+var ArrowGfx = fabric.util.createClass(fabric.Object, {
     type: "arrow",
     
     initialize: function(options) {
         options || (options = { });
-        this.callSuper("initialize", options);
+        //this.callSuper("initialize", options);
         
 
 
