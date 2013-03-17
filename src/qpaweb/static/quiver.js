@@ -42,9 +42,10 @@ function quiverPanel(id)
       if(lastVertex != null) {
         console.log(options.e.clientX + " - " + vertex.left + " - " + lastVertex.left);
         console.log("adding new arrow");
-				var len = Math.sqrt(Math.pow(vertex.left-lastVertex.left,2)+Math.pow(vertex.top-lastVertex.top,2));
-				var d1 = vertex.radius/len;
-				var d2 = lastVertex.radius/len;
+		//arrows should start at the edge of vertices. (BTW: top and left attributes are actually x and y of center)
+		var len = Math.sqrt(Math.pow(vertex.left-lastVertex.left,2)+Math.pow(vertex.top-lastVertex.top,2));
+	    var d1 = vertex.radius/len;
+		var d2 = lastVertex.radius/len;
         var arrow1 = new Arrow([lastVertex.left+
 		  (vertex.left-lastVertex.left)*d2,lastVertex.top+(vertex.top-lastVertex.top)*d2,
           vertex.left-(vertex.left-lastVertex.left)*d1,vertex.top-
@@ -53,7 +54,7 @@ function quiverPanel(id)
         canvas.add(arrow1);
       }
       lastVertex = vertex;
-      
+       
       
       
     }
@@ -61,39 +62,43 @@ function quiverPanel(id)
   });
 }
 
-var Arrow = fabric.util.createClass(fabric.Object, {
+var Arrow = fabric.util.createClass(fabric.Line, {
   type: "arrow",
   
+  /*
+  * 
+  */
   initialize: function(points, options) {
     options || (options = { });
-    this.callSuper('initialize', options);
-
-    this.set('x1', points[0]);
-    this.set('y1', points[1]);
-    this.set('x2', points[2]);
-    this.set('y2', points[3]);
-    
-    console.log("ARROW INIT");
-    this._setWidthHeight(options);
-    this.line = new fabric.Line([-this.width/2,-this.height/2,this.width/2, this.height/2], options);
+    this.callSuper('initialize', points, options);
   },
-  _setWidthHeight: function(options) {
-    options || (options = { });
-
-    this.set('width', (this.x2 - this.x1) || 1);
-    this.set('height', (this.y2 - this.y1) || 1);
-
-    this.set('left', 'left' in options ? options.left : (this.x1 + this.width / 2));
-    this.set('top', 'top' in options ? options.top : (this.y1 + this.height / 2));
-  },
+  
   
   toObject: function(opts) {
     return fabric.util.object.extend(this.callSuper("toObject", opts));
   },
   
   _render: function(ctx) {
-    console.log("rendering arrow");
-    this.line.render(ctx);
+	this.callSuper("_render", ctx);
+	
+	
+	//and now the arrowhead
+	
+	var angle = Math.atan2(this.height,this.width);
+	
+	ctx.save();
+	
+	ctx.translate(this.width/2,this.height/2);
+	ctx.rotate(angle-Math.PI/4);
+
+	
+	ctx.moveTo(0,0);
+	ctx.lineTo(-10,0);
+	ctx.stroke();
+	ctx.moveTo(0,0);
+	ctx.lineTo(0,-10);
+	ctx.stroke();
+	ctx.restore();
   }
 });
   
