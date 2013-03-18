@@ -1,19 +1,22 @@
 header {
-	background: blue;
+	background: lightskyblue;
+    text-align: center;
     width: 900px;
 }
 
 nav {
-	background: gray;
+	background: lightsteelblue;
+    text-align: center;
     width: 900px;
 }
 
 article {
-	background: lightgray;
+	background: oldlace;
     width: 900px;
 }
 
 footer {
 	background: lightsteelblue;
+    text-align: right;
     width: 900px;
 }
