@@ -5,3 +5,4 @@ Thumbs.db
 *~
 .idea/*
 local_settings.py
+.DS_Store
