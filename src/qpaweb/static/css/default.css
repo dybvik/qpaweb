@@ -2,21 +2,34 @@ header {
 	background: lightskyblue;
     text-align: center;
     width: 900px;
+    padding: 20px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 nav {
 	background: lightsteelblue;
     text-align: center;
     width: 900px;
+    padding: 5px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 article {
 	background: oldlace;
     width: 900px;
+    padding: 5px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 footer {
 	background: lightsteelblue;
     text-align: right;
     width: 900px;
+    padding: 5px;
+    margin-left: auto;
+    margin-right: auto;
+
 }
