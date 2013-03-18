@@ -14,11 +14,11 @@ function quiverPanel(id)
   canvas.selection = false;
   canvas.hoverCursor = "crosshair";
   var lastVertex = null;
+  var that = this;
   
   canvas.on("mouse:down", function(options) {
 
     if(options.target == undefined) {
-
       var vertex = new fabric.Circle({
         stroke: "#0000ff",
         fill: "#0000ff",
@@ -38,28 +38,34 @@ function quiverPanel(id)
       
       canvas.add(vertex);
       
-      
-      if(lastVertex != null) {
-        console.log(options.e.clientX + " - " + vertex.left + " - " + lastVertex.left);
-        console.log("adding new arrow");
-		//arrows should start at the edge of vertices. (BTW: top and left attributes are actually x and y of center)
-		var len = Math.sqrt(Math.pow(vertex.left-lastVertex.left,2)+Math.pow(vertex.top-lastVertex.top,2));
-	    var d1 = vertex.radius/len;
-		var d2 = lastVertex.radius/len;
-        var arrow1 = new Arrow([lastVertex.left+
-		  (vertex.left-lastVertex.left)*d2,lastVertex.top+(vertex.top-lastVertex.top)*d2,
-          vertex.left-(vertex.left-lastVertex.left)*d1,vertex.top-
-		  (vertex.top-lastVertex.top)*d1]);
-        arrow1.selectable=false;
-        canvas.add(arrow1);
+      if(lastVertex === vertex) {
+        
+      }
+      else if(lastVertex != null) {
+        that.newArrow(lastVertex,vertex);
       }
       lastVertex = vertex;
-       
-      
-      
+    }
+    else {
+      that.newArrow(lastVertex, options.target);
+      lastVertex = options.target;
     }
     
   });
+}
+
+quiverPanel.prototype.newArrow = function(source, target) {
+  //arrows should start at the edge of vertices. (BTW: top and left attributes are actually x and y of center)
+  var len = Math.sqrt(Math.pow(target.left-source.left,2)+Math.pow(target.top-source.top,2));
+  var d1 = target.radius/len;
+  var d2 = source.radius/len;
+  var arrow1 = new Arrow([source.left+
+    (target.left-source.left)*d2,source.top+(target.top-source.top)*d2,
+    target.left-(target.left-source.left)*d1,target.top-
+    (target.top-source.top)*d1]);
+  arrow1.selectable=false;
+  this.canvas.add(arrow1);
+  return arrow1;
 }
 
 var Arrow = fabric.util.createClass(fabric.Line, {
@@ -79,26 +85,26 @@ var Arrow = fabric.util.createClass(fabric.Line, {
   },
   
   _render: function(ctx) {
-	this.callSuper("_render", ctx);
-	
-	
-	//and now the arrowhead
-	
-	var angle = Math.atan2(this.height,this.width);
-	
-	ctx.save();
-	
-	ctx.translate(this.width/2,this.height/2);
-	ctx.rotate(angle-Math.PI/4);
+    this.callSuper("_render", ctx);
+    
+    
+    //and now the arrowhead
+    
+    var angle = Math.atan2(this.height,this.width);
+    
+    ctx.save();
+    
+    ctx.translate(this.width/2,this.height/2);
+    ctx.rotate(angle-Math.PI/4);
 
-	
-	ctx.moveTo(0,0);
-	ctx.lineTo(-10,0);
-	ctx.stroke();
-	ctx.moveTo(0,0);
-	ctx.lineTo(0,-10);
-	ctx.stroke();
-	ctx.restore();
+    
+    ctx.moveTo(0,0);
+    ctx.lineTo(-10,0);
+    ctx.stroke();
+    ctx.moveTo(0,0);
+    ctx.lineTo(0,-10);
+    ctx.stroke();
+    ctx.restore();
   }
 });
   
