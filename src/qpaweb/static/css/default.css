@@ -1,7 +1,19 @@
-root { 
-    display: block;
-}
-
 header {
 	background: blue;
+    width: 900px;
+}
+
+nav {
+	background: gray;
+    width: 900px;
+}
+
+article {
+	background: lightgray;
+    width: 900px;
+}
+
+footer {
+	background: lightsteelblue;
+    width: 900px;
 }
