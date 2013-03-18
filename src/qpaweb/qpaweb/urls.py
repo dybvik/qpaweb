@@ -7,7 +7,7 @@ from django.views.generic import TemplateView
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^helloworld$', TemplateView.as_view(template_name="test.html")),
+    url(r'^helloworld/$', TemplateView.as_view(template_name="test.html")),
     # url(r'^$', 'qpaweb.views.home', name='home'),
     # url(r'^qpaweb/', include('qpaweb.foo.urls')),
 
