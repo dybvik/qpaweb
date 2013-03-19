@@ -36,7 +36,7 @@ function quiverPanel(id)
       vertex.hasBorders = false;
       vertex.hasControls = false;
       
-<<<<<<< HEAD
+
       canvas.add(vertex);
       
       vertex.arrows = [];
@@ -44,14 +44,7 @@ function quiverPanel(id)
       if(lastVertex != null) {
         var arrow = that.newArrow(lastVertex,vertex);
         vertex.arrows.push(arrow);
-=======
-      canvas.add(vertex);      
-      if(lastVertex === vertex) {
-        
-      }
-      else if(lastVertex != null) {
-        that.newArrow(lastVertex,vertex);
->>>>>>> origin/drawquiver
+
       }
       lastVertex = vertex;
     }
@@ -94,7 +87,7 @@ quiverPanel.prototype.newArrow = function(source, target) {
   return arrow1;
 }
 
-<<<<<<< HEAD
+
 var Vertex = new fabric.util.createClass(fabric.Circle, {
     type: "vertex",
     
@@ -103,8 +96,8 @@ var Vertex = new fabric.util.createClass(fabric.Circle, {
     }
 });
 
-=======
->>>>>>> origin/drawquiver
+
+
 var LoopArrow = new fabric.util.createClass(fabric.Object, {
   type: "loopArrow",
   
