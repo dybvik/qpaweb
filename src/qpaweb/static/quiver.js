@@ -17,8 +17,9 @@ function quiverPanel(id)
   var that = this;
   
   canvas.on("mouse:down", function(options) {
-
+    
     if(options.target == undefined) {
+    
       var pointer = canvas.getPointer(options.e);
       var vertex = new Vertex({
         stroke: "#0000ff",
@@ -45,6 +46,12 @@ function quiverPanel(id)
       if(lastVertex != null) {
         var arrow = that.newArrow(lastVertex,vertex);
         vertex.arrows.push(arrow);
+        lastVertex.arrows.push(arrow);
+        
+        var o = new Object;
+      o.left = canvas.getPointer(options.e).x;
+      o.top = canvas.getPointer(options.e).y;
+      var a = getVerticesAngle(lastVertex, o);
 
       }
       lastVertex = vertex;
@@ -52,7 +59,10 @@ function quiverPanel(id)
     else if(options.target.type==="vertex"){
       var arrow = that.newArrow(lastVertex, options.target);
       options.target.arrows.push(arrow);
+      lastVertex.arrows.push(arrow);
+      getVerticesAngle(lastVertex, options.target);
       lastVertex = options.target;
+      
     }
   });
 }
@@ -60,14 +70,42 @@ function quiverPanel(id)
 quiverPanel.prototype.newArrow = function(source, target) {
   if(source === target) {
     var arrow1 = new LoopArrow({
-      top: target.top,
-      left: target.left,
+      top: 0,
+      left: 0,
       fill: false,
       stroke: "black",
       scaleY:0.6,
     });
-   arrow1.left+=target.radius*4;
-   
+    
+    var inc = 0.1;
+    var span = 0.7;
+    var langle = 0;
+
+    for(i=0;i < target.arrows.length;i++) {
+      var arr = target.arrows[i];
+      
+      if(arr.source === arr.targer) {
+        continue;
+      }
+      var other = (arr.source === source?arr.target:arr.source);
+      var angle = getVerticesAngle(other, target);
+      if(angle < langle+span && angle> langle-span 
+        ||2*Math.PI-angle < langle+span ) {
+        console.log((langle*180/Math.PI)+ " discarded");
+        langle+=span;
+      }else {
+        break;
+      }
+    }
+    var rotateGroup = new fabric.Group([arrow1], {
+      left: target.left,
+      top: target.top,
+      angle: 360-((langle)*180/Math.PI),
+    });
+    console.log((langle*180/Math.PI));
+    arrow1.left+=target.radius*4;
+    arrow1 = rotateGroup;
+    
   }
   else {
     //arrows should start at the edge of vertices. (BTW: top and left attributes are actually x and y of center)
@@ -89,9 +127,18 @@ quiverPanel.prototype.newArrow = function(source, target) {
 }
 
 var getVerticesAngle = function(v1,v2) {
-  var xdiff = Math.abs(v2.left-v1.left);
-  var ydiff = Math.abs(v2.top-v1.top);
-  var angle = Math.atan2(ydiff, xdiff);
+  var len = Math.sqrt(Math.pow(v1.left-v2.left,2)+Math.pow(v1.top-v2.top,2));
+  var xdiff = (v1.left-v2.left)/len;
+  var ydiff = (v1.top-v2.top)/len;
+  
+  var angle = Math.atan2(ydiff,xdiff);
+  if(angle <0) {
+    angle = Math.abs(angle);
+  }
+  else {
+    angle = 2* Math.PI - angle;
+  }
+  console.log("infunc: " + (angle*180/Math.PI));
   return angle;
 }
 
