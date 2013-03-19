@@ -19,13 +19,12 @@ function quiverPanel(id)
   canvas.on("mouse:down", function(options) {
 
     if(options.target == undefined) {
-        alert("clientX: " + options.e.clientX+", clientY: " +options.e.clientY+"\n"+
-    "pointerX: " + canvas.getPointer(options.e).x + "pointerY:" + canvas.getPointer(options.e).y);
+      var pointer = canvas.getPointer(options.e);
       var vertex = new Vertex({
         stroke: "#0000ff",
         fill: "#0000ff",
-        top: options.e.clientY-9,
-        left: options.e.clientX-9,
+        top: pointer.y,
+        left: pointer.x,
         radius: 6,
         selectable: true});
       //Could have set selectable=false instead of the following
@@ -89,7 +88,7 @@ quiverPanel.prototype.newArrow = function(source, target) {
   return arrow1;
 }
 
-var getVerticesAngle(v1,v2) {
+var getVerticesAngle = function(v1,v2) {
   var xdiff = Math.abs(v2.left-v1.left);
   var ydiff = Math.abs(v2.top-v1.top);
   var angle = Math.atan2(ydiff, xdiff);
