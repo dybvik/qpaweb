@@ -27,9 +27,9 @@
             //alert("wiw: " + window.innerWidth + ", W: " + (window.innerWidth-sidepanel.offsetWidth) +
             //      "wih: " + window.innerHeight + ", H: " + (window.innerHeight-commandpanel.offsetHeight));
             if (qcanvas!=null) {
-                qcanvas.setHeight(window.innerHeight-commandpanel.style.height);
-                qcanvas.setWidth(window.innerWidth-sidepanel.style.width);
-
+                qcanvas.getCanvas().setHeight(window.innerHeight-commandpanel.style.height);
+                qcanvas.getCanvas().setWidth(window.innerWidth-sidepanel.style.width);
+qcanvas.set
             } else {
                 canvas.height = window.innerHeight-sidepanel.style.height;
                 canvas.width = window.innerWidth-commandpanel.style.width;

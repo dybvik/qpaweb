@@ -89,6 +89,10 @@ quiverPanel.prototype.newArrow = function(source, target) {
   return arrow1;
 }
 
+quiverPanel.prototype.getCanvas = function() {
+    return this.canvas;
+}
+
 var getVerticesAngle = function(v1,v2) {
   var xdiff = Math.abs(v2.left-v1.left);
   var ydiff = Math.abs(v2.top-v1.top);
