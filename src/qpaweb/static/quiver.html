@@ -24,8 +24,8 @@
         window.addEventListener('resize', resizeCanvas, false);
 
         function resizeCanvas() {
-            alert("wiw: " + window.innerWidth + ", W: " + (window.innerWidth-sidepanel.offsetWidth) +
-                  "wih: " + window.innerHeight + ", H: " + (window.innerHeight-commandpanel.offsetHeight));
+            //alert("wiw: " + window.innerWidth + ", W: " + (window.innerWidth-sidepanel.offsetWidth) +
+            //      "wih: " + window.innerHeight + ", H: " + (window.innerHeight-commandpanel.offsetHeight));
             if (qcanvas!=null) {
                 qcanvas.setHeight(window.innerHeight-commandpanel.style.height);
                 qcanvas.setWidth(window.innerWidth-sidepanel.style.width);
