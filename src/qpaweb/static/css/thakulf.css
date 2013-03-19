@@ -1,0 +1,24 @@
+* {margin:0; padding: 0;}
+html, body {width: 100%; height: 100%;}
+canvas {display: block;
+
+}
+body {background-color:#cbcbcb;}
+#commandpanel {
+    position: absolute;
+    border-top: 5px solid #000;
+    display: block;
+    height: 150px;
+    left: 0;
+    bottom: 0;
+    right: 200px;
+}
+#sidepanel {
+    border-left: 5px solid #000;
+    position: absolute;
+    display: block;
+    width: 200px;
+    right: 0;
+    top: 0;
+    bottom: 0px;
+}

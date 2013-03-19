@@ -5,12 +5,48 @@
     <title>Quivertest</title>
     <script src="lib/fabric.js/all.min.js"></script>
     <script src="quiver.js"></script>
+    <link rel="stylesheet" href="css/thakulf.css">
 </head>
-<body style="background-color:#cbcbcb">
-    <canvas id="qcanvas" width="640" height="480" style="border-style:solid;border-width:2px">
-        
+<body>
+
+    <canvas id="qcanvas">
+
 
     </canvas>
+    <div id="sidepanel">Placeholder for sidepanel</div>
+    <div id="commandpanel">Placeholder for kommandopanel</div>
+<script type="text/javascript">
+    (function() {
+        var canvas = document.getElementById('qcanvas'),
+                context = canvas.getContext('2d');
 
+        // resize the canvas to fill browser window dynamically
+        window.addEventListener('resize', resizeCanvas, false);
+
+        function resizeCanvas() {
+            //alert("wiw: " + window.innerWidth + ", W: " + (window.innerWidth-sidepanel.offsetWidth) +
+            //      "wih: " + window.innerHeight + ", H: " + (window.innerHeight-commandpanel.offsetHeight));
+            if (qcanvas!=null) {
+                qcanvas.getCanvas().setHeight(window.innerHeight-commandpanel.style.height);
+                qcanvas.getCanvas().setWidth(window.innerWidth-sidepanel.style.width);
+            } else {
+                canvas.height = window.innerHeight-sidepanel.style.height;
+                canvas.width = window.innerWidth-commandpanel.style.width;
+            }
+
+            /**
+             * Your drawings need to be inside this function otherwise they will be reset when
+             * you resize the browser window and the canvas goes will be cleared.
+             */
+            drawStuff();
+        }
+        resizeCanvas();
+
+        function drawStuff() {
+            // do your drawing stuff here
+        }
+    })();
+
+</script>
 </body>
 </html>

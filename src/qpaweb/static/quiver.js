@@ -1,4 +1,5 @@
 var qcanvas = null;
+
 window.onload = function()
 {
   qcanvas = new quiverPanel("qcanvas");
@@ -74,7 +75,7 @@ quiverPanel.prototype.newArrow = function(source, target) {
       left: 0,
       fill: false,
       stroke: "black",
-      scaleY:0.6,
+      scaleY:0.6
     });
     
     var inc = 0.1;
@@ -124,6 +125,10 @@ quiverPanel.prototype.newArrow = function(source, target) {
   arrow1.selectable=false;
   this.canvas.add(arrow1);
   return arrow1;
+}
+
+quiverPanel.prototype.getCanvas = function() {
+    return this.canvas;
 }
 
 var getVerticesAngle = function(v1,v2) {
