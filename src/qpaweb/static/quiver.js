@@ -22,8 +22,8 @@ function quiverPanel(id)
       var vertex = new fabric.Circle({
         stroke: "#0000ff",
         fill: "#0000ff",
-        top: options.e.clientY,
-        left: options.e.clientX,
+        top: options.e.clientY-9,
+        left: options.e.clientX-9,
         radius: 6,
         selectable: true});
       //Could have set selectable=false instead of the following
@@ -37,6 +37,7 @@ function quiverPanel(id)
       vertex.hasControls = false;
       
       canvas.add(vertex);
+
       
       if(lastVertex === vertex) {
         
@@ -57,12 +58,13 @@ function quiverPanel(id)
 quiverPanel.prototype.newArrow = function(source, target) {
   //arrows should start at the edge of vertices. (BTW: top and left attributes are actually x and y of center)
   var len = Math.sqrt(Math.pow(target.left-source.left,2)+Math.pow(target.top-source.top,2));
-  var d1 = target.radius/len;
-  var d2 = source.radius/len;
+  var d1 = (target.radius+2)/len;
+  var d2 = (source.radius+2)/len;
   var arrow1 = new Arrow([source.left+
-    (target.left-source.left)*d2,source.top+(target.top-source.top)*d2,
-    target.left-(target.left-source.left)*d1,target.top-
-    (target.top-source.top)*d1]);
+    (target.left-source.left)*d2,
+    source.top+(target.top-source.top)*d2,
+    target.left-(target.left-source.left)*d1,
+    target.top-(target.top-source.top)*d1]);
   arrow1.selectable=false;
   this.canvas.add(arrow1);
   return arrow1;
