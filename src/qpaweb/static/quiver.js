@@ -22,8 +22,8 @@ function quiverPanel(id)
       var vertex = new Vertex({
         stroke: "#0000ff",
         fill: "#0000ff",
-        top: options.e.clientY,
-        left: options.e.clientX,
+        top: options.e.clientY-9,
+        left: options.e.clientX-9,
         radius: 6,
         selectable: true});
       //Could have set selectable=false instead of the following
@@ -36,6 +36,7 @@ function quiverPanel(id)
       vertex.hasBorders = false;
       vertex.hasControls = false;
       
+<<<<<<< HEAD
       canvas.add(vertex);
       
       vertex.arrows = [];
@@ -43,6 +44,14 @@ function quiverPanel(id)
       if(lastVertex != null) {
         var arrow = that.newArrow(lastVertex,vertex);
         vertex.arrows.push(arrow);
+=======
+      canvas.add(vertex);      
+      if(lastVertex === vertex) {
+        
+      }
+      else if(lastVertex != null) {
+        that.newArrow(lastVertex,vertex);
+>>>>>>> origin/drawquiver
       }
       lastVertex = vertex;
     }
@@ -51,7 +60,6 @@ function quiverPanel(id)
       options.target.arrows.push(arrow);
       lastVertex = options.target;
     }
-    
   });
 }
 
@@ -72,12 +80,12 @@ quiverPanel.prototype.newArrow = function(source, target) {
     var len = Math.sqrt(Math.pow(target.left-source.left,2)+Math.pow(target.top-source.top,2));
     var d1 = target.radius/len;
     var d2 = source.radius/len;
-    var arrow1 = new Arrow([source.left+
-      (target.left-source.left)*d2,source.top+(target.top-source.top)*d2,
-      target.left-(target.left-source.left)*d1,target.top-
-      (target.top-source.top)*d1]);
-    
-    
+    var arrow1 = new Arrow([
+      source.left+(target.left-source.left)*d2,
+      source.top+(target.top-source.top)*d2,
+      target.left-(target.left-source.left)*d1,
+      target.top-(target.top-source.top)*d1
+    ]);
   }
   arrow1.source = source;
   arrow1.target = target;
@@ -86,6 +94,7 @@ quiverPanel.prototype.newArrow = function(source, target) {
   return arrow1;
 }
 
+<<<<<<< HEAD
 var Vertex = new fabric.util.createClass(fabric.Circle, {
     type: "vertex",
     
@@ -94,6 +103,8 @@ var Vertex = new fabric.util.createClass(fabric.Circle, {
     }
 });
 
+=======
+>>>>>>> origin/drawquiver
 var LoopArrow = new fabric.util.createClass(fabric.Object, {
   type: "loopArrow",
   
