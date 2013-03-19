@@ -19,6 +19,8 @@ function quiverPanel(id)
   canvas.on("mouse:down", function(options) {
 
     if(options.target == undefined) {
+        alert("clientX: " + options.e.clientX+", clientY: " +options.e.clientY+"\n"+
+    "pointerX: " + canvas.getPointer(options.e).x + "pointerY:" + canvas.getPointer(options.e).y);
       var vertex = new Vertex({
         stroke: "#0000ff",
         fill: "#0000ff",
@@ -71,8 +73,8 @@ quiverPanel.prototype.newArrow = function(source, target) {
   else {
     //arrows should start at the edge of vertices. (BTW: top and left attributes are actually x and y of center)
     var len = Math.sqrt(Math.pow(target.left-source.left,2)+Math.pow(target.top-source.top,2));
-    var d1 = target.radius/len;
-    var d2 = source.radius/len;
+    var d1 = (target.radius+2)/len;
+    var d2 = (source.radius+2)/len;
     var arrow1 = new Arrow([
       source.left+(target.left-source.left)*d2,
       source.top+(target.top-source.top)*d2,
