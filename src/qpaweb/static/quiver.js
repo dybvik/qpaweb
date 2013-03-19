@@ -3,8 +3,6 @@ var qcanvas = null;
 window.onload = function()
 {
   qcanvas = new quiverPanel("qcanvas");
-  qcanvas.width = window.innerWidth;
-  qcanvas.height = window.innerHeight;
 }
 
 /*
@@ -17,9 +15,6 @@ function quiverPanel(id)
   canvas.selection = false;
   canvas.hoverCursor = "crosshair";
   var lastVertex = null;
-    this.canvas.width=window.innerWidth;
-    this.canvas.height=window.innerHeight;
-
   var that = this;
   
   canvas.on("mouse:down", function(options) {

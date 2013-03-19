@@ -21,8 +21,13 @@
         window.addEventListener('resize', resizeCanvas, false);
 
         function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            if (qcanvas!=null) {
+                qcanvas.setHeight(window.innerHeight);
+                qcanvas.setWidth(window.innerWidth);
+            } else {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            }
 
             /**
              * Your drawings need to be inside this function otherwise they will be reset when
