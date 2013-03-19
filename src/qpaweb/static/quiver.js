@@ -19,7 +19,7 @@ function quiverPanel(id)
   canvas.on("mouse:down", function(options) {
 
     if(options.target == undefined) {
-      var vertex = new fabric.Circle({
+      var vertex = new Vertex({
         stroke: "#0000ff",
         fill: "#0000ff",
         top: options.e.clientY,
@@ -37,17 +37,18 @@ function quiverPanel(id)
       vertex.hasControls = false;
       
       canvas.add(vertex);
-      if(lastVertex === vertex) {
       
-        
-      }
-      else if(lastVertex != null) {
-        that.newArrow(lastVertex,vertex);
+      vertex.arrows = [];
+     
+      if(lastVertex != null) {
+        var arrow = that.newArrow(lastVertex,vertex);
+        vertex.arrows.push(arrow);
       }
       lastVertex = vertex;
     }
-    else {
-      that.newArrow(lastVertex, options.target);
+    else if(options.target.type==="vertex"){
+      var arrow = that.newArrow(lastVertex, options.target);
+      options.target.arrows.push(arrow);
       lastVertex = options.target;
     }
     
@@ -63,8 +64,8 @@ quiverPanel.prototype.newArrow = function(source, target) {
       stroke: "black",
       scaleY:0.6,
     });
-   //arrow1.top-=(target.radius-1)*2;
    arrow1.left+=target.radius*4;
+   
   }
   else {
     //arrows should start at the edge of vertices. (BTW: top and left attributes are actually x and y of center)
@@ -78,12 +79,20 @@ quiverPanel.prototype.newArrow = function(source, target) {
     
     
   }
+  arrow1.source = source;
+  arrow1.target = target;
   arrow1.selectable=false;
   this.canvas.add(arrow1);
   return arrow1;
 }
 
-
+var Vertex = new fabric.util.createClass(fabric.Circle, {
+    type: "vertex",
+    
+    initialize: function(options) {
+        this.callSuper("initialize", options);
+    }
+});
 
 var LoopArrow = new fabric.util.createClass(fabric.Object, {
   type: "loopArrow",
