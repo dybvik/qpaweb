@@ -19,6 +19,7 @@ function quiverPanel(id)
   canvas.on("mouse:down", function(options) {
 
     if(options.target == undefined) {
+        alert("clientX: " + options.e.clientX+", clientY: " +options.e.clientY)
       var vertex = new Vertex({
         stroke: "#0000ff",
         fill: "#0000ff",
