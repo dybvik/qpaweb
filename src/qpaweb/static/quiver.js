@@ -1,8 +1,15 @@
-var qcanvas = null;
+var qpanel = null;
 
 window.onload = function()
 {
-  qcanvas = new quiverPanel("qcanvas");
+  qpanel = new quiverPanel("qcanvas");
+  document.getElementById("btncreatemode").onclick = function(e) {
+    qpanel.setMode(qpanel.createMode);
+  }
+  document.getElementById("btncreatemodeclassic").onclick = function(e) {
+    qpanel.setMode(qpanel.createModeClassic);
+  }
+  qpanel.setMode(qpanel.createMode);
 }
 
 /*
@@ -12,60 +19,19 @@ function quiverPanel(id)
 {
   var canvas = new fabric.Canvas(id);
   this.canvas = canvas;
-  canvas.selection = false;
-  canvas.hoverCursor = "crosshair";
-  var lastVertex = null;
-  var that = this;
+  this.createMode = new CreateQuiverMode(this);
+  this.createModeClassic = new CreateModeClassic(this);
   
-  canvas.on("mouse:down", function(options) {
-    
-    if(options.target == undefined) {
-    
-      var pointer = canvas.getPointer(options.e);
-      var vertex = new Vertex({
-        stroke: "#0000ff",
-        fill: "#0000ff",
-        top: pointer.y,
-        left: pointer.x,
-        radius: 6,
-        selectable: true});
-      //Could have set selectable=false instead of the following
-      //attributes, then however, we would not receive any events.
-      vertex.lockRotation = true;
-      vertex.lockScalingX = true;
-      vertex.lockScalingY = true;
-      vertex.lockMovementX = true;
-      vertex.lockMovementY = true;
-      vertex.hasBorders = false;
-      vertex.hasControls = false;
-      
+  
+  canvas.hoverCursor = "crosshair";
+  
+  
+}
 
-      canvas.add(vertex);
-      
-      vertex.arrows = [];
-     
-      if(lastVertex != null) {
-        var arrow = that.newArrow(lastVertex,vertex);
-        vertex.arrows.push(arrow);
-        lastVertex.arrows.push(arrow);
-        
-        var o = new Object;
-      o.left = canvas.getPointer(options.e).x;
-      o.top = canvas.getPointer(options.e).y;
-      var a = getVerticesAngle(lastVertex, o);
-
-      }
-      lastVertex = vertex;
-    }
-    else if(options.target.type==="vertex"){
-      var arrow = that.newArrow(lastVertex, options.target);
-      options.target.arrows.push(arrow);
-      lastVertex.arrows.push(arrow);
-      getVerticesAngle(lastVertex, options.target);
-      lastVertex = options.target;
-      
-    }
-  });
+quiverPanel.prototype.setMode = function(mode) {
+  if(this.currentMode) { this.currentMode.disable() }
+  this.currentMode = mode;
+  this.currentMode.enable();
 }
 
 quiverPanel.prototype.newArrow = function(source, target) {
@@ -125,6 +91,32 @@ quiverPanel.prototype.newArrow = function(source, target) {
   arrow1.selectable=false;
   this.canvas.add(arrow1);
   return arrow1;
+}
+
+quiverPanel.prototype.newVertex = function(x, y) {
+        var vertex = new Vertex({
+        stroke: "#0000ff",
+        fill: "#0000ff",
+        top: y,
+        left: x,
+        radius: 6,
+        selectable: true});
+      //Could have set selectable=false instead of the following
+      //attributes, then however, we would not receive any events.
+      vertex.lockRotation = true;
+      vertex.lockScalingX = true;
+      vertex.lockScalingY = true;
+      vertex.lockMovementX = true;
+      vertex.lockMovementY = true;
+      vertex.hasBorders = false;
+      vertex.hasControls = false;
+      
+
+      
+      
+      vertex.arrows = [];
+      this.canvas.add(vertex);
+      return vertex;
 }
 
 quiverPanel.prototype.getCanvas = function() {
