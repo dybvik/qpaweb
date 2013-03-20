@@ -79,7 +79,7 @@ quiverPanel.prototype.newArrow = function(source, target) {
     });
     
     var inc = 0.1;
-    var span = 0.7;
+    var span = Math.PI;
     var langle = 0;
 
     for(i=0;i < target.arrows.length;i++) {
