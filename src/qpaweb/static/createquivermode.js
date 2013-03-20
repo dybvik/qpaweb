@@ -10,6 +10,18 @@ CreateQuiverMode.prototype.enable = function() {
   this.canvas.selection = false;
   var that = this;
   this.lastVertex = null;
+  
+  for(var vertex in this.panel.vertices) {
+    vertex.lockRotation = true;
+    vertex.lockScalingX = true;
+    vertex.lockScalingY = true;
+    vertex.lockMovementX = true;
+    vertex.lockMovementY = true;
+    vertex.hasBorders = false;
+    vertex.hasControls = false;
+  
+  }
+  
   this.newPath = function(e) {
     that.lastVertex = null;
     e.preventDefault();

@@ -1,4 +1,5 @@
 var qpanel = null;
+var alphabet = "abcdefghijklmnopqrstuvwxyz";
 
 window.onload = function()
 {
@@ -24,6 +25,9 @@ function quiverPanel(id)
   
   
   canvas.hoverCursor = "crosshair";
+  
+  this.vertices = [];
+  this.arrows = [];
   
   
 }
@@ -58,20 +62,26 @@ quiverPanel.prototype.newArrow = function(source, target) {
       var angle = getVerticesAngle(other, target);
       if(angle < langle+span && angle> langle-span 
         ||2*Math.PI-angle < langle+span ) {
-        console.log((langle*180/Math.PI)+ " discarded");
+        //console.log((langle*180/Math.PI)+ " discarded");
         langle+=span;
       }else {
         break;
       }
     }
+    var rotation = 360-((langle)*180/Math.PI);
     var rotateGroup = new fabric.Group([arrow1], {
       left: target.left,
       top: target.top,
-      angle: 360-((langle)*180/Math.PI),
+      angle: rotation,
     });
-    console.log((langle*180/Math.PI));
+    
+    arrow1.setNumber(alphabet[this.arrows.push(rotateGroup)-1]);
+    //HACK: offset the rotation
+    arrow1._getnumtx().angle = -rotation;
+    //console.log((langle*180/Math.PI));
     arrow1.left+=target.radius*4;
     arrow1 = rotateGroup;
+    
     
   }
   else {
@@ -85,6 +95,7 @@ quiverPanel.prototype.newArrow = function(source, target) {
       target.left-(target.left-source.left)*d1,
       target.top-(target.top-source.top)*d1
     ]);
+    arrow1.setNumber(alphabet[this.arrows.push(arrow1)-1]);
   }
   arrow1.source = source;
   arrow1.target = target;
@@ -96,11 +107,13 @@ quiverPanel.prototype.newArrow = function(source, target) {
 quiverPanel.prototype.newVertex = function(x, y) {
         var vertex = new Vertex({
         stroke: "#0000ff",
-        fill: "#0000ff",
+        fill: "none",
         top: y,
         left: x,
-        radius: 6,
-        selectable: true});
+        radius: 10,
+        selectable: true,
+        //perPixelTargetFind:true,
+        });
       //Could have set selectable=false instead of the following
       //attributes, then however, we would not receive any events.
       vertex.lockRotation = true;
@@ -115,6 +128,7 @@ quiverPanel.prototype.newVertex = function(x, y) {
       
       
       vertex.arrows = [];
+      vertex.setNumber(this.vertices.push(vertex)-1);
       this.canvas.add(vertex);
       return vertex;
 }
@@ -135,7 +149,7 @@ var getVerticesAngle = function(v1,v2) {
   else {
     angle = 2* Math.PI - angle;
   }
-  console.log("infunc: " + (angle*180/Math.PI));
+  //console.log("infunc: " + (angle*180/Math.PI));
   return angle;
 }
 
@@ -145,6 +159,20 @@ var Vertex = new fabric.util.createClass(fabric.Circle, {
     
     initialize: function(options) {
         this.callSuper("initialize", options);
+        this.number = null;
+    },
+    
+    setNumber: function(num) {
+      this.number = num;
+      console.log(num.toString());
+      this.numtx = new fabric.Text(num.toString(), {left: 0, top: 0});
+    },
+    
+    _render: function(ctx) {
+      //this.callSuper("_render", ctx);
+      if(this.number != null) {
+        this.numtx._render(ctx);
+      }
     }
 });
 
@@ -163,7 +191,14 @@ var LoopArrow = new fabric.util.createClass(fabric.Object, {
   toObject: function(opts) {
     return fabric.util.object.extend(this.callSuper("toObject", opts));
   },
-  
+  setNumber: function(num) {
+      this.number = num;
+      
+      var top = 0, left = 30;
+      
+      this.numtx = new fabric.Text(num.toString(), {left: left, top: top, fontsize: 10});
+  },
+  _getnumtx: function() { return this.numtx; },
   _render: function(ctx) {
     //this.callSuper("_render", ctx);
     
@@ -189,6 +224,9 @@ var LoopArrow = new fabric.util.createClass(fabric.Object, {
     ctx.lineTo(0,-10);
     ctx.stroke();
     ctx.restore();
+    if(this.number != null) {
+      this.numtx._render(ctx);
+    }
   }
 
 });
@@ -208,7 +246,20 @@ var Arrow = fabric.util.createClass(fabric.Line, {
   toObject: function(opts) {
     return fabric.util.object.extend(this.callSuper("toObject", opts));
   },
-  
+  setNumber: function(num) {
+      this.number = num;
+      
+      var top = 0, left = 0;
+      if(Math.max(Math.abs(this.height), 
+        Math.abs(this.width))/Math.min(Math.abs(this.height), Math.abs(this.width)) < 1.4) {
+        //top=15;
+        left = 15;
+        console.log(this.getWidth() +" " +this.height);
+        }
+      else if(Math.abs(this.height) < Math.abs(this.width)) { top = 10; }else { left = 10};
+      this.numtx = new fabric.Text(num.toString(), {left: left, top: top, fontsize: 10});
+  },
+    
   _render: function(ctx) {
     this.callSuper("_render", ctx);
     
@@ -230,6 +281,9 @@ var Arrow = fabric.util.createClass(fabric.Line, {
     ctx.lineTo(0,-10);
     ctx.stroke();
     ctx.restore();
+    if(this.number != null) {
+      this.numtx._render(ctx);
+    }
   }
 });
   
