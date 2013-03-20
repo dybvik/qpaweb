@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}WebPGA - a bachelorproject{% endblock title %}</title>
+        <meta charset=UTF-8">
+        {% load staticfiles %}
+        {% block script %}{% endblock script %}
+        <link rel="stylesheet" href="{% static 'css/default.css' %}" type="text/css" media="screen" />
+    </head>
+    <body>
+        <header>
+        	<h1>WebQPA</h1>
+            <h4>a bachelorproject at Høgskolen i Sør-Trøndelag</h4>
+        </header>
+
+        <nav>
+            {% block menu %}
+        	<ul>
+        	    <li>Home</li>
+        	    <li> : menu1</li>
+        	    <li> : menu2</li>
+        	    <li> : menu3</li>
+        	</ul>
+        	{% endblock menu %}
+        	
+        </nav>
+
+        <article>
+            {% block content %}
+        	Lorem ipsum oversatt til norsk. Denne siden er nødvendig for å legge inn en kommentar. Men temperaturen eros ettermiddag noen forbrytelse her, men bare starte. Tilbake til toppen latter er gratis, veranda eller i krydder, ikke ble funnet på børsten. Kontakt. Denne siden er nødvendig for å legge inn en kommentar. Skrevet i tabell nei. Før det er min store ergrelse ulike frakt. My funny og urbane og industrielle element. Kontakt din kundene hater. Hjemmeside er stygg, er ikke nødvendig. Som ennå, heller. Velkommen medlemmer, er latter på dekk, kan du kommentere for hat, men smerte er en lagringsplattform.
+        	{% endblock content %}
+        </article>
+
+        <footer>
+        	Bachelorgroup 34: Jakobsen, Kittelsen og Dybvik. License GPL 2, 2013
+        </footer>
+    </body>
+</html>
