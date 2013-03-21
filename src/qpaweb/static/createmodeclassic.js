@@ -13,6 +13,21 @@ CreateModeClassic.prototype.enable = function() {
     that.lastVertex = null;
     e.preventDefault();
   }
+  
+  this.panel.vertices.forEach(function(vertex) {
+    vertex.lockRotation = true;
+    vertex.lockScalingX = true;
+    vertex.lockScalingY = true;
+    vertex.lockMovementX = true;
+    vertex.lockMovementY = true;
+    vertex.hasBorders = false;
+    vertex.hasControls = false;
+  
+  });
+  this.panel.arrows.forEach(function(arrow) {
+    arrow.selectable = false;
+  });
+  this.canvas.renderAll(false);
   this.onMouseDown = function(options) {
     
     if(options.target == undefined) {

@@ -1,5 +1,13 @@
 var qpanel = null;
 var alphabet = "abcdefghijklmnopqrstuvwxyz";
+var alphalookup = [];
+var i = 0;
+for(var ci in alphabet){
+  var c = alphabet.charAt(ci);
+  alphalookup[c] = i;
+  i++;
+  
+}
 
 window.onload = function()
 {
@@ -95,7 +103,9 @@ quiverPanel.prototype.newArrow = function(source, target) {
       target.left-(target.left-source.left)*d1,
       target.top-(target.top-source.top)*d1
     ]);
+    
     arrow1.setNumber(alphabet[this.arrows.push(arrow1)-1]);
+   
   }
   arrow1.source = source;
   arrow1.target = target;
@@ -130,6 +140,7 @@ quiverPanel.prototype.newVertex = function(x, y) {
       vertex.arrows = [];
       vertex.setNumber(this.vertices.push(vertex)-1);
       this.canvas.add(vertex);
+      
       return vertex;
 }
 
@@ -149,7 +160,7 @@ var getVerticesAngle = function(v1,v2) {
   else {
     angle = 2* Math.PI - angle;
   }
-  //console.log("infunc: " + (angle*180/Math.PI));
+  console.log("infunc: " + (angle*180/Math.PI));
   return angle;
 }
 
@@ -158,6 +169,7 @@ var Vertex = new fabric.util.createClass(fabric.Circle, {
     type: "vertex",
     
     initialize: function(options) {
+        options || (options = { });
         this.callSuper("initialize", options);
         this.number = null;
     },
