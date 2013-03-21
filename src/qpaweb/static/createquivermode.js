@@ -11,7 +11,7 @@ CreateQuiverMode.prototype.enable = function() {
   var that = this;
   this.lastVertex = null;
   
-  for(var vertex in this.panel.vertices) {
+  this.panel.vertices.forEach(function(vertex) {
     vertex.lockRotation = true;
     vertex.lockScalingX = true;
     vertex.lockScalingY = true;
@@ -20,7 +20,11 @@ CreateQuiverMode.prototype.enable = function() {
     vertex.hasBorders = false;
     vertex.hasControls = false;
   
-  }
+  });
+  this.panel.arrows.forEach(function(arrow) {
+    arrow.selectable = false;
+  });
+  this.canvas.renderAll(false);
   
   this.newPath = function(e) {
     that.lastVertex = null;
