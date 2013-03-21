@@ -13,13 +13,28 @@ CreateModeClassic.prototype.enable = function() {
     that.lastVertex = null;
     e.preventDefault();
   }
+  
+  this.panel.vertices.forEach(function(vertex) {
+    vertex.lockRotation = true;
+    vertex.lockScalingX = true;
+    vertex.lockScalingY = true;
+    vertex.lockMovementX = true;
+    vertex.lockMovementY = true;
+    vertex.hasBorders = false;
+    vertex.hasControls = false;
+  
+  });
+  this.panel.arrows.forEach(function(arrow) {
+    arrow.selectable = false;
+  });
+  this.canvas.renderAll(false);
   this.onMouseDown = function(options) {
     
     if(options.target == undefined) {
     
       var pointer = that.canvas.getPointer(options.e);
       var vertex = that.panel.newVertex(pointer.x, pointer.y);
-      that.canvas.add(vertex);
+      
 
      
       if(that.lastVertex != null) {
@@ -32,7 +47,7 @@ CreateModeClassic.prototype.enable = function() {
         o.left = that.canvas.getPointer(options.e).x;
         o.top = that.canvas.getPointer(options.e).y;
         var a = getVerticesAngle(that.lastVertex, o);
-        that.canvas.add(arrow);
+        
         that.canvas.sendToBack(arrow);
         that.lastVertex = null;
 
@@ -45,7 +60,7 @@ CreateModeClassic.prototype.enable = function() {
         that.lastVertex.arrows.push(arrow);
         getVerticesAngle(that.lastVertex, options.target);
         
-        that.canvas.add(arrow);
+        
         that.canvas.sendToBack(arrow);
         that.lastVertex = null;
       } else {
