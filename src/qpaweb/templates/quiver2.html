@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block script %}
+    {% load staticfiles %}
+	<script src="{% static 'lib/fabric.js/all.min.js' %}"></script>
+    <script src="{% static 'createmodeclassic.js' %}"></script>
+    <script src="{% static 'createquivermode.js' %}"></script>
+    <script src="{% static 'quiver.js' %}"></script>
+{% endblock script %}
+
+{% block content %}
+	<div id="krakk">
+    <canvas id="qcanvas" width=700 height=400>
+    </canvas>
+    </div>
+    <aside>Sidepanel</aside>
+    <div id="commandpanel">Comandpanel</div>
+{% endblock content %}

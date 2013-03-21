@@ -15,12 +15,21 @@ nav {
     margin-right: auto;
 }
 
+nav li {
+  display:inline;
+  vertical-align:middle;
+}
+
 article {
 	background: oldlace;
     width: 900px;
     padding: 5px;
     margin-left: auto;
     margin-right: auto;
+}
+
+aside {
+	background-color: darkgray;
 }
 
 footer {
@@ -32,3 +41,16 @@ footer {
     margin-right: auto;
 
 }
+
+#krakk {
+    /*float: left;*/
+}
+
+#qcanvas {
+    background-color: white;
+}
+
+#commandpanel {
+	background-color: gray;
+}
+
