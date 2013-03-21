@@ -22,3 +22,11 @@ body {background-color:#cbcbcb;}
     top: 0;
     bottom: 0px;
 }
+
+#sidepanel input.commandbutton {
+    white-space: normal;
+    float: left;
+    display: block;
+    width: 72px;
+    height: 72px;
+}
