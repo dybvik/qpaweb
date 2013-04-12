@@ -8,12 +8,17 @@ var NamedObject = function(name) {
 }
 
 NamedObject.prototype = {
+  /**
+   * The objects name.
+   * @member
+   * @fires change_name
+   */
   get name() {
     return this._name;
   },
   set name(name) {
-    var oldName = this.name;
-    this.name = name;
+    var oldName = this._name;
+    this._name = name;
     $(this).trigger("change_name", [oldName]);
   },
 };
@@ -24,11 +29,13 @@ NamedObject.prototype = {
  *
  * @constructor
  * @class
+ *
  */
 var Quiver = function() {
   this.items = {};
-
 }
+
+
 
 /**
  * Adds an item to the canvas.
@@ -42,12 +49,12 @@ Quiver.prototype.add = function(item) {
   }
   
   item._quiver = this;
-  this.items[item.getName()]=item;
+  this.items[item.name]=item;
   $(item).on("change_name.Quiver", function(ev, oldName) {
     item._quiver.items[item.getName()]=item;
     delete item._quiver.items[oldName];
   });
-  $(this).trigger("add_item");
+  $(this).trigger("add_item", [item]);
   return true;
 }
 
@@ -85,12 +92,22 @@ var Arrow = function(name, source, target) {
 Arrow.prototype = Object.create(NamedObject.prototype);
 
 
-var Vertex = function(name) {
+/**
+ * 
+ *
+ * @constructor
+ * @param {String} name Vertex name. Must be unique in quiver.
+ * @param {int} x X coordinate of vertex
+ * @param {int} y Y coordinate of vertex
+ */
+var Vertex = function(name, x ,y) {
   NamedObject.call(this, name);
   this.name = name;
   this.type = "vertex";
   this._quiver = null;
-  this.arrows = {};
+  this.arrows = [];
+  this.x = x;
+  this.y = y;
 }
 Vertex.prototype = Object.create(NamedObject.prototype);
 
@@ -98,4 +115,5 @@ Vertex.prototype.addArrow = function(arrow) {
   if(this._quiver != null) {
     this._quiver.add(arrow);
   }
+  this.arrows.push(arrow);
 }
