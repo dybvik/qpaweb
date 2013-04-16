@@ -9,9 +9,10 @@ var CreateModeClassic = function(qc) {
 CreateModeClassic.prototype.enable = function() {
   this.canvas.selection = false;
   var that = this;
+  var tt = 0;
   this.cancelArrow = function(e) {
     that.lastVertex = null;
-
+    that.panel.helperArrow.set("visible", false);
     e.preventDefault();
   }
   
@@ -30,9 +31,10 @@ CreateModeClassic.prototype.enable = function() {
   });
   this.canvas.renderAll(false);
   this.onMouseDown = function(options) {
+    var pointer = that.canvas.getPointer(options.e);
     if(options.target == undefined) {
     
-      var pointer = that.canvas.getPointer(options.e);
+      
       //var vertex = that.panel.newVertex(pointer.x, pointer.y);
       var vertex = new Vertex(that.panel.vertexNamer.next(), pointer.x, pointer.y);
       that.panel.quiver.add(vertex);
@@ -49,7 +51,7 @@ CreateModeClassic.prototype.enable = function() {
         
         //that.canvas.sendToBack(arrow);
         that.lastVertex = null;
-
+        that.panel.helperArrow.set("visible", false);
       } 
     }
     else if(options.target.type==="vertex"){
@@ -61,9 +63,12 @@ CreateModeClassic.prototype.enable = function() {
         that.panel.quiver.add(arrow);
         
         that.lastVertex = null;
+        that.panel.helperArrow.set("visible", false);
       } else {
         that.lastVertex = options.target.data;
         that.panel.helperArrow.set({x1: that.lastVertex.x, y1: that.lastVertex.y});
+        that.panel.helperArrow.set({x2: pointer.x, y2: pointer.y});
+        that.panel.helperArrow.set("visible", true);
       }
     }
   }
@@ -72,17 +77,20 @@ CreateModeClassic.prototype.enable = function() {
   this.panel.helperArrow.set("selectable", false);
   this.canvas.add(this.panel.helperArrow);
   this.canvas.on("mouse:move", function(ev) {
-    console.log("woof");
-
-      var pointer = that.canvas.getPointer(ev.e);
-      if(that.lastVertex != null /*&& (Math.abs((that.lastVertex.x - pointer.x) > 20 && Math.abs(that.lastVertex.y - pointer.y > 20)))*/) {
-        that.panel.helperArrow.set("visible", true);
-        that.panel.helperArrow.set({x2: pointer.x, y2: pointer.y});
-      }
-      else {
-        that.panel.helperArrow.set("visible", false);
-      }
+    
+    var pointer = that.canvas.getPointer(ev.e);
+    if(that.lastVertex != null) {
+      
+      that.panel.helperArrow.set({x2: pointer.x, y2: pointer.y});
+    }
+    else {
+      
+    }
+    var d = new Date();
+    if(d.getTime()-tt > 20) {
       that.canvas.renderAll(false);
+      tt = d.getTime();
+    }
     
   });
   this.canvas.on("mouse:down", this.onMouseDown);
@@ -94,6 +102,6 @@ CreateModeClassic.prototype.enable = function() {
 CreateModeClassic.prototype.disable = function() {
   this.canvas.off("mouse:down", this.onMouseDown);
   fabric.util.removeListener(document.getElementsByClassName("upper-canvas")[0], "contextmenu", this.newPath);
- 
+  
 }
 

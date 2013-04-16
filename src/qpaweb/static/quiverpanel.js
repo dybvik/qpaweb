@@ -1,13 +1,5 @@
 var qpanel = null;
-var alphabet = "abcdefghijklmnopqrstuvwxyz";
-var alphalookup = [];
-var i = 0;
-for(var ci in alphabet){
-  var c = alphabet.charAt(ci);
-  alphalookup[c] = i;
-  i++;
 
-}
 
 window.onload = function()
 {
@@ -305,7 +297,7 @@ var LoopArrowGFX = new fabric.util.createClass(fabric.Object, {
     ctx.beginPath();
     ctx.arc(0, 0, 17, 1.2*Math.PI, 0.8*Math.PI, false);
     ctx.stroke();
-    ctx.restore();
+    
 
 
     var x = Math.cos(0.8*Math.PI) * 17;
@@ -322,6 +314,7 @@ var LoopArrowGFX = new fabric.util.createClass(fabric.Object, {
     ctx.moveTo(0,0);
     ctx.lineTo(0,-10);
     ctx.stroke();
+    ctx.restore();
     ctx.restore();
     if(this.label != null) {
       this.numtx._render(ctx);
