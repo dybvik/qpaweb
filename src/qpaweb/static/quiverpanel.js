@@ -16,7 +16,7 @@ window.onload = function () {
         qpanel.setMode(qpanel.createMode);
     }
     document.getElementById("btnjson").onclick = function (e) {
-        alert(JSON.stringify(JSON.decycle(quiver), null, 4));
+        document.getElementById("debug").value=JSON.stringify(JSON.decycle(quiver), null, 4);
     }
 
     document.getElementById("btncreatemodeclassic").onclick = function (e) {
