@@ -32,18 +32,20 @@ window.onload = function()
 function quiverPanel(id, quiver)
 {
   var that = this;
-  var canvas = new fabric.Canvas(id);
+  var canvas = new fabric.Canvas(id, {targetFindTolerance:  10,});
   this.canvas = canvas;
+
   this.createMode = new CreateQuiverMode(this);
   this.createModeClassic = new CreateModeClassic(this);
   
   this.vertexNamer = new NumberNameGenerator(quiver);
-  this.arrowNamer = new  AlfabetNameGenerator(quiver);
+  this.arrowNamer = new AlfabetNameGenerator(quiver);
   this.quiver = quiver;
   canvas.hoverCursor = "crosshair";
 
   this.vertices = {};
   this.arrows = {};
+  
 
   
   //styling:
@@ -85,7 +87,7 @@ function quiverPanel(id, quiver)
 quiverPanel.prototype.loadQuiver = function() {
   if(this.currentMode) {
     this.currentMode.disable(); }
-  //this.canvas.dispose();
+  this.canvas.clear();
   arrows = [];
   for(item in this.quiver.items) {
     if(item instanceof Vertex) {
@@ -117,7 +119,6 @@ quiverPanel.prototype.newArrow = function(data) {
       left: 0,
       fill: false,
       stroke: "black",
-      //scaleY:0.6
     });
 
     var inc = 0.1;
@@ -172,9 +173,17 @@ quiverPanel.prototype.newArrow = function(data) {
     arrow1.setLabel(name);
 
   }
+  arrow1.lockRotation = true;
+  arrow1.lockScalingX = true;
+  arrow1.lockScalingY = true;
+  arrow1.lockMovementX = true;
+  arrow1.lockMovementY = true;
+  arrow1.hasBorders = false;
+  arrow1.hasControls = false;
+  arrow1.perPixelTargetFind = true;
   arrow1.source = source;
   arrow1.target = target;
-  arrow1.selectable=false;
+  //arrow1.selectable=false;
   arrow1.data = data;
   this.canvas.add(arrow1);
   return arrow1;
