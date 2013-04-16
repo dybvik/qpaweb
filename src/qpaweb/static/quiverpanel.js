@@ -1,13 +1,6 @@
 var qpanel = null;
-var alphabet = "abcdefghijklmnopqrstuvwxyz";
-var alphalookup = [];
-var i = 0;
-for (var ci in alphabet) {
-    var c = alphabet.charAt(ci);
-    alphalookup[c] = i;
-    i++;
 
-}
+
 
 window.onload = function () {
     var quiver = new Quiver();
@@ -278,61 +271,56 @@ var VertexGFX = new fabric.util.createClass(fabric.Object, {
 
 
 var LoopArrowGFX = new fabric.util.createClass(fabric.Object, {
-    type: "loopArrow",
+  type: "loopArrow",
 
-    initialize: function (options) {
-        options || (options = { });
-        if (!this.width) {
-            this.set('width', 20)
-        }
-        if (!this.height) {
-            this.set('height', 20)
-        }
-        this.callSuper("initialize", options);
-    },
+  initialize: function(options) {
+    options || (options = { });
+    if(!this.width) {this.set('width', 20) }
+    if(!this.height) {this.set('height', 20) }
+    this.callSuper("initialize", options);
+  },
 
-    toObject: function (opts) {
-        return fabric.util.object.extend(this.callSuper("toObject", opts));
-    },
-    setLabel: function (num) {
-        this.label = num;
+  toObject: function(opts) {
+    return fabric.util.object.extend(this.callSuper("toObject", opts));
+  },
+  setLabel: function(num) {
+    this.label = num;
 
-        var top = 0, left = 30;
+    var top = 0, left = 30;
 
-        this.numtx = new fabric.Text(num.toString(), {left: left, top: top, fontsize: 10});
-    },
-    _getnumtx: function () {
-        return this.numtx;
-    },
-    _render: function (ctx) {
-        //this.callSuper("_render", ctx);
+    this.numtx = new fabric.Text(num.toString(), {left: left, top: top, fontsize: 10});
+  },
+  _getnumtx: function() { return this.numtx; },
+  _render: function(ctx) {
+    //this.callSuper("_render", ctx);
 
-        ctx.save();
-        ctx.scale(1.0, 0.6);
-        ctx.beginPath();
-        ctx.arc(0, 0, 17, 1.2 * Math.PI, 0.8 * Math.PI, false);
-        ctx.stroke();
-        ctx.restore();
+    ctx.save();
+    ctx.scale(1.0, 0.6);
+    ctx.beginPath();
+    ctx.arc(0, 0, 17, 1.2*Math.PI, 0.8*Math.PI, false);
+    ctx.stroke();
+    
 
 
-        var x = Math.cos(0.8 * Math.PI) * 17;
-        var y = Math.sin(0.8 * Math.PI) * 17;
-        ctx.save();
+    var x = Math.cos(0.8*Math.PI) * 17;
+    var y = Math.sin(0.8*Math.PI) * 17;
+    ctx.save();
 
 
-        ctx.translate(x, y + 1);
-        ctx.rotate(Math.PI * 0.9);
+    ctx.translate(x,y+1);
+    ctx.rotate(Math.PI*0.9);
 
-        ctx.moveTo(0, 0);
-        ctx.lineTo(-10, 0);
-        ctx.stroke();
-        ctx.moveTo(0, 0);
-        ctx.lineTo(0, -10);
-        ctx.stroke();
-        ctx.restore();
-        if (this.label != null) {
-            this.numtx._render(ctx);
-        }
+    ctx.moveTo(0,0);
+    ctx.lineTo(-10,0);
+    ctx.stroke();
+    ctx.moveTo(0,0);
+    ctx.lineTo(0,-10);
+    ctx.stroke();
+    ctx.restore();
+    ctx.restore();
+    if(this.label != null) {
+      this.numtx._render(ctx);
+
     }
 
 });
