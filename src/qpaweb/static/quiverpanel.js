@@ -8,27 +8,28 @@ window.onload = function () {
     document.getElementById("btncreatemode").onclick = function (e) {
         qpanel.setMode(qpanel.createMode);
     }
-    document.getElementById("btnjson").onclick = function (e) {
-      var jsn = JSON.stringify(quiver, function(key, val) {
-        var o = null;
-        if(val instanceof Vertex) {
-          o = {};
-          o.x = val.x;
-          o.y = val.y;
-          o.type = "vertex";
-        }
-        else if(val instanceof Arrow) {
-          o = {};
-          o.source = val.source.name;
-          o.target = val.target.name;
-          o.type = "arrow";
-        } else { return val; }
-        return o;
-      });
-      alert(jsn);
-    }
+  document.getElementById("btnjson").onclick = function (e) {
 
-    document.getElementById("btncreatemodeclassic").onclick = function (e) {
+    var jsn = JSON.stringify(quiver, function(key, val) {
+      var o = null;
+      if(val instanceof Vertex) {
+        o = {};
+        o.x = val.x;
+        o.y = val.y;
+        o.type = "vertex";
+      }
+      else if(val instanceof Arrow) {
+        o = {};
+        o.source = val.source.name;
+        o.target = val.target.name;
+        o.type = "arrow";
+      } else { return val; }
+      return o;
+    });
+    alert(jsn);
+  }
+
+  document.getElementById("btncreatemodeclassic").onclick = function (e) {
         qpanel.setMode(qpanel.createModeClassic);
     }
     qpanel.setMode(qpanel.createModeClassic);
