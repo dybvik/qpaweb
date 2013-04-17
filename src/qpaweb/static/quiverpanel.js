@@ -63,8 +63,8 @@ function quiverPanel(id, quiver) {
     this.vertexRadius = 10;
 
 
-    this.loadQuiver();
-    $(this.quiver).on("add_item.quiverpanel", function (ev, item) {
+    this.loadQuiver(); 
+   $(this.quiver).on("add_item.quiverpanel", function (ev, item) {
         if (item instanceof Vertex) {
             var v = that.newVertex(item);
             v.arrows = [];
