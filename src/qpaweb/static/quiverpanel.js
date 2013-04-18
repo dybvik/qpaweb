@@ -25,8 +25,8 @@ window.onload = function () {
         o.type = "arrow";
       } else { return val; }
       return o;
-    });
-    alert(jsn);
+    },2);
+    document.getElementById("debug").value=jsn;
   }
 
   document.getElementById("btncreatemodeclassic").onclick = function (e) {

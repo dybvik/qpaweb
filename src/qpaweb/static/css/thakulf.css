@@ -1,4 +1,4 @@
-* {margin:0; padding: 0;}
+* {margin:0; padding: 0; color: #000;}
 html, body {width: 100%; height: 100%;}
 canvas {display: block;
 
@@ -12,6 +12,7 @@ body {background-color:#cbcbcb;}
     left: 0;
     bottom: 0;
     right: 200px;
+    color: #000;
 }
 #sidepanel {
     text-align: center;
@@ -23,6 +24,7 @@ body {background-color:#cbcbcb;}
     top: 0;
     bottom: 0px;
     padding: 10px;
+    color: #000;
 }
 
 #sidepanel input.commandbutton {
@@ -32,4 +34,5 @@ body {background-color:#cbcbcb;}
     clear: none;
     width: 72px;
     height: 72px;
+    color: #000;
 }
