@@ -11,10 +11,10 @@ var Relation = function(relstring, quiver) {
   var i;
   valid = true;
 
-
+  relstring = relstring.replace(/\s+/g, "");
   var alfabet="abcdefghijklmnopqrstuvwxyz";
   alfabet = alfabet+alfabet.toUpperCase();
-  alfabet+="0123456789";
+  alfabet+="0123456789";x
   
 
   var ns = relstring.split(/([-+])/g);
