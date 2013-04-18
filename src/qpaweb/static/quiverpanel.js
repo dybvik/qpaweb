@@ -33,7 +33,9 @@ window.onload = function () {
         qpanel.setMode(qpanel.createModeClassic);
     }
     qpanel.setMode(qpanel.createModeClassic);
-
+  
+  var relin = document.getElementById("relation");
+  var relp = new RelationPanel(qpanel, null, relin);
 }
 
 /**

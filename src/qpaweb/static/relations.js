@@ -1,7 +1,11 @@
 
 var RelationList = function(quiver) {
   this.quiver = quiver;
+  this.relations = [];
 }
+
+
+
 //Possibly my ugliest function ever.
 var Relation = function(relstring, quiver) {
   var i;
@@ -18,20 +22,16 @@ var Relation = function(relstring, quiver) {
   
   var parse = function(s) {
     if(/^[+-]$/.test(s)) {
-      return svar tt = val.split(/^/g);
-      if(tt.length > 2) {//more than one ^ sign
-        valid = false;
-        return null;
-      }; else if(tt.length == 2) {
-        
-      }
-    }
+      return s;
+    } 
+
+      
     var facs = s.split(/(\*)/g);
 
     for(var j = 0; j < facs.length;j++) {
 
   
-      if(list[index] == null) {return;}if(facs[j] == "*") {
+      if(facs[j] == null) {return;}if(facs[j] == "*") {
         continue;
       }
       var tt = facs[j].split(/(\^)/g);
@@ -90,13 +90,21 @@ var Relation = function(relstring, quiver) {
       lastArrow = null;
       continue;
     }
-    for(var j = 0; j < ns[i].length;i++) {
-      if(ns[i][j\\] == "*") {
+    
+    for(var j = 0; j < ns[i].length;j++) {
+      if(ns[i][j] == "*") {
         continue;
       }
       if(ns[i][j] instanceof Array) {
         ns[i][j][0] = quiver.items[ns[i][j][0]];
         tarrow = ns[i][j][0];
+        if(tarrow.source != tarrow.target) {
+          this.valid=false;
+          return;
+        }
+        else {
+          continue;
+        }
       }
       else {
         ns[i][j] = quiver.items[ns[i][j]];
@@ -106,19 +114,21 @@ var Relation = function(relstring, quiver) {
         this.valid=false;
         return;
       }
+
       if(lastArrow != null) {
         //do we have a continuous path?
         this.valid=false;
-        for(h = 0; h < lastArrow.target.arrows.length;h++) {
-          if(lastArrow.target.arrows[h].source == lastArrow && lastArrow.target.arrows[h].target == tarrow) {
-            this.valid = true;
-          }
+        
+        if(tarrow.source === lastArrow.target) {
+          this.valid = true;
         }
+        
         if(!this.valid) {
           return;
         }
-        lastArrow = tarrow;
+        
       }
+      lastArrow = tarrow;
     }
   }
 }
