@@ -186,7 +186,7 @@ quiverPanel.prototype.newArrow = function (data) {
             target.x - (target.x - source.x) * d1,
             target.y - (target.y - source.y) * d1
         ]);
-        arrows[name] = arrow1;
+        this.arrows[name] = arrow1;
         arrow1.setLabel(name);
 
     }

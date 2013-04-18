@@ -18,5 +18,34 @@ var RelationPanel = function(qpanel, relPanelEl, relInputEl) {
     } else {
       ev.target.style.color = "red";
     }
+    that.highlight(that.trel);
   });
+}
+
+RelationPanel.prototype.highlight= function(rel) {
+  var i=0,j=0;
+  var tarrow = null;
+  _.each(this.qpanel.arrows, function(val, key, list) {
+    val.set("stroke", "black");
+  });
+
+  if(rel.rel != undefined) {
+  
+    
+    for(i=0;i<rel.rel.length;i++) {
+      if(rel.rel[i] == null || typeof rel.rel[i] == "string") {
+        continue;
+      }
+      for(j=0;j<rel.rel[i].length;j++) {
+      if(rel.rel[i][j] instanceof Array) {
+        tarrow = rel.rel[i][j][0];
+      }else { tarrow = rel.rel[i][j];}
+        if(tarrow != undefined && (tarrow instanceof Arrow)) {
+          this.qpanel.arrows[tarrow.name].set("stroke", "blue");
+          
+        }
+      }
+    }
+  }
+  this.qpanel.canvas.renderAll();
 }

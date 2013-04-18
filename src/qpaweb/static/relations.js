@@ -18,7 +18,7 @@ var Relation = function(relstring, quiver) {
   
 
   var ns = relstring.split(/([-+])/g);
-
+  this.rel = ns;
   
   var parse = function(s) {
     if(/^[+-]$/.test(s)) {
@@ -85,6 +85,7 @@ var Relation = function(relstring, quiver) {
   var lastArrow = null;
   var tarrow = null;
   var h = 0;
+ 
   for(i=0;i < ns.length;i++) {
     if(typeof ns[i] == "string") {
       lastArrow = null;
@@ -110,7 +111,7 @@ var Relation = function(relstring, quiver) {
         ns[i][j] = quiver.items[ns[i][j]];
         tarrow = ns[i][j];
       }
-      if(tarrow === undefined) {
+      if(tarrow === undefined || !(tarrow instanceof Arrow)) {
         this.valid=false;
         return;
       }
@@ -131,6 +132,7 @@ var Relation = function(relstring, quiver) {
       lastArrow = tarrow;
     }
   }
+
 }
 
 
