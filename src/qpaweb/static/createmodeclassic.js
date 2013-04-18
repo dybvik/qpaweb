@@ -50,8 +50,15 @@ CreateModeClassic.prototype.enable = function() {
 
         
         //that.canvas.sendToBack(arrow);
-        that.lastVertex = null;
-        that.panel.helperArrow.set("visible", false);
+        if(!options.e.shiftKey) {
+          that.lastVertex = null;
+          that.panel.helperArrow.set("visible", false);
+        }else {
+           that.lastVertex = vertex;
+          that.panel.helperArrow.set({x1: that.lastVertex.x, y1: that.lastVertex.y});
+          that.panel.helperArrow.set({x2: pointer.x, y2: pointer.y});
+         }
+
       } 
     }
     else if(options.target.type==="vertex"){
@@ -62,8 +69,15 @@ CreateModeClassic.prototype.enable = function() {
         that.lastVertex.arrows.push(arrow);
         that.panel.quiver.add(arrow);
         
-        that.lastVertex = null;
-        that.panel.helperArrow.set("visible", false);
+        if(!options.e.shiftKey) {
+           that.lastVertex = null;
+          that.panel.helperArrow.set("visible", false);
+         }else {
+           that.lastVertex = options.target.data;
+           that.panel.helperArrow.set({x1: that.lastVertex.x, y1: that.lastVertex.y});
+           that.panel.helperArrow.set({x2: pointer.x, y2: pointer.y});
+         }
+    
       } else {
         that.lastVertex = options.target.data;
         that.panel.helperArrow.set({x1: that.lastVertex.x, y1: that.lastVertex.y});

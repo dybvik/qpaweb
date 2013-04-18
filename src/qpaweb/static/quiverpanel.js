@@ -5,9 +5,9 @@ var qpanel = null;
 window.onload = function () {
     var quiver = new Quiver();
     qpanel = new quiverPanel("qcanvas", quiver);
-    document.getElementById("btncreatemode").onclick = function (e) {
+    /*document.getElementById("btncreatemode").onclick = function (e) {
         qpanel.setMode(qpanel.createMode);
-    }
+    }*/
   document.getElementById("btnjson").onclick = function (e) {
 
     var jsn = JSON.stringify(quiver, function(key, val) {
@@ -29,9 +29,9 @@ window.onload = function () {
     document.getElementById("debug").value=jsn;
   }
 
-  document.getElementById("btncreatemodeclassic").onclick = function (e) {
+  /*document.getElementById("btncreatemodeclassic").onclick = function (e) {
         qpanel.setMode(qpanel.createModeClassic);
-    }
+    }*/
     qpanel.setMode(qpanel.createModeClassic);
   
   var relin = document.getElementById("relation");
