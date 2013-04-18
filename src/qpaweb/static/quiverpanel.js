@@ -8,15 +8,34 @@ window.onload = function () {
     document.getElementById("btncreatemode").onclick = function (e) {
         qpanel.setMode(qpanel.createMode);
     }
-    document.getElementById("btnjson").onclick = function (e) {
-        document.getElementById("debug").value=JSON.stringify(JSON.decycle(quiver), null, 4);
-    }
+  document.getElementById("btnjson").onclick = function (e) {
 
-    document.getElementById("btncreatemodeclassic").onclick = function (e) {
+    var jsn = JSON.stringify(quiver, function(key, val) {
+      var o = null;
+      if(val instanceof Vertex) {
+        o = {};
+        o.x = val.x;
+        o.y = val.y;
+        o.type = "vertex";
+      }
+      else if(val instanceof Arrow) {
+        o = {};
+        o.source = val.source.name;
+        o.target = val.target.name;
+        o.type = "arrow";
+      } else { return val; }
+      return o;
+    });
+    alert(jsn);
+  }
+
+  document.getElementById("btncreatemodeclassic").onclick = function (e) {
         qpanel.setMode(qpanel.createModeClassic);
     }
     qpanel.setMode(qpanel.createModeClassic);
-
+  
+  var relin = document.getElementById("relation");
+  var relp = new RelationPanel(qpanel, null, relin);
 }
 
 /**
@@ -46,8 +65,8 @@ function quiverPanel(id, quiver) {
     this.vertexRadius = 10;
 
 
-    this.loadQuiver();
-    $(this.quiver).on("add_item.quiverpanel", function (ev, item) {
+    this.loadQuiver(); 
+   $(this.quiver).on("add_item.quiverpanel", function (ev, item) {
         if (item instanceof Vertex) {
             var v = that.newVertex(item);
             v.arrows = [];
@@ -323,7 +342,7 @@ var LoopArrowGFX = new fabric.util.createClass(fabric.Object, {
 
     }
 
-});
+}});
 
 var ArrowGFX = fabric.util.createClass(fabric.Line, {
     type: "arrow",
