@@ -14,7 +14,7 @@ var Relation = function(relstring, quiver) {
   relstring = relstring.replace(/\s+/g, "");
   var alfabet="abcdefghijklmnopqrstuvwxyz";
   alfabet = alfabet+alfabet.toUpperCase();
-  alfabet+="0123456789";x
+  alfabet+="0123456789";
   
 
   var ns = relstring.split(/([-+])/g);
