@@ -1,15 +1,33 @@
 #!/usr/bin/env python
-import os
+import subprocess
+
 import tornado.httpserver
 import tornado.ioloop
 import tornado.web
-import subprocess
-import sys
+import tornado.auth
+import tornado.httpserver
+import tornado.ioloop
+import tornado.options
+import tornado.web
 
+handlers = [(r"/entry/([^/]+)", MainHandler),]
 
-class MainHandler(tornado.web.RequestHandler):
+class BaseHandler(tornado.web.RequestHandler):
+    @property
+def db(self):
+    return self.application.db
+
+def get_current_user(self):
+    user_id = self.get_secure_cookie("blogdemo_user")
+    if not user_id: return None
+    return self.db.get("SELECT * FROM authors WHERE id = %s", int(user_id))
+
+class MainHandler(BaseHandler):
     @tornado.web.asynchronous
-    def get(self):
+    @property
+    def get(self, slug):
+        entry = self.db.get("SELECT * FROM entries WHERE slug = %s", slug)
+        if not entry: raise tornado.web.HTTPError(404)
         self.ioloop = tornado.ioloop.IOLoop.instance()
         self.pipe = p = subprocess.Popen(["C:\\gap4r6\\bin\gapw95.exe l- /cygdrive/c/gap4r6"],
                                          stdout=subprocess.PIPE)
@@ -17,6 +35,7 @@ class MainHandler(tornado.web.RequestHandler):
         self.ioloop.add_handler(0, self.async_callback(self.on_response), self.ioloop.READ)
         p.wait()
         p.stdout.read()
+        self.render("entry.html", entry=entry)
 
 
     def on_response(self, fd, events):
