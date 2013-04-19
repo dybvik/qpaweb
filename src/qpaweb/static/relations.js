@@ -15,6 +15,7 @@ var Relation = function(relstring, quiver) {
   var alfabet="abcdefghijklmnopqrstuvwxyz";
   alfabet = alfabet+alfabet.toUpperCase();
   alfabet+="0123456789";
+  alfabet+="./";
   
 
   var ns = relstring.split(/([-+])/g);
@@ -72,6 +73,7 @@ var Relation = function(relstring, quiver) {
   }
   this.ro = ns;
   this.valid = valid;
+  console.log("w: " + ns);
   if(!valid) {return;}
 
   //now we replace the arrow names with arrow objects
@@ -85,7 +87,7 @@ var Relation = function(relstring, quiver) {
   var lastArrow = null;
   var tarrow = null;
   var h = 0;
- 
+  
   for(i=0;i < ns.length;i++) {
     if(typeof ns[i] == "string") {
       lastArrow = null;
@@ -96,6 +98,7 @@ var Relation = function(relstring, quiver) {
       if(ns[i][j] == "*") {
         continue;
       }
+      
       if(ns[i][j] instanceof Array) {
         ns[i][j][0] = quiver.items[ns[i][j][0]];
         tarrow = ns[i][j][0];
@@ -108,6 +111,11 @@ var Relation = function(relstring, quiver) {
         }
       }
       else {
+        if(/^\d+((\.|\/)\d+)?$/.test(ns[i][j])) {
+          console.log("is a number: " + ns[i][j]);
+          continue;
+        }
+        console.log("not a number: " + ns[i][j]);
         ns[i][j] = quiver.items[ns[i][j]];
         tarrow = ns[i][j];
       }
@@ -118,16 +126,11 @@ var Relation = function(relstring, quiver) {
 
       if(lastArrow != null) {
         //do we have a continuous path?
-        this.valid=false;
         
-        if(tarrow.source === lastArrow.target) {
-          this.valid = true;
-        }
-        
-        if(!this.valid) {
+        if(tarrow.source !== lastArrow.target) {
+          this.valid = false;
           return;
         }
-        
       }
       lastArrow = tarrow;
     }
