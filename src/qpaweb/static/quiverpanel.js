@@ -152,7 +152,6 @@ quiverPanel.prototype.newArrow = function (data) {
             var angle = getVerticesAngle(other, target);
             if (angle < langle + span && angle > langle - span
                 || 2 * Math.PI - angle < langle + span) {
-                //console.log((langle*180/Math.PI)+ " discarded");
                 langle += span;
             } else {
                 break;
@@ -169,7 +168,6 @@ quiverPanel.prototype.newArrow = function (data) {
         arrow1.setLabel(name);
         //HACK: offset the rotation
         arrow1._getnumtx().angle = -rotation;
-        //console.log((langle*180/Math.PI));
         arrow1.left += this.vertexRadius * 4;
         arrow1 = rotateGroup;
 
@@ -254,7 +252,6 @@ var getVerticesAngle = function (v1, v2) {
     else {
         angle = 2 * Math.PI - angle;
     }
-    console.log("infunc: " + (angle * 180 / Math.PI));
     return angle;
 }
 
@@ -367,15 +364,14 @@ var ArrowGFX = fabric.util.createClass(fabric.Line, {
             Math.abs(this.width)) / Math.min(Math.abs(this.height), Math.abs(this.width)) < 1.4) {
             //top=15;
             left = 15;
-            console.log(this.getWidth() + " " + this.height);
         }
         else if (Math.abs(this.height) < Math.abs(this.width)) {
             top = 10;
         }
         else {
-            left = 10
+            left = 10;
         }
-        ;
+
         this.numtx = new fabric.Text(num.toString(), {left: left, top: top, fontsize: 10});
     },
 
