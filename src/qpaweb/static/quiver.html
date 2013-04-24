@@ -20,28 +20,53 @@
     <link rel="stylesheet" href="css/thakulf.css">
 </head>
 <body>
+<div id="menuheader" style="width: 1000px;">
+    <ul id="nav">
+        <li><a href="#">File</a>
+            <ul>
+                <li><a href="#">Open</a></li>
+                <li><a href="#">Save</a></li>
+                <li><a href="#">Close</a></li>
+            </ul>
+        </li>
+        <li><a href="#">Edit</a>
+            <ul>
+                <li><a href="#">Close</a></li>
+            </ul>
+        </li>
+        <li><a href="#">About</a></li>
+    </ul>
+</div>
 
-    <canvas id="qcanvas">
+<canvas id="qcanvas">
 
 
-    </canvas>
-    <div id="sidepanel">Placeholder for sidepanel<br />
-        <!-- dette bør vel være dynamisk AFAIK -->
-       <!-- <input type="button" class="commandbutton" id="btncreatemode" value="Add Quivers"/>
-        <input type="button" class="commandbutton" id="btncreatemodeclassic" value="Add Quivers Classic"/>
-    <input type="button" class="commandbutton" id="btnadd" value="+"/>
-    <input type="button" class="commandbutton" id="btnsubstract" value="-"/>-->
+</canvas>
+<div id="sidepanel">Placeholder for sidepanel<br/>
+    <!-- dette bør vel være dynamisk AFAIK -->
+    <!-- <input type="button" class="commandbutton" id="btncreatemode" value="Add Quivers"/>
+     <input type="button" class="commandbutton" id="btncreatemodeclassic" value="Add Quivers Classic"/>
+ <input type="button" class="commandbutton" id="btnadd" value="+"/>
+ <input type="button" class="commandbutton" id="btnsubstract" value="-"/> -->
     <input type="button" class="commandbutton" id="btnjson" value="Show JSON"/></div>
-    </div>
-    <div id="commandpanel">Placeholder for kommandopanel<br >
-        <textarea  id="relation" width="100%" height="100%"></textarea>
-        <textarea  id="debug" width="100%" height="100%">Debug</textarea>
-    <br />
+</div>
+<div id="commandpanel">Placeholder for kommandopanel<br>
+    <textarea name="relation" id="relation" width="100%" height="100%"></textarea>
 
-    
-    </div>
+    <form method="POST" action="http://localhost:8888/">
+        <!-- debugging av JSON, jobID default 1 -->
+        <textarea name="debug" id="debug" width="100%" height="100%">Debug</textarea>
+        <input type='hidden' name='jobID' value='1'/>
+
+        <input type="submit" value="Send JSON"/>
+        <!-- / debugging av JSON -->
+    </form>
+    <br/>
+
+
+</div>
 <script type="text/javascript">
-    (function() {
+    (function () {
         var canvas = document.getElementById('qcanvas'),
                 context = canvas.getContext('2d');
 
@@ -51,12 +76,12 @@
         function resizeCanvas() {
             //alert("wiw: " + window.innerWidth + ", W: " + (window.innerWidth-sidepanel.offsetWidth) +
             //      "wih: " + window.innerHeight + ", H: " + (window.innerHeight-commandpanel.offsetHeight));
-            if (qpanel!=null) {
-                qpanel.getCanvas().setHeight(window.innerHeight-commandpanel.style.height);
-                qpanel.getCanvas().setWidth(window.innerWidth-sidepanel.style.width);
+            if (qpanel != null) {
+                qpanel.getCanvas().setHeight(window.innerHeight - commandpanel.style.height);
+                qpanel.getCanvas().setWidth(window.innerWidth - sidepanel.style.width);
             } else {
-                canvas.height = window.innerHeight-sidepanel.style.height;
-                canvas.width = window.innerWidth-commandpanel.style.width;
+                canvas.height = window.innerHeight - sidepanel.style.height;
+                canvas.width = window.innerWidth - commandpanel.style.width;
             }
 
             /**
@@ -65,12 +90,13 @@
              */
             drawStuff();
         }
+
         resizeCanvas();
 
         function drawStuff() {
             // do your drawing stuff here
         }
-        
+
     })();
 
 </script>
