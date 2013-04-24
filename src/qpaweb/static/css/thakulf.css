@@ -1,7 +1,8 @@
-* {margin:0; padding: 0;}
-html, body {width: 100%; height: 100%;}
+* {margin:0; padding: 0; color: #000;}
+html, body {width: 100%; height: 100%; font-family: sans-serif}
 canvas {display: block;
-
+    z-index: 0;
+    border: 1px #000 solid;
 }
 body {background-color:#cbcbcb;}
 #commandpanel {
@@ -12,6 +13,8 @@ body {background-color:#cbcbcb;}
     left: 0;
     bottom: 0;
     right: 200px;
+    color: #000;
+    z-index: 2;
 }
 #sidepanel {
     text-align: center;
@@ -23,6 +26,8 @@ body {background-color:#cbcbcb;}
     top: 0;
     bottom: 0px;
     padding: 10px;
+    color: #000;
+    z-index: 2;
 }
 
 #sidepanel input.commandbutton {
@@ -32,4 +37,25 @@ body {background-color:#cbcbcb;}
     clear: none;
     width: 72px;
     height: 72px;
+    color: #000;
+    z-index: 2;
 }
+a#trans, a#trans:hover { z-index: 2; }
+a#trans { background: #fff; color: #aa0000; padding: 3px; -webkit-transition: all 1s linear; }
+a#trans:hover { background: #220077; color: #fff; }
+#nav * {z-index: 3;}
+#nav { list-style-type: none; height: 40px; padding: 0; margin: 0; z-index: 100;}
+#nav li { float: left; position: relative; padding: 0; line-height: 40px; background: #5a8078 url(nav-bg.png) repeat-x 0 0; }
+#nav li:hover { background-position: 0 -40px; }
+#nav li a { display: block; padding: 0 15px; color: #fff; text-decoration: none; }
+#nav li a:hover { color: #a3f1d7; }
+#nav li ul { opacity: 0; position: absolute; left: 0; width: 8em; background: #63867f; list-style-type: none; padding: 0; margin: 0; }
+#nav li:hover ul { opacity: 1; }
+#nav li ul li { float: none; position: static; height: 0; line-height: 0; background: none; }
+#nav li:hover ul li { height: 30px; line-height: 30px; }
+#nav li ul li a { background: #63867f; }
+#nav li ul li a:hover { background: #5a8078; }
+#nav li { -webkit-transition: all 0.2s; }
+#nav li a { -webkit-transition: all 0.5s; }
+#nav li ul { -webkit-transition: all 1s; }
+#nav li ul li { -webkit-transition: height 0.5s; }
