@@ -20,9 +20,9 @@ CreateModeClassic.prototype.enable = function() {
     vertex.lockRotation = true;
     vertex.lockScalingX = true;
     vertex.lockScalingY = true;
-    vertex.lockMovementX = true;
-    vertex.lockMovementY = true;
-    vertex.hasBorders = false;
+   // vertex.lockMovementX = true;
+   // vertex.lockMovementY = true;
+//    vertex.hasBorders = false;
     vertex.hasControls = false;
   
   });
@@ -31,6 +31,7 @@ CreateModeClassic.prototype.enable = function() {
   });
   this.canvas.renderAll(false);
   this.onMouseDown = function(options) {
+    if(that.panel.moving) {that.panel.moving = false; return;}
     var pointer = that.canvas.getPointer(options.e);
     if(options.target == undefined) {
     
@@ -83,6 +84,7 @@ CreateModeClassic.prototype.enable = function() {
         that.panel.helperArrow.set({x1: that.lastVertex.x, y1: that.lastVertex.y});
         that.panel.helperArrow.set({x2: pointer.x, y2: pointer.y});
         that.panel.helperArrow.set("visible", true);
+        that.panel.angler.set
       }
     }
   }
@@ -93,13 +95,14 @@ CreateModeClassic.prototype.enable = function() {
   this.canvas.on("mouse:move", function(ev) {
     
     var pointer = that.canvas.getPointer(ev.e);
-    if(that.lastVertex != null) {
-      
-      that.panel.helperArrow.set({x2: pointer.x, y2: pointer.y});
+    if(that.lastVertex == null || that.panel.moving) {
+      that.panel.helperArrow.set("visible", false);
     }
     else {
       
+      that.panel.helperArrow.set({x2: pointer.x, y2: pointer.y});
     }
+    
     var d = new Date();
     if(d.getTime()-tt > 20) {
       that.canvas.renderAll(false);
