@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import subprocess
-
+import urllib
 import tornado.httpserver
 import tornado.ioloop
 import tornado.web
@@ -9,12 +9,14 @@ import tornado.httpserver
 import tornado.ioloop
 import tornado.options
 import tornado.web
+from lib import QPADatabase as QD
 
 handlers = [(r"/entry/([^/]+)", MainHandler),]
 
 class BaseHandler(tornado.web.RequestHandler):
     @property
 def db(self):
+    QD.firstmethod
     return self.application.db
 
 def get_current_user(self):
