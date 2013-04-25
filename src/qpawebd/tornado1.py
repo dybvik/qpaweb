@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 import subprocess
+<<<<<<< Updated upstream
 import urllib
+=======
+>>>>>>> Stashed changes
 import tornado.httpserver
 import tornado.ioloop
 import tornado.web
@@ -9,15 +12,29 @@ import tornado.httpserver
 import tornado.ioloop
 import tornado.options
 import tornado.web
+<<<<<<< Updated upstream
 from lib import QPADatabase as QD
+=======
+>>>>>>> Stashed changes
 
 handlers = [(r"/entry/([^/]+)", MainHandler),]
 
 class BaseHandler(tornado.web.RequestHandler):
     @property
+<<<<<<< Updated upstream
 def db(self):
     QD.firstmethod
     return self.application.db
+=======
+<<<<<<< Updated upstream
+def db(self):
+    QD.firstmethod
+    return self.application.db
+=======
+    def db(self):
+       return self.application.db
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 
 def get_current_user(self):
     user_id = self.get_secure_cookie("blogdemo_user")
