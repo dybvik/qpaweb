@@ -76,12 +76,13 @@
         function resizeCanvas() {
             //alert("wiw: " + window.innerWidth + ", W: " + (window.innerWidth-sidepanel.offsetWidth) +
             //      "wih: " + window.innerHeight + ", H: " + (window.innerHeight-commandpanel.offsetHeight));
+            // Hard-coded canvas offset, TODO
             if (qpanel != null) {
-                qpanel.getCanvas().setHeight(window.innerHeight - commandpanel.style.height);
-                qpanel.getCanvas().setWidth(window.innerWidth - sidepanel.style.width);
+                qpanel.getCanvas().setHeight((window.innerHeight - 197));
+                qpanel.getCanvas().setWidth((window.innerWidth - 205));
             } else {
-                canvas.height = window.innerHeight - sidepanel.style.height;
-                canvas.width = window.innerWidth - commandpanel.style.width;
+                canvas.height = window.innerHeight - (197);
+                canvas.width = window.innerWidth - (205);
             }
 
             /**

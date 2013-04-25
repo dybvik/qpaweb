@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block script %}
+    {% load staticfiles %}
+    <script src="{% static 'lib/fabric.js/all.min.js' %}"></script>
+    <script src="{% static 'createmodeclassic.js' %}"></script>
+    <script src="{% static 'createquivermode.js' %}"></script>
+    <script src="{% static 'quiver.js' %}"></script>
+{% endblock script %}
+
+{% block menu %}
+    <ul>
+        <li>File
+            <ul>
+                <li><a href="">Open</a></li>
+                <li><a href="">Save</a></li>
+                <li><a href="">Exit</a></li>
+            </ul>
+        </li>
+        <li>Edit
+            <ul>
+                <li><a href="">Reset</a></li>
+            </ul>
+        </li>
+        <li>Help
+            <ul>
+                <li><a href="">About</a></li>
+            </ul>
+        </li>
+    </ul>
+{% endblock menu %}
