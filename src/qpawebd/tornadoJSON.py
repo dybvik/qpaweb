@@ -1,7 +1,7 @@
 import tornado.ioloop
 import tornado.web
 import urllib
-from lib import JSONGAPTranslate as JT
+from src.lib import JSONGAPTranslate as JT
 
 class MainHandler(tornado.web.RequestHandler):
     def post(self):
