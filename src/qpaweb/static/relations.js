@@ -73,7 +73,7 @@ var Relation = function(relstring, quiver) {
   }
 
 
-  if(!valid) {return;}
+  if(!this.valid) {return;}
 
   //now we replace the arrow names with arrow objects
   var lastArrow = null;

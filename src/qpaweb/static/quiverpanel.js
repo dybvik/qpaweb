@@ -29,6 +29,12 @@ window.onload = function () {
     document.getElementById("debug").value=jsn;
   }
 
+    document.getElementById("btnrels").onclick = function (e) {
+
+        var nurels = JSON.stringify(document.getElementById("relation").value);
+        document.getElementById("debug").value=nurels;
+    }
+
   /*document.getElementById("btncreatemodeclassic").onclick = function (e) {
         qpanel.setMode(qpanel.createModeClassic);
     }*/
@@ -55,6 +61,8 @@ function quiverPanel(id, quiver) {
   
   this.vertexNamer = new NumberNameGenerator(quiver);
   this.arrowNamer = new AlfabetNameGenerator(quiver);
+  this.vertexNamer = new SingleCharNumberNameGenerator(quiver, "v");
+  this.arrowNamer = new SingleCharNumberNameGenerator(quiver, "a");
   this.quiver = quiver;
   canvas.hoverCursor = "crosshair";
   
@@ -334,7 +342,7 @@ var VertexGFX = new fabric.util.createClass(fabric.Object, {
 
   setLabel: function (label) {
     this.label = label;
-    this.labeltx = new fabric.Text(label.toString(), {left: 0, top: 0, hasBorders: true, borderColor: "black"});
+    this.labeltx = new fabric.Text(label.toString(), {fontWeight: 'bold', left: 0, top: 0, fontsize: 10, strokeStyle: '#DDD', strokeWidth: 0.75, hasBorders: true, borderColor: "black"});
     this._calcSize();
   },
 
@@ -468,7 +476,7 @@ var ArrowGFX = fabric.util.createClass(fabric.Line, {
             left = 10;
         }
 
-        this.numtx = new fabric.Text(num.toString(), {left: left, top: top, fontsize: 10});
+        this.numtx = new fabric.Text(num.toString(), {fontWeight: 'bold', left: left, top: top, fontsize: 10, strokeStyle: '#DDD', strokeWidth: 0.75});
     },
 
     _render: function (ctx) {

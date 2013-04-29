@@ -13,8 +13,6 @@
     <script src="quiverpanel.js"></script>
     <script src="createquivermode.js"></script>
     <script src="createmodeclassic.js"></script>
-    <script src="https://raw.github.com/douglascrockford/JSON-js/master/json2.js"></script>
-    <script src="https://raw.github.com/douglascrockford/JSON-js/master/cycle.js"></script>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
 
     <link rel="stylesheet" href="css/thakulf.css">
@@ -42,16 +40,38 @@
 
 
 </canvas>
-<div id="sidepanel">Placeholder for sidepanel<br/>
+<div id="sidepanel">
+    <select name="workspace">
+        <option>Main Quiver</option>
+        <option>Representation 1</option>
+        <option>Representation 2</option>
+    </select>
     <!-- dette bør vel være dynamisk AFAIK -->
     <!-- <input type="button" class="commandbutton" id="btncreatemode" value="Add Quivers"/>
      <input type="button" class="commandbutton" id="btncreatemodeclassic" value="Add Quivers Classic"/>
  <input type="button" class="commandbutton" id="btnadd" value="+"/>
  <input type="button" class="commandbutton" id="btnsubstract" value="-"/> -->
-    <input type="button" class="commandbutton" id="btnjson" value="Show JSON"/></div>
+    <!-- Hovedmeny:
+    - Ny representasjon
+    - Eraser (viskelær)
+    - Add relations
+
+         Representasjonsmeny:
+    - Vektorrom
+    - Matrise
+                            -->
+    <input type="button" class="commandbutton" id="btnnewrep" value="New representation" />
+    <input type="button" class="commandbutton" id="btneraser" value="Eraser" />
+    <input type="button" class="commandbutton" id="btnaddrel" value="Edit mode" />
+    <input type="button" class="commandbutton" id="btnaddrel" value="Add relations" />
+    <input type="button" class="commandbutton" id="btnjson" value="Show JSON" />
+    <br clear="all" />
+    <label for="relation">Relasjoner:</label><br /><textarea name="relation" id="relation" width="100%" height="100%"></textarea>
+    <input type="button" class="commandbutton" id="btnrels" value="Rels to JSON" />
+</div>
 </div>
 <div id="commandpanel">Placeholder for kommandopanel<br>
-    <textarea name="relation" id="relation" width="100%" height="100%"></textarea>
+
 
     <form method="POST" action="http://localhost:8888/">
         <!-- debugging av JSON, jobID default 1 -->
