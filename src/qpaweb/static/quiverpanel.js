@@ -571,11 +571,10 @@ var ArrowGFX = fabric.util.createClass(fabric.Line, {
       left = 10;
     }
 
-    this.numtx = new fabric.Text(num.toString(), {left: left, top: top, fontsize: 10});
-  },
+  
 
-        this.numtx = new fabric.Text(num.toString(), {fontWeight: 'bold', left: left, top: top, fontsize: 10, strokeStyle: '#DDD', strokeWidth: 0.75});
-    },
+    this.numtx = new fabric.Text(num.toString(), {fontWeight: 'bold', left: left, top: top, fontsize: 10, strokeStyle: '#DDD', strokeWidth: 0.75});
+  },
   _render: function (ctx) {
     this.callSuper("_render", ctx);
 
