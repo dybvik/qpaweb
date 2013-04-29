@@ -85,7 +85,7 @@ var Relation = function(relstring, quiver) {
       lastArrow = null;
       continue;
     }
-    
+    if(ns[i] === null) {continue};
     for(var j = 0; j < ns[i].length;j++) {
       if(ns[i][j] == "*") {
         continue;
