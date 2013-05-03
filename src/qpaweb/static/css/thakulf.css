@@ -85,6 +85,7 @@ fieldset textarea {
 
 legend {
     font-weight: bold;
+    text-align: left;
 }
 
 fieldset i {
