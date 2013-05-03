@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="css/thakulf.css">
 </head>
 <body>
+<!--
 <div id="menuheader" style="width: 1000px;">
     <ul id="nav">
         <li><a href="#">File</a>
@@ -35,24 +36,32 @@
         <li><a href="#">About</a></li>
     </ul>
 </div>
-
+     -->
 <canvas id="qcanvas">
 
 
 </canvas>
 <div id="sidepanel">
     <fieldset id="fieldfile">
-    <legend><button id="btnFileMenu">File (def lukk)</button></legend>
+        <!-- felt med iconExpand skal default være lukket, felt med iconCollapse skal default være åpne -->
+    <legend><button id="btnFileMenu"><i class="iconExpand"></i>File</button></legend>
+
+        <button id="btnFileNew"><i class="iconNew"></i>New</button>
+        <button id="btnFileOpen"><i class="iconOpen"></i>Open</button>
+        <button id="btnFileSave"><i class="iconSave"></i>Save</button>
+        <button id="btnFileClose"><i class="iconClose"></i>Close</button>
+        <button id="btnFileSettings"><i class="iconSettings"></i>Settings</button>
+        <button id="btnFileAbout"><i class="iconAbout"></i>About</button><!--
         <ul id="listfile">
             <li class='itemopen'>Open</li>
             <li class='itemopen'>Save</li>
             <li class='itemopen'>Close</li>
             <li class='itemopen'>Settings</li>
             <li class='itemopen'>About</li>
-        </ul>
+        </ul> -->
     </fieldset>
     <fieldset id="fieldworkspace">
-    <legend><button id="btnFileMenu">Workspace (def åpen)</button></legend>
+    <legend><button id="btnFileMenu"><i class="iconCollapse"></i>Workspace</button></legend>
     <ul id="listworkspace">
         <li class="itemquiver">Quiver 1</li>
         <li class="itemrepresentation">Representation 1</li>
@@ -60,7 +69,7 @@
     </ul>
     </fieldset>
     <fieldset id="fieldtools">
-        <legend><button id="btnToolsMenu">Tools (def åpen)</button></legend>
+        <legend><button id="btnToolsMenu"><i class="iconCollapse"></i>Tools</button></legend>
 
     <!-- <select name="workspace">
         <option>Main Quiver</option>
@@ -81,7 +90,7 @@
     - Vektorrom
     - Matrise
                             -->
-    <input type="button" class="commandbuttonx" id="btneraser" value="Eraser" />
+    <button id="btnToolsEraser"><i class="iconEraser"></i>Erase</button>
     <input type="button" class="commandbuttonx" id="btnaddrel" value="Edit mode" />
     <input type="button" class="commandbuttonx" id="btnjson" value="Show JSON" />
     <!-- <button type="submit" class="btn btn-primary">
@@ -89,13 +98,13 @@
 
     </button> -->
     </fieldset>
-    <fieldset id="fieldrelations"><legend><button id="trallala">Relation (def åpen)</button></legend>
+    <fieldset id="fieldrelations"><legend><button id="trallala"><i class="iconCollapse"></i>Relation</button></legend>
     <input type="text" name="relation" id="relation" />
     <input type="button" class="commandbuttoxn" id="btnrels" value="Add relation" />
     </fieldset>
 
         <fieldset id="fieldvariables">
-            <legend><button id="btnVariables">Variables (def lukk)</button></legend>
+            <legend><button id="btnVariables"><i class="iconExpand"></i>Variables</button></legend>
             <ul>
                 <li>a = b</li>
                 <li>a = b</li>
@@ -103,6 +112,13 @@
                 <li>a = b</li>
             </ul>
         </fieldset>
+
+    <fieldset id="fieldcommands">
+        <legend><button id="btnCommands"><i class="iconCollapse"></i>Commands</button></legend>
+        <button id="btnCommandFindDim">Find dimension</button>
+        <button id="btnCommandFind">Find dimension</button>
+    </fieldset>
+    <br clear="all" />
     <fieldset id="fielddebug">
         <legend><button id="btnDebug">Debugging (vekk)</button></legend>
         <form method="POST" action="http://www.stud.aitel.hist.no/~jsjakobs/gappost.php">
@@ -113,11 +129,6 @@
             <input type="submit" value="Send JSON"/>
             <!-- / debugging av JSON -->
         </form>
-    </fieldset>
-    <fieldset id="fieldcommands">
-        <legend><button id="btnCommands">Commands (def åpen)</button></legend>
-        <button id="btnCommandFindDim">Find dimension</button>
-        <button id="btnCommandFind">Find dimension</button>
     </fieldset>
 
 </div>
@@ -144,10 +155,10 @@
             //      "wih: " + window.innerHeight + ", H: " + (window.innerHeight-commandpanel.offsetHeight));
             // Hard-coded canvas offset, TODO
             if (qpanel != null) {
-                qpanel.getCanvas().setHeight((window.innerHeight - 197));
+                qpanel.getCanvas().setHeight((window.innerHeight));
                 qpanel.getCanvas().setWidth((window.innerWidth - 205));
             } else {
-                canvas.height = window.innerHeight - (197);
+                canvas.height = window.innerHeight;
                 canvas.width = window.innerWidth - (205);
             }
 

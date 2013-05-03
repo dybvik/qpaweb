@@ -3,7 +3,7 @@ html, body {width: 100%; height: 100%; font-family: sans-serif}
 canvas {display: block;
     z-index: 0;
 }
-body {background-color:#13785a;}
+body {background-color:#EEE;}
 #commandpanel {
     position: absolute;
     border-top: 5px solid #000;
@@ -20,7 +20,7 @@ body {background-color:#13785a;}
     border-left: 5px 888 #000;
     position: absolute;
     display: block;
-    width: 180px;
+    width: 195px;
     right: 0;
     top: 0;
     bottom: 0px;
@@ -73,7 +73,7 @@ a#trans:hover { background: #220077; color: #fff; }
 
 fieldset {
     background-color: #cbcbcb;
-    max-width: 160px;
+    max-width: 175px;
 }
 
 fieldset textarea {
@@ -85,4 +85,57 @@ fieldset textarea {
 
 legend {
     font-weight: bold;
+}
+
+fieldset i {
+    padding: 1px;
+    height: 16px;
+    width: 16px;
+    display: block;
+    float: left;
+}
+
+#fieldfile button, #fieldtools button{
+    width: 78px;
+    text-align: left;
+}
+
+#fieldfile legend button, #fieldtools legend button {
+    width: auto;
+}
+i.iconExpand {
+    /* http://icons.iconarchive.com/icons/yusuke-kamiyamane/fugue/16/chevron-expand-icon.png */
+    background: url("../img/Expand-icon.png") no-repeat left top;
+}
+i.iconCollapse {
+    /* http://icons.iconarchive.com/icons/yusuke-kamiyamane/fugue/16/chevron-icon.png */
+    background: url("../img/Collapse-icon.png") no-repeat left top;
+}
+i.iconSave {
+    /* http://icons.iconarchive.com/icons/deleket/sleek-xp-basic/16/Close-2-icon.png */
+    background: url("../img/Save-icon.png") no-repeat left top;
+}
+i.iconOpen {
+    /* http://icons.iconarchive.com/icons/deleket/sleek-xp-basic/16/Folder-Open-icon.png */
+    background: url("../img/Open-icon.png") no-repeat left top;
+}
+i.iconClose {
+    /* http://icons.iconarchive.com/icons/deleket/sleek-xp-basic/16/Close-2-icon.png */
+    background: url("../img/Close-icon.png") no-repeat left top;
+}
+i.iconNew {
+    /* http://icons.iconarchive.com/icons/awicons/vista-artistic/16/add-icon.png */
+    background: url("../img/New-icon.png") no-repeat left top;
+}
+i.iconSettings {
+    /* http://icons.iconarchive.com/icons/aroche/delta/16/Settings-icon.png */
+    background: url("../img/Settings-icon.png") no-repeat left top;
+}
+i.iconAbout {
+    /* http://icons.iconarchive.com/icons/oxygen-icons.org/oxygen/16/Actions-help-about-icon.png */
+    background: url("../img/About-icon.png") no-repeat left top;
+}
+i.iconEraser {
+    /* http://icons.iconarchive.com/icons/yusuke-kamiyamane/fugue/16/eraser-icon.png */
+    background: url("../img/Eraser-icon.png") no-repeat left top;
 }
