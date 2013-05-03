@@ -3,7 +3,7 @@ html, body {width: 100%; height: 100%; font-family: sans-serif}
 canvas {display: block;
     z-index: 0;
 }
-body {background-color:#cbcbcb;}
+body {background-color:#13785a;}
 #commandpanel {
     position: absolute;
     border-top: 5px solid #000;
@@ -17,17 +17,19 @@ body {background-color:#cbcbcb;}
 }
 #sidepanel {
     text-align: center;
-    border-left: 5px solid #000;
+    border-left: 5px 888 #000;
     position: absolute;
     display: block;
     width: 180px;
     right: 0;
     top: 0;
     bottom: 0px;
-    padding: 10px;
+    padding: 5px;
     color: #000;
     z-index: 2;
-}
+    background-color: #888;
+    overflow: auto;
+    }
 
 #sidepanel input.commandbutton {
     white-space: normal;
@@ -38,6 +40,7 @@ body {background-color:#cbcbcb;}
     height: 72px;
     color: #000;
     z-index: 2;
+
 }
 a#trans, a#trans:hover { z-index: 2; }
 a#trans { background: #fff; color: #aa0000; padding: 3px; -webkit-transition: all 1s linear; }
@@ -58,3 +61,28 @@ a#trans:hover { background: #220077; color: #fff; }
 #nav li a { -webkit-transition: all 0.5s; }
 #nav li ul { -webkit-transition: all 1s; }
 #nav li ul li { -webkit-transition: height 0.5s; }
+
+#listworkspace, #listfile {
+    float: left;
+    clear: right;
+    display: block;
+    text-decoration: none;
+    list-style: none;
+    text-align: left;
+}
+
+fieldset {
+    background-color: #cbcbcb;
+    max-width: 160px;
+}
+
+fieldset textarea {
+    width: 80px;
+}
+#listworkspace li {
+    border: 1px #000 solid;
+}
+
+legend {
+    font-weight: bold;
+}

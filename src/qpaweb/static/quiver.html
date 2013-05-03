@@ -41,11 +41,32 @@
 
 </canvas>
 <div id="sidepanel">
-    <select name="workspace">
+    <fieldset id="fieldfile">
+    <legend><button id="btnFileMenu">File (def lukk)</button></legend>
+        <ul id="listfile">
+            <li class='itemopen'>Open</li>
+            <li class='itemopen'>Save</li>
+            <li class='itemopen'>Close</li>
+            <li class='itemopen'>Settings</li>
+            <li class='itemopen'>About</li>
+        </ul>
+    </fieldset>
+    <fieldset id="fieldworkspace">
+    <legend><button id="btnFileMenu">Workspace (def åpen)</button></legend>
+    <ul id="listworkspace">
+        <li class="itemquiver">Quiver 1</li>
+        <li class="itemrepresentation">Representation 1</li>
+        <li class="itemrepresentation">New representation</li>
+    </ul>
+    </fieldset>
+    <fieldset id="fieldtools">
+        <legend><button id="btnToolsMenu">Tools (def åpen)</button></legend>
+
+    <!-- <select name="workspace">
         <option>Main Quiver</option>
         <option>Representation 1</option>
         <option>Representation 2</option>
-    </select>
+    </select> -->
     <!-- dette bør vel være dynamisk AFAIK -->
     <!-- <input type="button" class="commandbutton" id="btncreatemode" value="Add Quivers"/>
      <input type="button" class="commandbutton" id="btncreatemodeclassic" value="Add Quivers Classic"/>
@@ -60,31 +81,56 @@
     - Vektorrom
     - Matrise
                             -->
-    <input type="button" class="commandbutton" id="btnnewrep" value="New representation" />
-    <input type="button" class="commandbutton" id="btneraser" value="Eraser" />
-    <input type="button" class="commandbutton" id="btnaddrel" value="Edit mode" />
-    <input type="button" class="commandbutton" id="btnaddrel" value="Add relations" />
-    <input type="button" class="commandbutton" id="btnjson" value="Show JSON" />
-    <br clear="all" />
-    <label for="relation">Relasjoner:</label><br /><textarea name="relation" id="relation" width="100%" height="100%"></textarea>
-    <input type="button" class="commandbutton" id="btnrels" value="Rels to JSON" />
+    <input type="button" class="commandbuttonx" id="btneraser" value="Eraser" />
+    <input type="button" class="commandbuttonx" id="btnaddrel" value="Edit mode" />
+    <input type="button" class="commandbuttonx" id="btnjson" value="Show JSON" />
+    <!-- <button type="submit" class="btn btn-primary">
+        <i class="icon-user icon-white"></i> Sign in
+
+    </button> -->
+    </fieldset>
+    <fieldset id="fieldrelations"><legend><button id="trallala">Relation (def åpen)</button></legend>
+    <input type="text" name="relation" id="relation" />
+    <input type="button" class="commandbuttoxn" id="btnrels" value="Add relation" />
+    </fieldset>
+
+        <fieldset id="fieldvariables">
+            <legend><button id="btnVariables">Variables (def lukk)</button></legend>
+            <ul>
+                <li>a = b</li>
+                <li>a = b</li>
+                <li>a = b</li>
+                <li>a = b</li>
+            </ul>
+        </fieldset>
+    <fieldset id="fielddebug">
+        <legend><button id="btnDebug">Debugging (vekk)</button></legend>
+        <form method="POST" action="http://www.stud.aitel.hist.no/~jsjakobs/gappost.php">
+            <!-- debugging av JSON, jobID default 1 -->
+            <textarea name="debug" id="debug">Debug</textarea>
+            <input type='hidden' name='jobID' value='1'/>
+
+            <input type="submit" value="Send JSON"/>
+            <!-- / debugging av JSON -->
+        </form>
+    </fieldset>
+    <fieldset id="fieldcommands">
+        <legend><button id="btnCommands">Commands (def åpen)</button></legend>
+        <button id="btnCommandFindDim">Find dimension</button>
+        <button id="btnCommandFind">Find dimension</button>
+    </fieldset>
+
 </div>
 </div>
-<div id="commandpanel">Placeholder for kommandopanel<br>
+<!-- <div id="commandpanel">Placeholder for kommandopanel<br>
 
 
-    <form method="POST" action="http://localhost:8888/">
-        <!-- debugging av JSON, jobID default 1 -->
-        <textarea name="debug" id="debug" width="100%" height="100%">Debug</textarea>
-        <input type='hidden' name='jobID' value='1'/>
+    <!-- <form method="POST" action="http://localhost:8888/">
 
-        <input type="submit" value="Send JSON"/>
-        <!-- / debugging av JSON -->
-    </form>
     <br/>
 
 
-</div>
+</div> -->
 <script type="text/javascript">
     (function () {
         var canvas = document.getElementById('qcanvas'),
