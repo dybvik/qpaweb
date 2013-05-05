@@ -80,7 +80,7 @@ fieldset textarea {
     width: 80px;
 }
 #listworkspace li {
-    border: 1px #000 solid;
+    border: 1px #CCC solid;
 }
 
 legend {
@@ -103,6 +103,12 @@ fieldset i {
 
 #fieldfile legend button, #fieldtools legend button {
     width: auto;
+}
+
+#fielddata li {
+    list-style: none;
+    float: left;
+    clear: both;
 }
 i.iconExpand {
     /* http://icons.iconarchive.com/icons/yusuke-kamiyamane/fugue/16/chevron-expand-icon.png */

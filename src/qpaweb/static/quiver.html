@@ -92,44 +92,40 @@
                             -->
     <button id="btnToolsEraser"><i class="iconEraser"></i>Erase</button>
     <input type="button" class="commandbuttonx" id="btnaddrel" value="Edit mode" />
-    <input type="button" class="commandbuttonx" id="btnjson" value="Show JSON" />
+    <!-- <input type="button" class="commandbuttonx" id="btnjson" value="Show JSON" /> -->
     <!-- <button type="submit" class="btn btn-primary">
         <i class="icon-user icon-white"></i> Sign in
 
     </button> -->
     </fieldset>
     <fieldset id="fieldrelations"><legend><button id="trallala"><i class="iconCollapse"></i>Relation</button></legend>
-    <input type="text" name="relation" id="relation" />
+    <input type="text" autocapitalize="off" name="relation" id="relation" />
     <input type="button" class="commandbuttoxn" id="btnrels" value="Add relation" />
     </fieldset>
 
-        <fieldset id="fieldvariables">
-            <legend><button id="btnVariables"><i class="iconExpand"></i>Variables</button></legend>
+        <fieldset id="fielddata">
+            <legend><button id="btnData"><i class="iconExpand"></i>Data</button></legend>
             <ul>
-                <li>a = b</li>
-                <li>a = b</li>
-                <li>a = b</li>
-                <li>a = b</li>
+                <li>v1*v2</li>
             </ul>
         </fieldset>
 
     <fieldset id="fieldcommands">
         <legend><button id="btnCommands"><i class="iconCollapse"></i>Commands</button></legend>
         <button id="btnCommandFindDim">Find dimension</button>
-        <button id="btnCommandFind">Find dimension</button>
-    </fieldset>
+    </fieldset><!--
     <br clear="all" />
     <fieldset id="fielddebug">
         <legend><button id="btnDebug">Debugging (vekk)</button></legend>
         <form method="POST" action="http://www.stud.aitel.hist.no/~jsjakobs/gappost.php">
             <!-- debugging av JSON, jobID default 1 -->
-            <textarea name="debug" id="debug">Debug</textarea>
+            <!-- <textarea name="debug" id="debug">Debug</textarea>
             <input type='hidden' name='jobID' value='1'/>
 
             <input type="submit" value="Send JSON"/>
             <!-- / debugging av JSON -->
-        </form>
-    </fieldset>
+        <!-- </form>
+    </fieldset> -->
 
 </div>
 </div>
