@@ -198,4 +198,5 @@ legend button {
     width: 180px;
     font-weight: bold;
     display: block;
+    clear: both;
 }
