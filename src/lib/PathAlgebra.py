@@ -37,19 +37,27 @@ class PathAlgebra:
 #test method, PathAlgebra
 def main():
     #Rationals
-    fieldR = {'fieldtype': 'R',
-             'galouisfield': ''}
+    gapJobR = {
+        'field' : {
+          'fieldtype': 'R',
+          'galouisfield': ''},
+        'quiver' : {'name': 'Ronny'}
+    }
 
-    paR = PathAlgebra(fieldR)
+    paR = PathAlgebra(gapJobR)
     paR.expose()
     paR.BuildCommand()
     print(paR.command)
 
     #GalouisField
-    fieldG = {'fieldtype': 'G',
-              'galouisfield': '2^2'}
+    gapJobG = {
+        'field' : {
+            'fieldtype': 'G',
+            'galouisfield': '2^2'},
+        'quiver' : {'name': 'Gaute'}
+    }
 
-    paG = PathAlgebra(fieldG)
+    paG = PathAlgebra(gapJobG)
     paG.expose()
     paG.BuildCommand()
     print(paG.command)
