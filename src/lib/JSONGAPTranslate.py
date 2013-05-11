@@ -7,10 +7,10 @@ class JSONGAPTranslate:
 
     def ToGAP(self, jsoninput):
         self.jsonin = json.loads(jsoninput)
-#        for key, value in self.jsonin.items():
-#            self.jsonin.items[key] = [value, ]
-#            self.done()
-#            print("key:" + key + ", value: "+ value)
+        #        for key, value in self.jsonin.GAPJob():
+        #            self.jsonin.items[key] = [value, ]
+        #            self.done()
+        #            print("key:" + key + ", value: "+ value)
         return("JSONinput ^"+jsoninput)
 
     def FromGAP(self, gapinput):
