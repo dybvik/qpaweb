@@ -12,12 +12,13 @@ class PathAlgebra:
     # @param self The object pointer
     # @param GAPJob JSON GAPJob object from client
     def __init__(self):
+        ## quiver, fieldType and galoisField must be present in GAPJob
         self.requires = ["quiver", "fieldType", "galoisField"]
         self.actionMenu = 1
 
         ## Variable accessed by /expose/ http GET method
         # Dynamically builds form fields client side
-        # showInMenu = display in action drop down
+        # showInMenu = display in action drop down, set by self.actionMenu 1 (on) or 0 (off)
         # menuItems = additional form fields required for doing the calculation
         # fieldType / galoisField = form field name
         # select / input = type of form field
@@ -39,7 +40,6 @@ class PathAlgebra:
         self.field = GAPJob['field']
         self.quiverName = GAPJob['quiver']['name']
         self.command = ""
-        ## quiver, fieldType and galoisField must be present in GAPJob
 
         ## Two valid inputs
         # R = Rationals
@@ -70,8 +70,8 @@ class PathAlgebra:
 # Runs two tests, Rational and Galois Field
 def main():
     # Expose test
-    paE = PathAlgebra();
-    paE.Expose()
+    pa = PathAlgebra();
+    pa.Expose()
 
     # Rationals test
     gapJobR = {
@@ -81,9 +81,8 @@ def main():
         'quiver' : {'name': 'Ronny'}
     }
 
-    paR = PathAlgebra()
-    paR.Load(gapJobR)
-    print(paR.BuildCommand())
+    pa.Load(gapJobR)
+    print(pa.BuildCommand())
 
     #GaloisField test
     gapJobG = {
@@ -93,9 +92,8 @@ def main():
         'quiver' : {'name': 'Gaute'}
     }
 
-    paG = PathAlgebra()
-    paG.Load(gapJobG)
-    print(paG.BuildCommand())
+    pa.Load(gapJobG)
+    print(pa.BuildCommand())
 
 ## Main method
 # Runs tests if called standalone by PathAlgebra.py
