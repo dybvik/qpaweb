@@ -1,10 +1,9 @@
 import json
 
-
 class PathAlgebra:
-    def __init__(self, field, quiverName):
-        self.field = field
-        self.quiverName = quiverName
+    def __init__(self, GAPJob):
+        self.field = GAPJob['field']
+        self.quiverName = GAPJob['quiver']['name']
         self.command = ""
         self.requires = ["quiver", "field"]
         self.actionMenu = 1
@@ -26,7 +25,11 @@ class PathAlgebra:
             self.fieldCommand = "GF(" + self.field['galouisfield'] + ")"
 
     def BuildCommand(self):
-        self.command = "F" + self.quiverName + " := PathAlgebra(" + self.fieldCommand + "," + self.quiverName + ");"
+        self.command = "F" + \
+                       self.quiverName + \
+                       " := PathAlgebra(" + \
+                       self.fieldCommand + "," + \
+                       self.quiverName + ");"
 
     def expose(self):
         print(json.dumps(self.exposeVariables))
@@ -37,7 +40,7 @@ def main():
     fieldR = {'fieldtype': 'R',
              'galouisfield': ''}
 
-    paR = PathAlgebra(fieldR, 'Ronny')
+    paR = PathAlgebra(fieldR)
     paR.expose()
     paR.BuildCommand()
     print(paR.command)
@@ -46,11 +49,10 @@ def main():
     fieldG = {'fieldtype': 'G',
               'galouisfield': '2^2'}
 
-    paG = PathAlgebra(fieldG, 'Gaute')
+    paG = PathAlgebra(fieldG)
     paG.expose()
     paG.BuildCommand()
     print(paG.command)
-
 
 if __name__ == "__main__":
     main()
