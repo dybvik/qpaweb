@@ -32,23 +32,23 @@ class Quiver:
         self.command = ""
 
     def BuildCommand(self):
-        self.command = self.quiverName + " := Quiver("
+        self.command = self.quiverName + " := Quiver(["
         #loop through vertices
         for vertex in self.quiver['vertices']:
             self.command += '"' + vertex + "',"
 
         self.command = self.command[:-1] # remove last comma
 
-        self.command += "],"
+        self.command += "],["
         #loop through arrows
-        for arrow in self.quiver['arrows']:
+        for arrowName, arrow in self.quiver['arrows'].items():
             self.command += '["' + \
-                            arrow + '","' + \
-                            arrow[0] + '",' + \
-                            arrow[1] + '"],'
+                            arrowName + '","' + \
+                            arrow['source'] + '","' + \
+                            arrow['target'] + '"],'
 
         self.command = self.command[:-1] # remove last comma
-        self.command += "];"
+        self.command += "]);"
 
         return self.command
 
