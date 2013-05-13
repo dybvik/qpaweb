@@ -36,16 +36,11 @@ class Relations:
     def BuildCommand(self):
         self.command = self.quiverName + "RelationMatrix := ["
         for rel in self.relations:
-            self.command += '"' + rel + '",'
+            self.command += '' + rel + ','
 
         self.command = self.command[:-1] # remove last comma
         self.command += "];"
-
-        #loop through F+self.quiverName.relations
         return self.command
-
-    def __countVertices__(self):
-        self.numVertices = self.quiver.vertices.lenght
 
     ## Exposes valid methods to client
     def Expose(self):

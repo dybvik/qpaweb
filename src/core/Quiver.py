@@ -34,11 +34,26 @@ class Quiver:
     def BuildCommand(self):
         self.command = self.quiverName + " := Quiver("
         #loop through vertices
+        for vertex in self.quiver['vertices']:
+            self.command += '"' + vertex + "',"
+
+        self.command = self.command[:-1] # remove last comma
+
+        self.command += "],"
         #loop through arrows
+        for arrow in self.quiver['arrows']:
+            self.command += '["' + \
+                            arrow + '","' + \
+                            arrow['source'] + '",' + \
+                            arrow['target'] + '"],'
+
+        self.command = self.command[:-1] # remove last comma
+        self.command += "];"
+
         return self.command
 
     def __countVertices__(self):
-        self.numVertices = self.quiver.vertices.lenght
+        self.numVertices = len(self.quiver['vertices'])
 
     ## Exposes valid methods to client
     def Expose(self):
