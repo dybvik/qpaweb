@@ -10,7 +10,6 @@ class PathAlgebra:
 
     ## The constructor
     # @param self The object pointer
-    # @param GAPJob JSON GAPJob object from client
     def __init__(self):
         ## quiver, fieldType and galoisField must be present in GAPJob
         self.requires = ["quiver", "fieldType", "galoisField"]
@@ -35,26 +34,27 @@ class PathAlgebra:
                     'input',
                 },
             }
-
+    ## Job loader function
+    # @param GAPJob JSON GAPJob object from client
     def Load(self, GAPJob):
+        # Validator code here?
         self.field = GAPJob['field']
         self.quiverName = GAPJob['quiver']['name']
         self.command = ""
-
-        ## Two valid inputs
-        # R = Rationals
-        # G = Galois Field
-        # If Galois Field, a valid field galoisField is required
-        if self.field['fieldType'] == "R":
-            self.fieldCommand = "Rationals"
-        else:
-            self.fieldCommand = "GF(" + self.field['galoisField'] + ")"
 
     ## Builds the Path Algebra
     # @param self The object pointer
     # @return GAP Path Algebra command
     # Gets quiver name from constructor
     def BuildCommand(self):
+        ## Two valid inputs for fieldType:
+        # R = Rationals, G = Galois Field
+        # If Galois Field, a valid field galoisField is required
+        if self.field['fieldType'] == "R":
+            self.fieldCommand = "Rationals"
+        else:
+            self.fieldCommand = "GF(" + self.field['galoisField'] + ")"
+
         self.command = "F" + \
                        self.quiverName + \
                        " := PathAlgebra(" + \
@@ -67,7 +67,9 @@ class PathAlgebra:
         print(json.dumps(self.exposeVariables))
 
 ## Standalone test method for PathAlgebra
-# Runs two tests, Rational and Galois Field
+# Runs Expose test
+# Runs Rational test
+# Runs Galois Field test
 def main():
     # Expose test
     pa = PathAlgebra();
