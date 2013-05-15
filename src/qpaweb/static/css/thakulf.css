@@ -42,26 +42,6 @@ body {background-color:#EEE;}
     z-index: 2;
 
 }
-a#trans, a#trans:hover { z-index: 2; }
-a#trans { background: #fff; color: #aa0000; padding: 3px; -webkit-transition: all 1s linear; }
-a#trans:hover { background: #220077; color: #fff; }
-#nav * {z-index: 3;}
-#nav { list-style-type: none; height: 40px; padding: 0; margin: 0; z-index: 100;}
-#nav li { float: left; position: relative; padding: 0; line-height: 40px; background: #5a8078 url(nav-bg.png) repeat-x 0 0; }
-#nav li:hover { background-position: 0 -40px; }
-#nav li a { display: block; padding: 0 15px; color: #fff; text-decoration: none; }
-#nav li a:hover { color: #a3f1d7; }
-#nav li ul { opacity: 0; position: absolute; left: 0; width: 8em; background: #63867f; list-style-type: none; padding: 0; margin: 0; }
-#nav li:hover ul { opacity: 1; }
-#nav li ul li { float: none; position: static; height: 0; line-height: 0; background: none; }
-#nav li:hover ul li { height: 30px; line-height: 30px; }
-#nav li ul li a { background: #63867f; }
-#nav li ul li a:hover { background: #5a8078; }
-#nav li { -webkit-transition: all 0.2s; }
-#nav li a { -webkit-transition: all 0.5s; }
-#nav li ul { -webkit-transition: all 1s; }
-#nav li ul li { -webkit-transition: height 0.5s; }
-
 #listworkspace, #listfile {
     float: left;
     clear: right;
@@ -86,6 +66,8 @@ fieldset textarea {
 legend {
     font-weight: bold;
     text-align: left;
+    display: block;
+    clear: both;
 }
 
 fieldset i {
@@ -94,6 +76,7 @@ fieldset i {
     width: 16px;
     display: block;
     float: left;
+    display: block;
 }
 
 #fielddata li {
@@ -150,6 +133,7 @@ fieldset button {
                  text-decoration:none;
                  color:#565656;
                  cursor:pointer;
+    background-color: #EEE;
     margin: 1px;
              }
 fieldset button{
@@ -194,6 +178,14 @@ button.negative:hover{
     color:#d12f19;
 }
 
+fieldset {
+    margin: 0 0 10px 0;
+}
+legend {
+    height: 30px;
+    display: block;
+    clear: both;
+}
 legend button {
     width: 180px;
     font-weight: bold;
