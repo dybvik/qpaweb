@@ -1,36 +1,39 @@
 ## @package QPAweb.core
 # Documentation for Quiver
+# TODO add validator function for input
 
-## Requires Python JSON libraries
-import json
-
+## Class for QPAWeb Quiver
+# Generates Quiver code
 class Quiver:
+## quiver must be present in GAPJob
+    requires = ["quiver"]
+    actionMenu = 1
+    commandName = "Quiver"
 
+    ## Array accessed by /expose/ http GET method
+    # Dynamically builds form fields client side
+    # showInMenu = display in action drop down, set by self.actionMenu 1 (on) or 0 (off)
+    # menuItems = additional form fields required for doing the calculation
+    # No menuItems in Quiver due to graphical input, no further fields
+    # required (subject to change?)
+    exposeVariables = {
+        commandName  : {
+            'showInMenu' : actionMenu,
+            },
+        }
     ## The constructor
     # @param self The object pointer
-    def __init__(self):
-        ## quiver must be present in GAPJob
-        self.requires = ["quiver"]
-        self.actionMenu = 1
-
-        ## Array accessed by /expose/ http GET method
-        # Dynamically builds form fields client side
-        # showInMenu = display in action drop down, set by self.actionMenu 1 (on) or 0 (off)
-        # menuItems = additional form fields required for doing the calculation
-        # No menuItems in Quiver due to graphical input, no further fields
-        # required (subject to change?)
-        self.exposeVariables = {
-            'showInMenu' : self.actionMenu,
-        }
-
-    ## Job loader function
     # @param GAPJob JSON GAPJob object from client
-    def Load(self, GAPJob):
+    def __init__(self, GAPJob):
         # Validator code here?
         self.quiver = GAPJob['quiver']
         self.quiverName = self.quiver['name']
         self.command = ""
 
+    ## Builds the Quiver GAP command
+    # @param self The object pointer
+    # @return GAP Quiver command
+    # Gets quiver name from constructor
     def BuildCommand(self):
         self.command = self.quiverName + " := Quiver(["
         #loop through vertices
@@ -51,21 +54,21 @@ class Quiver:
         self.command += "]);"
 
         return self.command
-
+    #Er denne nødvendig?
     def __countVertices__(self):
         self.numVertices = len(self.quiver['vertices'])
 
     ## Exposes valid methods to client
-    def Expose(self):
-        print(json.dumps(self.exposeVariables))
+    @staticmethod
+    def Expose():
+        return Quiver.exposeVariables
 
 ## Standalone test method for PathAlgebra
 # Runs Expose test
 # Runs Quiver test
 def main():
     # Expose test
-    q = Quiver();
-    q.Expose()
+    Quiver.Expose()
 
     # Quiver test
     gapJobQ = {
@@ -109,7 +112,7 @@ def main():
             'galoisField': ''}
     }
 
-    q.Load(gapJobQ)
+    q = Quiver(gapJobQ)
     print(q.BuildCommand())
 
 ## Main method
