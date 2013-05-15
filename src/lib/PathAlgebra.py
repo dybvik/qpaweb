@@ -5,7 +5,6 @@
 ## PathAlgebra
 # Generates Path Algebra code
 class PathAlgebra:
-
     ## quiver, fieldType and galoisField must be present in GAPJob
     requires = ["quiver", "fieldType", "galoisField"]
     actionMenu = 1
@@ -18,16 +17,18 @@ class PathAlgebra:
     # select / input = type of form field
     # galoisField values = readable command : command value
     exposeVariables = {
-        commandName : {
-            'showInMenu' : actionMenu,
-            'menuItems' :{
+        commandName: {
+            'showInMenu': actionMenu,
+            'menuItems': {
                 'fieldType': {
                     'select':
                         {'strRat': 'R',
                          'strGal': 'G'},
+                },
+                'galoisField': {
+                    'input':
+                        {'visible' : 'strGal'},
                     },
-                'galoisField':
-                    'input',
                 },
             },
         }
@@ -76,10 +77,10 @@ def main():
 
     # Rationals test
     gapJobR = {
-        'field' : {
-          'fieldType': 'R',
-          'galoisField': ''},
-        'quiver' : {'name': 'Ronny'}
+        'field': {
+            'fieldType': 'R',
+            'galoisField': ''},
+        'quiver': {'name': 'Ronny'}
     }
 
     pa = PathAlgebra(gapJobR)
@@ -87,10 +88,10 @@ def main():
 
     #GaloisField test
     gapJobG = {
-        'field' : {
+        'field': {
             'fieldType': 'G',
             'galoisField': '2^2'},
-        'quiver' : {'name': 'Gaute'}
+        'quiver': {'name': 'Gaute'}
     }
 
     pa = PathAlgebra(gapJobG)

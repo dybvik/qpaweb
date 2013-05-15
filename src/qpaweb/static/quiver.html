@@ -14,6 +14,7 @@
     <script src="createquivermode.js"></script>
     <script src="createmodeclassic.js"></script>
     <script src="menutoggle.js"></script>
+    <script src="menubuilder.js"></script>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
 
     <link rel="stylesheet" href="css/thakulf.css">
@@ -25,7 +26,8 @@
     <fieldset id="fieldfile">
         <legend>
             <button id="btnFileMenu" onclick="menuToggle('fileMenu', 'icnFile');">
-                <i id="icnFile" class="iconCollapse"></i>File</button>
+                <i id="icnFile" class="iconCollapse"></i>File
+            </button>
         </legend>
         <div id="fileMenu">
             <button id="btnFileNew"><i class="iconNew"></i>New</button>
@@ -43,11 +45,12 @@
             </button>
         </legend>
         <div id="workspaceMenu">
-            <button id="btnShowQuiver" onclick="displayCanvas('quiver');" style="width: 66%;">Quiver</button>
-            <button id="btnRenameQuiver" style="width: 30%;">Rename</button>
-            <button id="btnRenameDeleteModule[0]" style="width: 30px;"><i class="iconClose">&nbsp;</i></button>
-            <button id="btnShowModule[0]" onclick="displayCanvas('module0]');" style="width: 49%;">Module1</button>
-            <button id="btnRenameModule[0]" style="width: 30%;">Rename</button>
+            <button id="btnShowQuiver" onclick="displayCanvas('quiver');" style="width: 64%;">Quiver</button>
+            <button id="btnRenameQuiver" style="width: 32%;">Rename</button>
+            <button id="btnRenameDeleteModule[0]" style="width: 25px; height:25px;"><i class="iconClose">&nbsp;</i>
+            </button>
+            <button id="btnShowModule[0]" onclick="displayCanvas('module0]');" style="width: 50%;">Module1</button>
+            <button id="btnRenameModule[0]" style="width: 32%;">Rename</button>
             <button id="btnAddModule" onclick="copyCanvas('quiver','module[1]');" style="width: 97%">New module</button>
         </div>
     </fieldset>
@@ -101,11 +104,12 @@
         <fieldset id="fieldtools">
             <legend>
                 <button id="btnToolsMenu" onclick="menuToggle('toolsQMenu','icnToolsQ');">
-                    <i id="icnToolsQ" class="iconCollapse"></i>Tools</button>
+                    <i id="icnToolsQ" class="iconCollapse"></i>Tools
+                </button>
             </legend>
             <div id="toolsQMenu">
-            <button id="btnToolsEraser"><i class="iconEraser"></i>Erase</button>
-            <input type="button" class="commandbuttonx" id="btnaddrel" value="Edit mode"/>
+                <button id="btnToolsEraser"><i class="iconEraser"></i>Erase</button>
+                <input type="button" class="commandbuttonx" id="btnaddrel" value="Edit mode"/>
             </div>
         </fieldset>
         <fieldset id="fieldrelations">
@@ -115,20 +119,22 @@
                 </button>
             </legend>
             <div id="relationsMenu">
-            <input style="margin-left: 2px; width: 110px; height:28px; float:left;" type="text" autocapitalize="off" name="relation" id="relation" />
-            <button id="btnrels" style="width: 70px;"><i class="iconNew"></i>Add</button>
+                <input style="margin-left: 2px; width: 110px; height:28px; float:left;" type="text" autocapitalize="off"
+                       name="relation" id="relation"/>
+                <button id="btnrels" style="width: 70px;"><i class="iconNew"></i>Add</button>
             </div>
         </fieldset>
 
         <fieldset id="fielddata">
             <legend>
                 <button id="btnData" onclick="menuToggle('dataMenu', 'icnData');">
-                    <i id="icnData" class="iconCollapse"></i>Data</button>
+                    <i id="icnData" class="iconCollapse"></i>Data
+                </button>
             </legend>
             <div id="dataMenu">
-            <ul>
-                <li>rel: a1*a2</li>
-            </ul>
+                <ul>
+                    <li>rel: a1*a2</li>
+                </ul>
             </div>
         </fieldset>
 
@@ -138,20 +144,16 @@
                     <i id="icnActions" class="iconCollapse"></i>Actions
                 </button>
             </legend>
-            <div id="actionsMenu">
-            <select name="actionselect">
-                <option value="Quiver">Generate quiver</option>
-                <option value="Field">Add field to quiver</option>
-                <option value="FactorAlgebra">Generate factor algebra</option>
-                <option value="Dimension">Find dimension</option>
-                <option value="RadicalLayers">Find radical layers</option>
-            </select>
+            <form method="POST" action="http://localhost:8888/dump/">
+                <div id="actionsMenu">
 
-            <form method="POST" action="http://stud.aitel.hist.no/~jsjakobs/gappost.php">
-                <input type="button" class="commandbuttonx" id="btnjson" value="Show JSON"/>
-                <textarea id="debug"></textarea>
+                    <select id="actionSelect" name="actionSelect"/>
+                    <input type="button" class="commandbuttonx" id="btnjson" value="Show JSON"/>
+                    <textarea id="debug" name="debug"></textarea>
+                    <input type="submit" value="dump">
+
+                </div>
             </form>
-            </div>
         </fieldset>
     </div>
 </div>
@@ -159,6 +161,7 @@
 
 <script type="text/javascript">
     (function () {
+        menubuilder('actionsMenu', 'actionSelect', 'http://localhost:8888/exposeJSONP/');
         var canvas = document.getElementById('qcanvas'),
                 context = canvas.getContext('2d');
 

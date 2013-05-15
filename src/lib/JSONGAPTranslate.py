@@ -18,6 +18,7 @@ class JSONGAPTranslate:
         toExpose = Q.Quiver.Expose()
         toExpose.update(PA.PathAlgebra.Expose())
         toExpose.update(R.Relations.Expose())
+        toExpose = {'modules' :toExpose}
         return toExpose
 
     def ToGAP(self, jsoninput):

@@ -7,7 +7,7 @@
 class Quiver:
 ## quiver must be present in GAPJob
     requires = ["quiver"]
-    actionMenu = 1
+    actionMenu = 0
     commandName = "Quiver"
 
     ## Array accessed by /expose/ http GET method
