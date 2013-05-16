@@ -1,48 +1,48 @@
 ## @package QPAweb.core
 # Documentation for PathAlgebra
-
-## Requires Python JSON libraries
-import json
+# TODO add validator function for input
 
 ## PathAlgebra
-# Generates Path Algebras
+# Generates Path Algebra code
 class PathAlgebra:
-
-    ## The constructor
-    # @param self The object pointer
-    def __init__(self):
-        ## quiver, fieldType and galoisField must be present in GAPJob
-        self.requires = ["quiver", "fieldType", "galoisField"]
-        self.actionMenu = 1
-
-        ## Variable accessed by /expose/ http GET method
-        # Dynamically builds form fields client side
-        # showInMenu = display in action drop down, set by self.actionMenu 1 (on) or 0 (off)
-        # menuItems = additional form fields required for doing the calculation
-        # fieldType / galoisField = form field name
-        # select / input = type of form field
-        # galoisField values = readable command : command value
-        self.exposeVariables = {
-            'showInMenu' : self.actionMenu,
-            'menuItems' :{
+    ## quiver, fieldType and galoisField must be present in GAPJob
+    requires = ["quiver", "fieldType", "galoisField"]
+    actionMenu = 1
+    commandName = "PathAlgebra"
+    ## Variable accessed by /expose/ http GET method
+    # Dynamically builds form fields client side
+    # showInMenu = display in action drop down, set by self.actionMenu 1 (on) or 0 (off)
+    # menuItems = additional form fields required for doing the calculation
+    # fieldType / galoisField = form field name
+    # select / input = type of form field
+    # galoisField values = readable command : command value
+    exposeVariables = {
+        commandName: {
+            'showInMenu': actionMenu,
+            'menuItems': {
                 'fieldType': {
                     'select':
                         {'strRat': 'R',
                          'strGal': 'G'},
-                    },
-                'galoisField':
-                    'input',
                 },
-            }
-    ## Job loader function
+                'galoisField': {
+                    'input':
+                        {'visible' : 'strGal'},
+                    },
+                },
+            },
+        }
+
+    ## The constructor
+    # @param self The object pointer
     # @param GAPJob JSON GAPJob object from client
-    def Load(self, GAPJob):
+    def __init__(self, GAPJob):
         # Validator code here?
         self.field = GAPJob['field']
         self.quiverName = GAPJob['quiver']['name']
         self.command = ""
 
-    ## Builds the Path Algebra
+    ## Builds the Path Algebra GAP command
     # @param self The object pointer
     # @return GAP Path Algebra command
     # Gets quiver name from constructor
@@ -63,8 +63,9 @@ class PathAlgebra:
         return self.command
 
     ## Exposes valid methods to client
-    def Expose(self):
-        print(json.dumps(self.exposeVariables))
+    @staticmethod
+    def Expose():
+        return PathAlgebra.exposeVariables
 
 ## Standalone test method for PathAlgebra
 # Runs Expose test
@@ -72,29 +73,28 @@ class PathAlgebra:
 # Runs Galois Field test
 def main():
     # Expose test
-    pa = PathAlgebra();
-    pa.Expose()
+    print(PathAlgebra.Expose())
 
     # Rationals test
     gapJobR = {
-        'field' : {
-          'fieldType': 'R',
-          'galoisField': ''},
-        'quiver' : {'name': 'Ronny'}
+        'field': {
+            'fieldType': 'R',
+            'galoisField': ''},
+        'quiver': {'name': 'Ronny'}
     }
 
-    pa.Load(gapJobR)
+    pa = PathAlgebra(gapJobR)
     print(pa.BuildCommand())
 
     #GaloisField test
     gapJobG = {
-        'field' : {
+        'field': {
             'fieldType': 'G',
             'galoisField': '2^2'},
-        'quiver' : {'name': 'Gaute'}
+        'quiver': {'name': 'Gaute'}
     }
 
-    pa.Load(gapJobG)
+    pa = PathAlgebra(gapJobG)
     print(pa.BuildCommand())
 
 ## Main method

@@ -1,38 +1,39 @@
 ## @package QPAweb.core
 # Documentation for PathAlgebra
+# TODO add validator function for input
 
-## Requires Python JSON libraries
-import json
-
+## Class for QPAWeb Relations
+# Generates Relations code
 class Relations:
-
+    ## quiver and relations must be present in GAPJob
+    requires = ["quiver", "relations"]
+    actionMenu = 1
+    commandName = "Relations"
+    ## Array accessed by /expose/ http GET method
+    # Dynamically builds form fields client side
+    # showInMenu = display in action drop down, set by self.actionMenu 1 (on) or 0 (off)
+    # menuItems = additional form fields required for doing the calculation
+    # No menuItems in Relations due to relations being a static input, which adds
+    # to client side array.
+    # No fields required (subject to change?)
+    exposeVariables = {
+        commandName : {
+            'showInMenu' : actionMenu,
+            },
+        }
     ## The constructor
     # @param self The object pointer
     # @param GAPJob JSON GAPJob object from client
-    def __init__(self):
-        ## quiver and relations must be present in GAPJob
-        self.requires = ["quiver", "relations"]
-        self.actionMenu = 1
-
-        ## Array accessed by /expose/ http GET method
-        # Dynamically builds form fields client side
-        # showInMenu = display in action drop down, set by self.actionMenu 1 (on) or 0 (off)
-        # menuItems = additional form fields required for doing the calculation
-        # No menuItems in Relations due to relations being a static input, which adds
-        # to client side array.
-        # No fields required (subject to change?)
-        self.exposeVariables = {
-            'showInMenu' : self.actionMenu,
-            }
-
-    ## Job loader function
-    # @param GAPJob JSON GAPJob object from client
-    def Load(self, GAPJob):
+    def __init__(self, GAPJob):
         # Validator code here?
         self.relations = GAPJob['relations']
         self.quiverName = GAPJob['quiver']['name']
         self.command = ""
 
+    ## Builds the Relation matrix GAP command
+    # @param self The object pointer
+    # @return GAP Relation Matrix command
+    # Gets quiver name from constructor
     def BuildCommand(self):
         self.command = self.quiverName + "RelationMatrix := ["
         for rel in self.relations:
@@ -43,16 +44,16 @@ class Relations:
         return self.command
 
     ## Exposes valid methods to client
-    def Expose(self):
-        print(json.dumps(self.exposeVariables))
+    @staticmethod
+    def Expose():
+        return Relations.exposeVariables
 
 ## Standalone test method for PathAlgebra
 # Runs Expose test
 # Runs Quiver test
 def main():
     # Expose test
-    r = Relations();
-    r.Expose()
+    Relations.Expose()
 
     # Quiver test
     gapJobRel = {
@@ -96,7 +97,7 @@ def main():
             'galoisField': ''}
     }
 
-    r.Load(gapJobRel)
+    r = Relations(gapJobRel)
     print(r.BuildCommand())
 
 ## Main method
