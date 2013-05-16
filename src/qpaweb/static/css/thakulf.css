@@ -192,3 +192,20 @@ legend button {
     display: block;
     clear: both;
 }
+
+#resultpanel {
+    margin-right:240px;
+    //width:100%;
+    left:0;
+    margin-top:-200px;
+    height:200px;
+    background-color:red;
+    position:relative;
+}
+#leftpanel {
+    height:100%;
+    
+}
+#finddim-diag {
+    background-color: white;
+}

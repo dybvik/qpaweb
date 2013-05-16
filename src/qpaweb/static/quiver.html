@@ -5,6 +5,7 @@
     <title>Quivertest</title>
     <script src="lib/fabric.js/all.min.js"></script>
     <script src="lib/jquery-1.9.1.js"></script>
+    <script src="jquery-ui-1.10.3.custom.min.js"></script>
     <script src="lib/underscore.js"></script>
     <script src="namegenerator.js"></script>
     <script src="relations.js"></script>
@@ -15,13 +16,26 @@
     <script src="createmodeclassic.js"></script>
     <script src="menutoggle.js"></script>
     <script src="menubuilder.js"></script>
+
     <meta name="apple-mobile-web-app-capable" content="yes"/>
 
     <link rel="stylesheet" href="css/thakulf.css">
+    <link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.10.3.custom.min.css">
 </head>
 <body>
+<div id="leftpanel">
 <canvas id="qcanvas">
 </canvas>
+<div id="resultpanel">
+  <textarea readonly style="height:100%;width:100%" id="resultout"></textarea>
+</div>
+</div>
+<div id="finddim-diag" title="Finn dimensjon">
+  <select id="finddim-diag-field">
+    Kropp: <option value="rat">Rasjonelle tall</option>
+    <input type="button" id="finddim-diag-finddim" value="Finn dimensjon"/>
+  </select>
+</div>
 <div id="sidepanel">
     <fieldset id="fieldfile">
         <legend>
@@ -133,7 +147,7 @@
             </legend>
             <div id="dataMenu">
                 <ul>
-                    <li>rel: a1*a2</li>
+                    
                 </ul>
             </div>
         </fieldset>
@@ -144,6 +158,7 @@
                     <i id="icnActions" class="iconCollapse"></i>Actions
                 </button>
             </legend>
+            <input type="button" id="btn_finddim" value="Finn dimensjon"/>
             <form method="POST" action="http://localhost:8888/dump/">
                 <div id="actionsMenu">
 
@@ -158,6 +173,7 @@
     </div>
 </div>
 </div>
+
 
 <script type="text/javascript">
     (function () {

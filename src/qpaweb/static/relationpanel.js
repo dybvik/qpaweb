@@ -20,6 +20,13 @@ var RelationPanel = function(qpanel, relPanelEl, relInputEl) {
     }
     that.highlight(that.trel);
   });
+  $("#btnrels").on("click", function(ev) {
+    if(that.trel.valid) {
+      that.list.add(that.trel);
+      $("#dataMenu ul").append("<li>"+that.trel.relstring+"</li>");
+      console.log(that.trel.relstring);
+    }
+  });
 }
 
 RelationPanel.prototype.highlight= function(rel) {

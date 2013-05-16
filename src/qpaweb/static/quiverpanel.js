@@ -42,6 +42,40 @@ window.onload = function () {
   
   var relin = document.getElementById("relation");
   var relp = new RelationPanel(qpanel, null, relin);
+
+
+  $(function() {
+    $( "#finddim-diag" ).dialog({
+      height: 140,
+      modal: true,
+      dialogClass: "alert",
+      autoOpen: false,
+    });
+  });
+  $("#btn_finddim").on("click", function(ev) {
+    $("#finddim-diag").dialog("open");
+  });
+  $("#finddim-diag-finddim").on("click", function(ev) {
+    var job = {};
+    var quiver = {arrows: {}, vertices: []};
+    _.each(qpanel.quiver.items, function(val, key, list) {
+      if(val instanceof Vertex) {
+        quiver.vertices.push(val.name);
+      } else if(val instanceof Arrow) {
+        quiver.arrows[val.name] = {from: val.source.name, to:val.target.name}
+      }
+    });
+    job.quiver = quiver;
+    job.field = "Rationals";
+    var rels = [];
+    _.each(relp.list, function(val, key, list) {
+      rels.push(val.relstrin);
+    });
+    job.rels = rels;
+    var msg = {job:job}
+    var data = JSON.stringify(msg);
+    $.ajax("localhost:1882/jobs", {type:"POST", data:data});
+  });
 }
 
 /**
