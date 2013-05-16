@@ -16,13 +16,17 @@
     <script src="createmodeclassic.js"></script>
     <script src="menutoggle.js"></script>
     <script src="menubuilder.js"></script>
+    <script src="modulematrices.js"></script>
 
     <meta name="apple-mobile-web-app-capable" content="yes"/>
 
     <link rel="stylesheet" href="css/thakulf.css">
     <link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.10.3.custom.min.css">
 </head>
-<body>
+
+
+
+<body id="mainbody">
 <div id="leftpanel">
 <canvas id="qcanvas">
 </canvas>
@@ -63,7 +67,7 @@
             <button id="btnRenameQuiver" style="width: 32%;">Rename</button>
             <button id="btnRenameDeleteModule[0]" style="width: 25px; height:25px;"><i class="iconClose">&nbsp;</i>
             </button>
-            <button id="btnShowModule[0]" onclick="displayCanvas('module0]');" style="width: 50%;">Module1</button>
+            <button id="btnShowModule[0]" onclick="findVertices(qpanel);" style="width: 50%;">Module1</button>
             <button id="btnRenameModule[0]" style="width: 32%;">Rename</button>
             <button id="btnAddModule" onclick="copyCanvas('quiver','module[1]');" style="width: 97%">New module</button>
         </div>
@@ -165,11 +169,12 @@
                     <select id="actionSelect" name="actionSelect"/>
                     <input type="button" class="commandbuttonx" id="btnjson" value="Show JSON"/>
                     <textarea id="debug" name="debug"></textarea>
-                    <input type="submit" value="dump">
-
+                    <input type="submit" value="dump" />
                 </div>
             </form>
-        </fieldset>
+        </fieldset>     <!--
+                            <button name='eskild' onclick='findVertices(qpanel);'>Eskild</button>
+                            -->
     </div>
 </div>
 </div>
@@ -208,7 +213,6 @@
         function drawStuff() {
             // do your drawing stuff here
         }
-
     })();
 
 </script>

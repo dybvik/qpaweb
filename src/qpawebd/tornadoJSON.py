@@ -45,7 +45,7 @@ class ExposeJSONP(tornado.web.RequestHandler):
 
 class DumpPost(tornado.web.RequestHandler):
     def post(self):
-        self.write("<pre>"+tornado.escape.url_unescape(self.request.body,'utf-8'))
+        self.write("<pre>"+tornado.escape.url_unescape(self.request.body,'utf-8')+"</pre>")
 
 application = tornado.web.Application([
     (r"/", PostDemo),
