@@ -58,8 +58,10 @@ class JobWebHandler(tornado.web.RequestHandler):
         else:
             jobdata = {}
             print(str(self.server.jobs))
-            if not self.server.jobs[int(jobid)]:
+            if not self.server.jobs.get(int(jobid)):
                 self.set_status(404)
+                self.write("")
+                return
             else:
                 jobdata["job"] = self.server.jobs[int(jobid)].data
                 if self.server.jobs[int(jobid)].done:
