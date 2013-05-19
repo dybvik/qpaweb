@@ -43,7 +43,7 @@ class Quiver(qpawebd.gap.data):
         name = self.name
         qlist = [name, " := Quiver(["]
         for vertex in self.quiver["vertices"]:
-            qlist.extend(["\"", vertex, "\""])
+            qlist.extend(["\"", vertex, "\","])
             self.nvertices += 1
         qlist.append("],[")
         for arrowname, arrow in self.quiver["arrows"].items():
