@@ -66,15 +66,22 @@ window.onload = function () {
       }
     });
     job.quiver = quiver;
-    job.field = "Rationals";
+    job.field = {"type": "Rationals"};
     var rels = [];
-    _.each(relp.list, function(val, key, list) {
-      rels.push(val.relstrin);
+
+    _.each(relp.list.relations, function(val, key, list) {
+      rels.push(val.relstring);
     });
-    job.rels = rels;
+    job.command="FindDimension"
+    job.relations = rels;
     var msg = {job:job}
     var data = JSON.stringify(msg);
-    $.ajax("localhost:1882/jobs", {type:"POST", data:data});
+    $.ajax("http://localhost:1882/jobs", {type:"post", 
+                                   data:{job:data}, 
+                                   crossDomain:true,
+                                   contenType: "application/json; charset=utf-8",
+                                   dataType: "json"})
+    .fail(function(x,s){console.log(s);});
   });
 }
 

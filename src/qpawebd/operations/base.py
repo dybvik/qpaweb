@@ -11,6 +11,7 @@ class Quiver(qpawebd.gap.data):
         "properties": {
             "arrows": {
                 "type": "object",
+                "properties": {},
                 "additionalProperties": {
                     "type": "object",
                     "properties": {
@@ -19,14 +20,15 @@ class Quiver(qpawebd.gap.data):
                     },
                     "additionalProperties": False,
                 },
-                "vertices": {
-                    "type": "array",
-                    "items": { "type": "string"}
-                },
+                
+            },
+            "vertices": {
+                "type": "array",
+                "additionalItems": { "type": "string"}
             }
         },
         "required": ["arrows", "vertices"],
-        "additionalProperties": False
+        "additionalProperties": False,
     }
     nvertices = 0
     narrows = 0
@@ -34,9 +36,10 @@ class Quiver(qpawebd.gap.data):
         self.name = name
         self.quiver = quiver
         if not self.validate(quiver):
-            raise CommandValidationError()
+            print(str(quiver))
+            raise qpawebd.gap.CommandValidationError()
 
-    def toGAP(self, gap):
+    def toGap(self, gap):
         name = self.name
         qlist = [name, " := Quiver(["]
         for vertex in self.quiver["vertices"]:
@@ -47,7 +50,8 @@ class Quiver(qpawebd.gap.data):
             qlist.extend(["[\"", arrow["from"], "\",\"", arrow["to"], "\",\"", arrowname, "\"],"])
             self.narrows += 1
         qlist.append("]);")
-        qapstr = "".join(qlist)
+        gapstr = "".join(qlist)
+        print("QUIVER WRITE")
         gap.write(gapstr)
         
     def fromGap(self, data):
@@ -59,13 +63,13 @@ class Quiver(qpawebd.gap.data):
         else:
             return True
     def validate(self, quiver):
-        try:
+        #try:
             jsonschema.validate(quiver, self.schema)
             for key, val in quiver["arrows"].items():
                 if val["from"] not in quiver["vertices"] or val["to"] not in quiver["vertices"]:
                     return False
             return True
-        except jsonschema.ValidationError:
+        #except jsonschema.ValidationError:
             return False
 
 class Rationals(qpawebd.gap.Field):
@@ -101,6 +105,7 @@ class PathAlgebra(qpawebd.gap.data):
     def __init__(self, name, field, quiver):
         self.name = name
         self.field = field
+        self.quiver = quiver
 
     def toGap(self, gap):
         name = self.name
@@ -116,7 +121,7 @@ class QuotAlgebra(qpawebd.gap.data):
         self.relations = relations
 
     def toGap(self, gap):
-        gapstr = "".join(self.name, " := ", self.pathAlg, "/", self.relations)
+        gapstr = "".join([self.name, " := ", self.pathAlg, "/", self.relations, ";"])
         gap.write(gapstr, self.fromGap)
 
     def fromGap(self, data):
@@ -132,10 +137,12 @@ class Relations(qpawebd.gap.data):
     def toGap(self, gap):
         gaplist = [self.name, ":=", "["]
         for rel in self.relations:
-            for r in  re.finditer(r"[0-9]+((\.\d+)|(/\d+))?|\*|\+|\-|[a-zA-Z]([a-zA-Z0-9]+)?", rel):
-                if r.ematch("[a-zA-Z]([a-zA-Z0-9]+)?$", r):
+            print("REL: " + rel)
+            for r in  re.finditer(r"[0-9]+((\.\d+)|(/\d+))?|\*|\+|\-|\^|[a-zA-Z]([a-zA-Z0-9]+)?", rel):
+                print("R: "+r.group(0))
+                if re.match(r"[a-zA-Z]([a-zA-Z0-9]+)?$", r.group(0)):
                     gaplist.extend([self.pathAlg, "."])
-                gaplist.append(r)
+                gaplist.append(r.group(0))
             gaplist.append(", ")
         gaplist.append("];")
         gap.write("".join(gaplist))

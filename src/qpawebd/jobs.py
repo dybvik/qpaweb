@@ -1,7 +1,7 @@
 import tornado.web
 import json
 from jsonschema import validate
-import gap
+import qpawebd.gap
 
 schema = {
     "$schema": "http://json-schema.org/draft-04/schema#",
@@ -30,9 +30,11 @@ class Job():
     id = None
     timeout = 0
     done = False
+    command = None
 
     def __init__(self, data, id = None):
         self.data = data
+        self.id = id
 
 class JobWebHandler(tornado.web.RequestHandler):
     nextid= 0
@@ -40,13 +42,14 @@ class JobWebHandler(tornado.web.RequestHandler):
         self.server = jobserver
         
     def get(self, jobid):
+        print("GET")
         if not jobid:
             jobs_done = []
             jobs = []
             for job in self.server.jobs.items():
-                jobs.append(job.id)
-                if job.done:
-                    jobs_done.append(job.id)
+                jobs.append(job[1].id)
+                if job[1].done:
+                    jobs_done.append(job[1].id)
             output = {
                 "jobs": jobs,
                 "jobs_done": jobs_done
@@ -62,14 +65,16 @@ class JobWebHandler(tornado.web.RequestHandler):
                     jobdata["result"] = self.jobs[jobid].result
                 self.write(json.dumps(jobdata))
     
-    def post(self):
+    def post(self, d):
 #        if qpawebd.settings.mode != "master":
 #            self.set_status(http.client.METHOD_NOT_ALLOWED)
 #            return
         jobstring = self.get_argument("job")
+        print(jobstring)
         jobdata = json.loads(jobstring)
-        job = Job(jobdata["job"], nextid)
-        nextid+=1
+        print("ID: "+ str(self.nextid))
+        job = Job(jobdata["job"], self.nextid)
+        self.nextid+=1
         self.server.addJob(job)
         self.write("")
 
@@ -85,27 +90,31 @@ class JobServer():
     num_proc_ready = 0
     def __init__(self, num_proc, callback = None):
         for i in range(0, num_proc):
-            process = gap.Process()
+            process = qpawebd.gap.Process()
             process.start()
             self.processes.append(process)
         self.num_proc_ready = num_proc
         self.processes_ready = list(self.processes)
         self.callback = callback
 
+
     def ready(self):
         return num_proc_ready > 0
         
     def addJob(self, job):
-        if num_proc_ready > 0:
-            cmd = wpawebd.gap.getCommand(job)
+        if self.num_proc_ready > 0:
+            cmd = qpawebd.gap.getCommand(job.data["command"])
             proc = None
             for p in self.processes:
                 if p.ready():
                     proc = p
             if proc == None:
+                print("NONE READY")
                 return False
             self.jobs[job.id] = job
-            cmd.toGap(proc, self)
+            print(str(job.id))
+            job.command = cmd(job, self)
+            job.command.toGap(proc)
             return True
         else:
             return False
@@ -114,6 +123,7 @@ class JobServer():
         #del self.jobs[jobid]
         self.jobs[jobid].done = True
         self.jobs[jobid].result = data
+        del self.jobs[jobid].command
         self.num_proc_ready += 1
         
         
