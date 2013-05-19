@@ -57,12 +57,13 @@ class JobWebHandler(tornado.web.RequestHandler):
             self.write(json.dumps(output))
         else:
             jobdata = {}
-            if not self.server.jobs[jobid]:
+            print(str(self.server.jobs))
+            if not self.server.jobs[int(jobid)]:
                 self.set_status(404)
             else:
-                jobdata["job"] = self.server.jobs[jobid].data
-                if self.server.jobs[jobid].done:
-                    jobdata["result"] = self.jobs[jobid].result
+                jobdata["job"] = self.server.jobs[int(jobid)].data
+                if self.server.jobs[int(jobid)].done:
+                    jobdata["result"] = self.server.jobs[int(jobid)].result
                 self.write(json.dumps(jobdata))
     
     def post(self, d):
