@@ -105,7 +105,7 @@ class JobServer():
         
     def addJob(self, jobdata):
         if self.num_proc_ready > 0:
-            cmd = qpawebd.gap.getCommand(job.data["command"])
+            cmd = qpawebd.gap.getCommand(jobdata["job"]["command"])
             proc = None
             for p in self.processes:
                 if p.ready():
@@ -115,11 +115,10 @@ class JobServer():
                 return False
             jobdata["job"]["id"] = self.nextid
             job = Job(jobdata["job"], self.nextid)
-            self.nextid+=1
-            job.id=self.nextid
+
             self.nextid+=1
             self.jobs[job.id] = job
-            print(str(job.id))
+
             job.command = cmd(job, self)
             job.command.toGap(proc)
             return job
