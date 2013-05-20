@@ -76,7 +76,7 @@ window.onload = function () {
     job.relations = rels;
     var msg = {job:job}
     var data = JSON.stringify(msg);
-    $.ajax("http://localhost:1882/jobs", {type:"post", 
+    $.ajax("http://158.38.57.12:1882/jobs", {type:"post",
                                    data:{job:data}, 
                                    crossDomain:true,
                                    contenType: "application/json; charset=utf-8",
