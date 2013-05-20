@@ -76,10 +76,11 @@ class JobWebHandler(tornado.web.RequestHandler):
         print(jobstring)
         jobdata = json.loads(jobstring)
         print("ID: "+ str(self.nextid))
+        jobdata["job"]["id"] = self.nextid
         job = Job(jobdata["job"], self.nextid)
         self.nextid+=1
         self.server.addJob(job)
-        self.write("")
+        self.write(json.dumps(jobdata)
 
     def put(self):
         job = Job()

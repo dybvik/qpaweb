@@ -17,7 +17,10 @@ class Process():
     writeQueue = Queue()
     callback = None
     def start(self):
-        self.p = subprocess.Popen([settings.gap_exe, "-n", "-b"], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT)
+        
+        self.p = subprocess.Popen([settings.gap_exe, "-n", "-b"], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT, buffsize=1 if os.name == "nt" else 0)
+        
+            
         fcntl.fcntl(self.p.stdout.fileno(), fcntl.F_SETFL, os.O_NONBLOCK)
         tornado.ioloop.IOLoop.instance().add_handler(self.p.stdout.fileno(), self._stdoutHandler, tornado.ioloop.IOLoop.READ)
         self.data = b""
@@ -28,6 +31,7 @@ class Process():
     def _stdoutHandler(self, fd, ev):
         self.read()
 
+      
     #reads all availible data from GAP and calls any registered callback
     def read(self):
         data = self.p.stdout.readall()
@@ -49,6 +53,7 @@ class Process():
                 self.callback = nwrite[1]
             else:
                 self.gap_busy = False
+
         
     #Write only _one_complete_ GAP command per call to write()
     def write(self, data, callback = None):
