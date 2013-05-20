@@ -79,7 +79,7 @@ window.onload = function () {
     $.ajax("http://158.38.57.12:1882/jobs", {type:"post",
                                    data:{job:data}, 
                                    crossDomain:true,
-                                   contenType: "application/json; charset=utf-8",
+                                   contentType: "application/json; charset=utf-8",
                                    dataType: "json"})
     .fail(function(x,s){console.log(s);});
   });
