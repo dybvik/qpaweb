@@ -37,7 +37,6 @@ class Job():
         self.id = id
 
 class JobWebHandler(tornado.web.RequestHandler):
-    nextid= 0
     def initialize(self, jobserver):
         self.server = jobserver
         
@@ -75,12 +74,10 @@ class JobWebHandler(tornado.web.RequestHandler):
         jobstring = self.get_argument("job")
         print(jobstring)
         jobdata = json.loads(jobstring)
-        print("ID: "+ str(self.nextid))
-        jobdata["job"]["id"] = self.nextid
-        job = Job(jobdata["job"], self.nextid)
-        self.nextid+=1
-        self.server.addJob(job)
-        self.write(json.dumps(jobdata))
+
+        job = self.server.addJob(jobdata)
+        if job:
+            self.write(json.dumps(job.data))
 
     def put(self):
         job = Job()
@@ -92,6 +89,7 @@ class JobServer():
     processes = []
     processes_ready = []
     num_proc_ready = 0
+    nextid = 0
     def __init__(self, num_proc, callback = None):
         for i in range(0, num_proc):
             process = qpawebd.gap.Process()
@@ -105,7 +103,7 @@ class JobServer():
     def ready(self):
         return num_proc_ready > 0
         
-    def addJob(self, job):
+    def addJob(self, jobdata):
         if self.num_proc_ready > 0:
             cmd = qpawebd.gap.getCommand(job.data["command"])
             proc = None
@@ -115,11 +113,16 @@ class JobServer():
             if proc == None:
                 print("NONE READY")
                 return False
+            jobdata["job"]["id"] = self.nextid
+            job = Job(jobdata["job"], self.nextid)
+            self.nextid+=1
+            job.id=self.nextid
+            self.nextid+=1
             self.jobs[job.id] = job
             print(str(job.id))
             job.command = cmd(job, self)
             job.command.toGap(proc)
-            return True
+            return job
         else:
             return False
 
