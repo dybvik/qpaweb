@@ -18,7 +18,7 @@ class Process():
     callback = None
     def start(self):
         
-        self.p = subprocess.Popen([settings.gap_exe, "-n", "-b"], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT, buffsize=1 if os.name == "nt" else 0)
+        self.p = subprocess.Popen([settings.gap_exe, "-n", "-b"], stdout=subprocess.PIPE, stdin=subprocess.PIPE, stderr=subprocess.STDOUT, bufsize=1 if os.name == "nt" else 0)
         
             
         fcntl.fcntl(self.p.stdout.fileno(), fcntl.F_SETFL, os.O_NONBLOCK)
