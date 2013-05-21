@@ -2,9 +2,11 @@ var qpanel = null;
 
 var jobs = new JobList();
 var updater = new Updater(jobs);
+var results = null;
 
 window.onload = function () {
-    var quiver = new Quiver();
+  results = new ResultPanel(document.getElementById("resultout"), jobs);
+  var quiver = new Quiver();
     qpanel = new quiverPanel("qcanvas", quiver);
     /*document.getElementById("btncreatemode").onclick = function (e) {
         qpanel.setMode(qpanel.createMode);
@@ -54,9 +56,6 @@ window.onload = function () {
     });
   });
   $("#btn_finddim").on("click", function(ev) {
-    $("#finddim-diag").dialog("open");
-  });
-  $("#finddim-diag-finddim").on("click", function(ev) {
     var job = {};
     var quiver = {arrows: {}, vertices: []};
     _.each(qpanel.quiver.items, function(val, key, list) {
