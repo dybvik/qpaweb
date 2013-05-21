@@ -323,7 +323,7 @@ class Dimension(qpawebd.gap.data):
         self.value = str(data)
         self.onResult()
 
-class IndecProjectiveModules(gpawebd.gap.data):
+class IndecProjectiveModules(qpawebd.gap.data):
 
     def __init__(self, name, quotalg):
         self.name = name
@@ -336,7 +336,7 @@ class IndecProjectiveModules(gpawebd.gap.data):
         self.value = str(data)
         self.onResult()
 
-class RadicalSeries(gpawebd.gap.data):
+class RadicalSeries(qpawebd.gap.data):
 
         def __init__(self, name, indproj, vertexIndex):
             self.name = name

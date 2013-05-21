@@ -2,11 +2,11 @@ import tornado.ioloop
 import tornado.web
 import qpawebd.gap
 import qpawebd.jobs
-import qpawebd.tornadoJSON
+#import qpawebd.tornadoJSON
 
 application = tornado.web.Application([
     (r"^/jobs(?:/(\d+))?$", qpawebd.jobs.JobWebHandler, dict(jobserver=qpawebd.jobs.JobServer(1))),
-    (r"/exposeJSONP/", qpawebd.tornadoJSON.ExposeJSONP), # Denne må integreres på en annen plass/måte!
+    ##(r"/exposeJSONP/", qpawebd.tornadoJSON.ExposeJSONP), # Denne må integreres på en annen plass/måte!
 ])
 
 def main():
