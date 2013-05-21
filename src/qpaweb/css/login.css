@@ -1,0 +1,26 @@
+#wrapper {
+    width: 500px;
+    background-color: lightgray;
+}
+
+header {
+    text-align: center;
+}
+
+nav {
+	
+}
+
+nav li {
+    display:inline;
+    vertical-align: middle;
+}
+
+article {
+	
+}
+
+footer {
+	position: fixed;
+    bottom: 0px;
+}

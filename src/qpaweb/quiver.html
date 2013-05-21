@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Quivertest</title>
+    <script src="lib/fabric.js/all.min.js"></script>
+    <script src="lib/jquery-1.9.1.js"></script>
+    <script src="jquery-ui-1.10.3.custom.min.js"></script>
+    <script src="lib/underscore.js"></script>
+    <script src="namegenerator.js"></script>
+    <script src="relations.js"></script>
+    <script src="relationpanel.js"></script>
+    <script src="quiver.js"></script>
+    <script src="quiverpanel.js"></script>
+    <script src="createquivermode.js"></script>
+    <script src="createmodeclassic.js"></script>
+    <script src="menutoggle.js"></script>
+    <script src="menubuilder.js"></script>
+    <script src="modulematrices.js"></script>
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+
+    <link rel="stylesheet" href="css/thakulf.css">
+    <link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.10.3.custom.min.css">
+</head>
+
+
+
+<body id="mainbody">
+<div id="leftpanel">
+<canvas id="qcanvas">
+</canvas>
+<div id="resultpanel">
+  <textarea readonly style="height:100%;width:100%" id="resultout"></textarea>
+</div>
+</div>
+<div id="finddim-diag" title="Finn dimensjon">
+  <select id="finddim-diag-field">
+    Kropp: <option value="rat">Rasjonelle tall</option>
+    <input type="button" id="finddim-diag-finddim" value="Finn dimensjon"/>
+  </select>
+</div>
+<div id="sidepanel">
+    <fieldset id="fieldfile">
+        <legend>
+            <button id="btnFileMenu" onclick="menuToggle('fileMenu', 'icnFile');">
+                <i id="icnFile" class="iconCollapse"></i>File
+            </button>
+        </legend>
+        <div id="fileMenu">
+            <button id="btnFileNew"><i class="iconNew"></i>New</button>
+            <button id="btnFileOpen"><i class="iconOpen"></i>Open</button>
+            <button id="btnFileSave"><i class="iconSave"></i>Save</button>
+            <button id="btnFileClose"><i class="iconClose"></i>Close</button>
+            <button id="btnFileSettings"><i class="iconSettings"></i>Settings</button>
+            <button id="btnFileAbout"><i class="iconAbout"></i>About</button>
+        </div>
+    </fieldset>
+    <fieldset id="fieldworkspace">
+        <legend>
+            <button id="btnWorkspace" onclick="menuToggle('workspaceMenu', 'icnWorkspace');">
+                <i id="icnWorkspace" class="iconCollapse"></i>Workspace
+            </button>
+        </legend>
+        <div id="workspaceMenu">
+            <button id="btnShowQuiver" onclick="displayCanvas('quiver');" style="width: 64%;">Quiver</button>
+            <button id="btnRenameQuiver" style="width: 32%;">Rename</button>
+            <button id="btnRenameDeleteModule[0]" style="width: 25px; height:25px;"><i class="iconClose">&nbsp;</i>
+            </button>
+            <button id="btnShowModule[0]" onclick="findVertices(qpanel);" style="width: 50%;">Module1</button>
+            <button id="btnRenameModule[0]" style="width: 32%;">Rename</button>
+            <button id="btnAddModule" onclick="copyCanvas('quiver','module[1]');" style="width: 97%">New module</button>
+        </div>
+    </fieldset>
+    <!--
+    <div id="relationtools" style="display: none;">
+        <fieldset id="fieldtools">
+            <legend>
+                <button id="btnToolsMenu"><i class="iconCollapse"></i>Tools</button>
+            </legend>
+            <div id="toolsMenu">
+                <button id="btnToolsEraser"><i class="iconEraser"></i>Erase</button>
+                <input type="button" class="commandbuttonx" id="btnaddrel" value="Edit mode"/>
+            </div>
+        </fieldset>
+        <fieldset id="fieldrelations">
+            <legend>
+                <button id="trallala"><i class="iconCollapse"></i>Relation</button>
+            </legend>
+            <input type="text" autocapitalize="off" name="relation" id="relation"/>
+            <input type="button" class="commandbuttoxn" id="btnrels" value="Add relation"/>
+        </fieldset>
+
+        <fieldset id="fielddata">
+            <legend>
+                <button id="btnData"><i class="iconCollapse"></i>Data</button>
+            </legend>
+            <ul>
+                <li>rel: a1*a2</li>
+            </ul>
+        </fieldset>
+
+        <fieldset id="fieldactions">
+            <legend>
+                <button id="btnActions"><i class="iconCollapse"></i>Actions</button>
+            </legend>
+            <select name="actionselect">
+                <option value="Quiver">Generate quiver</option>
+                <option value="Field">Add field to quiver</option>
+                <option value="FactorAlgebra">Generate factor algebra</option>
+                <option value="Dimension">Find dimension</option>
+                <option value="RadicalLayers">Find radical layers</option>
+            </select>
+
+            <form method="POST" action="http://stud.aitel.hist.no/~jsjakobs/gappost.php">
+                <input type="button" class="commandbuttonx" id="btnjson" value="Show JSON"/>
+                <textarea id="debug"></textarea>
+            </form>
+        </fieldset>
+    </div>           -->
+    <div id="quivertools">
+        <fieldset id="fieldtools">
+            <legend>
+                <button id="btnToolsMenu" onclick="menuToggle('toolsQMenu','icnToolsQ');">
+                    <i id="icnToolsQ" class="iconCollapse"></i>Tools
+                </button>
+            </legend>
+            <div id="toolsQMenu">
+                <button id="btnToolsEraser"><i class="iconEraser"></i>Erase</button>
+                <input type="button" class="commandbuttonx" id="btnaddrel" value="Edit mode"/>
+            </div>
+        </fieldset>
+        <fieldset id="fieldrelations">
+            <legend>
+                <button id="btnRelations" onclick="menuToggle('relationsMenu','icnRelations');">
+                    <i id="icnRelations" class="iconCollapse"></i>Relation
+                </button>
+            </legend>
+            <div id="relationsMenu">
+                <input style="margin-left: 2px; width: 110px; height:28px; float:left;" type="text" autocapitalize="off"
+                       name="relation" id="relation"/>
+                <button id="btnrels" style="width: 70px;"><i class="iconNew"></i>Add</button>
+            </div>
+        </fieldset>
+
+        <fieldset id="fielddata">
+            <legend>
+                <button id="btnData" onclick="menuToggle('dataMenu', 'icnData');">
+                    <i id="icnData" class="iconCollapse"></i>Data
+                </button>
+            </legend>
+            <div id="dataMenu">
+                <ul>
+                    
+                </ul>
+            </div>
+        </fieldset>
+
+        <fieldset id="fieldactions">
+            <legend>
+                <button id="btnActions" onclick="menuToggle('actionsMenu', 'icnActions');">
+                    <i id="icnActions" class="iconCollapse"></i>Actions
+                </button>
+            </legend>
+            <input type="button" id="btn_finddim" value="Finn dimensjon"/>
+            <form method="POST" action="http://localhost:8888/dump/">
+                <div id="actionsMenu">
+
+                    <select id="actionSelect" name="actionSelect"/>
+                    <button id="Calculate"></button>
+                    <input type="button" class="commandbuttonx" id="btnjson" value="Show JSON"/>
+                    <textarea id="debug" name="debug"></textarea>
+                    <input type="submit" value="dump" />
+                </div>
+            </form>
+        </fieldset>     <!--
+                            <button name='eskild' onclick='findVertices(qpanel);'>Eskild</button>
+                            -->
+    </div>
+</div>
+</div>
+
+
+<script type="text/javascript">
+    (function () {
+        menubuilder('actionsMenu', 'actionSelect', 'http://localhost:8888/exposeJSONP/');
+        var canvas = document.getElementById('qcanvas'),
+                context = canvas.getContext('2d');
+
+        // resize the canvas to fill browser window dynamically
+        window.addEventListener('resize', resizeCanvas, false);
+
+        function resizeCanvas() {
+            //alert("wiw: " + window.innerWidth + ", W: " + (window.innerWidth-sidepanel.offsetWidth) +
+            //      "wih: " + window.innerHeight + ", H: " + (window.innerHeight-commandpanel.offsetHeight));
+            // Hard-coded canvas offset, TODO
+            if (qpanel != null) {
+                qpanel.getCanvas().setHeight((window.innerHeight));
+                qpanel.getCanvas().setWidth((window.innerWidth - 205));
+            } else {
+                canvas.height = window.innerHeight;
+                canvas.width = window.innerWidth - (205);
+            }
+
+            /**
+             * Your drawings need to be inside this function otherwise they will be reset when
+             * you resize the browser window and the canvas goes will be cleared.
+             */
+            drawStuff();
+        }
+
+        resizeCanvas();
+
+        function drawStuff() {
+            // do your drawing stuff here
+        }
+    })();
+
+</script>
+</body>
+</html>

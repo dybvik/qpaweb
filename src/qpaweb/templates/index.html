@@ -1,27 +1,36 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>WebPGA - a bachelorproject</title>
-        <meta charset=UTF-8">
-        {% load staticfiles %}
-        <link rel="stylesheet" href="{% static 'css/default.css' %}" type="text/css" media="screen" />
-    </head>
-    <body>
-        <header>
-        	<h1>WebQPA</h1>
-            <h4>a bachelorproject at Høgskolen i Sør-Trøndelag</h4>
-        </header>
+{% extends "base.html" %}
 
-        <nav>
-        	Home : menu1 : menu2 : menu3
-        </nav>
+{% load i18n %}
+{% load staticfiles %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" type="text/css" media="screen" />
+{% endblock css %}
 
-        <article>
-        	Lorem ipsum oversatt til norsk. Denne siden er nødvendig for å legge inn en kommentar. Men temperaturen eros ettermiddag noen forbrytelse her, men bare starte. Tilbake til toppen latter er gratis, veranda eller i krydder, ikke ble funnet på børsten. Kontakt. Denne siden er nødvendig for å legge inn en kommentar. Skrevet i tabell nei. Før det er min store ergrelse ulike frakt. My funny og urbane og industrielle element. Kontakt din kundene hater. Hjemmeside er stygg, er ikke nødvendig. Som ennå, heller. Velkommen medlemmer, er latter på dekk, kan du kommentere for hat, men smerte er en lagringsplattform.
-        </article>
+{% block header %}
+	<h1>QPAWeb</h1>
+	<h3>{% trans 'Quivers and Paths algorithm graphical webinterface' %}</h3>
+{% endblock header %}
 
-        <footer>
-        	Bachelorgroup 34: Jakobsen, Kittelsen og Dybvik. License GPL 2, 2013
-        </footer>
-    </body>
-</html>
+{% block nav %}
+{% trans "Sign up" %} : {% trans "Help" %} : {% trans "About" %} 
+{% endblock nav %}
+
+{% block content %}
+ <form>
+        <p>
+            <label for="email">{% trans 'E-mail' %}:</label>
+            <input type="email" id="email" placeholder="name@domain.com" autocomplete="off" required>
+        </p>
+        <p>
+            <label for="passwd">{% trans 'Password' %}:</label>
+            <input type="password" id="passwd" required>
+        </p>
+        <p>
+        <input type="submit"  value="Login"> 
+        </p>    
+ </form>
+{% endblock content %}
+
+{% block footer %}
+Bachelorproject 34 - Jakobsen, Kittelsen og Dybvik. License GPL 2, 2013
+{% endblock footer %}
