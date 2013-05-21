@@ -320,7 +320,7 @@ class Dimension(qpawebd.gap.data):
 
     def fromGap(self, data):
         # String, because this function could return infinity
-        self.value = str(data)
+        self.value = str(data, "utf-8")
         self.onResult()
 
 class IndecProjectiveModules(qpawebd.gap.data):

@@ -1,6 +1,7 @@
 var qpanel = null;
 
 var jobs = new JobList();
+var updater = new Updater(jobs);
 
 window.onload = function () {
     var quiver = new Quiver();
@@ -78,7 +79,7 @@ window.onload = function () {
     var data = JSON.stringify(msg);
     $.ajax("http://158.38.57.12:1882/jobs", {
       type:"POST",
-      data:{job:data}, 
+      data:data, 
       crossDomain:true,
       contentType: "application/json; charset=utf-8",
       dataType: "json",
@@ -87,7 +88,7 @@ window.onload = function () {
         var njob = new Job(job);
         njob.id=data.job.id;
         jobs.add(njob);
-      }).always(function(){console.log("always");});
+      });
   });
 }
 

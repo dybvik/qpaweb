@@ -72,9 +72,9 @@ class JobWebHandler(tornado.web.RequestHandler):
 #        if qpawebd.settings.mode != "master":
 #            self.set_status(http.client.METHOD_NOT_ALLOWED)
 #            return
-        jobstring = self.get_argument("job")
+        jobstring = self.request.body# = self.get_argument("job")
         print(jobstring)
-        jobdata = json.loads(jobstring)
+        jobdata = json.loads(str(jobstring, "utf-8"))
 
         job = self.server.addJob(jobdata)
         if job:
@@ -87,6 +87,11 @@ class JobWebHandler(tornado.web.RequestHandler):
     def put(self):
         job = Job()
         
+    def options(self, d):
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.set_header("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+        self.set_header("Access-Control-Allow-Headers", "origin, x-csrftoken, content-type, accept")
+        self.write("")
 
 
 class JobServer():

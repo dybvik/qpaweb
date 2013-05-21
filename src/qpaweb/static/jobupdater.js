@@ -17,11 +17,10 @@ var Updater = function(joblist) {
           }
         }
       } else if(job.status == status.WAITING) {
-        that.waitTime = 1;
+        that.waitTime = 1000;
         that.poll();
       }
     });
-    job.setStatus(status.WAITING);
   });
 };
 
@@ -31,22 +30,26 @@ Updater.prototype.poll = function() {
     type:"GET",
     crossDomain: true,
     success: function(data,status) {
-      jobs_done = data.jobs_done;
+      var jobs_done = JSON.parse(data).jobs_done;
+      console.log(jobs_done);
+      console.log("HEI");
       _.each(that.joblist.jobs, function(val,key,list) {
-        if(val.status == status.WAITING && _.contains(jobs_done, val.id)) {
+        console.log("H: " + val.status + "==" + status.WAITING + ": " +  val.status == status.WAITING);
+        if(val.status === status.WAITING && jobs_done.indexOf(val.id) >= 0) {
+          console.log("ROCKET");
           $.ajax("http://158.38.57.12:1882/jobs/" + val.id, {
             type:"GET",
             crossDomain: true,
             success: function(data2, status2) {
-              console.log(data);
+              console.log("DATA" + data2);
             },
           });
         }
       });
 
   }});
-  setTimeout(this.poll, this.waitTime);
-  if(this.waitTime < 64) {
+  setTimeout(function() {that.poll()}, this.waitTime);
+  if(this.waitTime < 64000) {
     this.waitTime*=2;
   }
 }
