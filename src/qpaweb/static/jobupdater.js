@@ -25,7 +25,7 @@ var Updater = function(joblist) {
   });
 };
 
-Updater.prototype.poll() {
+Updater.prototype.poll = function() {
   var that = this;
   $.ajax("http://158.38.57.12:1882/jobs", {
     type:"GET",

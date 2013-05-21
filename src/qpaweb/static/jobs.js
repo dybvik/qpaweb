@@ -6,10 +6,10 @@ var Job = function(data) {
   this.data = data;
   this.id = 0;
   this.time_start = Date.now;
-  console.log("JOB!")
-};
+  console.log("JOB!");
+}
 
-Job.prototype.setStatus(newstatus) {
+Job.prototype.setStatus = function(newstatus) {
   var oldstatus = this.status;
   this.status = newstatus;
   $(this).trigger("status_change", oldstatus);
