@@ -1,6 +1,6 @@
 var qpanel = null;
 
-
+var jobs = new JobList();
 
 window.onload = function () {
     var quiver = new Quiver();
@@ -76,12 +76,18 @@ window.onload = function () {
     job.relations = rels;
     var msg = {job:job}
     var data = JSON.stringify(msg);
-    $.ajax("http://158.38.57.12:1882/jobs", {type:"post",
-                                   data:{job:data}, 
-                                   crossDomain:true,
-                                   contentType: "application/json; charset=utf-8",
-                                   dataType: "json"})
-    .fail(function(x,s){console.log(s);});
+    $.ajax("http://158.38.57.12:1882/jobs", {
+      type:"POST",
+      data:{job:data}, 
+      crossDomain:true,
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      }).done(function(data, status, xh){
+        console.log("Success!");
+        var njob = new Job(job);
+        njob.id=data.job.id;
+        jobs.add(njob);
+      }).always(function(){console.log("always");});
   });
 }
 

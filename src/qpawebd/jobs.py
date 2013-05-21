@@ -42,6 +42,7 @@ class JobWebHandler(tornado.web.RequestHandler):
         
     def get(self, jobid):
         print("GET")
+        self.set_header("Access-Control-Allow-Origin", "*")
         if not jobid:
             jobs_done = []
             jobs = []
@@ -77,7 +78,11 @@ class JobWebHandler(tornado.web.RequestHandler):
 
         job = self.server.addJob(jobdata)
         if job:
-            self.write(json.dumps(job.data))
+            output = {}
+            output["job"] =  job.data;
+            self.write(output)
+        self.set_header("Content-Type", "text/json");
+        self.set_header("Access-Control-Allow-Origin", "*")
 
     def put(self):
         job = Job()
