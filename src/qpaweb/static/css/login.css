@@ -1,14 +1,17 @@
 #wrapper {
     width: 500px;
-    background-color: lightgray;
+    
+    margin: auto;
 }
 
 header {
     text-align: center;
+    padding: 40px;
 }
 
 nav {
-	
+	text-align: center;
+	padding: 20px;
 }
 
 nav li {
@@ -17,7 +20,9 @@ nav li {
 }
 
 article {
-	
+	text-align: center;
+	padding: 50px;
+	margin: auto;
 }
 
 footer {

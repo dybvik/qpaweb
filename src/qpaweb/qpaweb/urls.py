@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     # Examples:
     url(r'^dev/$', TemplateView.as_view(template_name="index.html")),
     url(r'^helloworld/$', TemplateView.as_view(template_name="helloworld.html")),
+    url(r'^test/$', TemplateView.as_view(template_name="quiver.html")),
     # url(r'^$', 'qpaweb.views.home', name='home'),
     # url(r'^qpaweb/', include('qpaweb.foo.urls')),
 
