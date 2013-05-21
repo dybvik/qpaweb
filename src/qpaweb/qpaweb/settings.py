@@ -2,7 +2,7 @@
 
 import os
 
-SITE_ROOTDIR = os.path.join(os.path.dirname(__file__), '..')
+SITE_ROOTDIR = os.path.join(os.path.dirname(os.path.realpath(__file__)), '..')
 
 
 DEBUG = True
@@ -71,7 +71,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = '/static/'
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"
@@ -104,9 +104,9 @@ TEMPLATE_LOADERS = (
 )
 
 MIDDLEWARE_CLASSES = (
-	'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -128,7 +128,7 @@ TEMPLATE_DIRS = (
 )
 
 LOCALE_PATHS = (
-    os.path.join(SITE_ROOTDIR, 'locale')
+    os.path.join(SITE_ROOTDIR, 'locale'),
 )
 
 
