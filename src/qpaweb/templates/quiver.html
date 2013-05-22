@@ -71,12 +71,12 @@
         </legend>
         <div id="workspaceMenu">
             <button id="btnShowQuiver" onclick="displayCanvas('quiver');" style="width: 64%;">Quiver</button>
-            <button id="btnRenameQuiver" style="width: 32%;">Rename</button>
-            <button id="btnRenameDeleteModule[0]" style="width: 25px; height:25px;"><i class="iconClose">&nbsp;</i>
-            </button>
-            <button id="btnShowModule[0]" onclick="findVertices(qpanel);" style="width: 50%;">Module1</button>
-            <button id="btnRenameModule[0]" style="width: 32%;">Rename</button>
-            <button id="btnAddModule" onclick="copyCanvas('quiver','module[1]');" style="width: 97%">New module</button>
+            <!-- <button id="btnRenameQuiver" style="width: 32%;">Rename</button> -->
+            <!-- <button id="btnRenameDeleteModule[0]" style="width: 25px; height:25px;"><i class="iconClose">&nbsp;</i>
+            </button>                                                                          -->
+            <!-- <button id="btnShowModule[0]" onclick="findVertices(qpanel);" style="width: 50%;">Module1</button> -->
+            <!-- <button id="btnRenameModule[0]" style="width: 32%;">Rename</button> -->
+            <!-- <button id="btnAddModule" onclick="copyCanvas('quiver','module[1]');" style="width: 97%">New module</button> -->
         </div>
     </fieldset>
     <!--
@@ -133,8 +133,8 @@
                 </button>
             </legend>
             <div id="toolsQMenu">
-                <button id="btnToolsEraser"><i class="iconEraser"></i>Erase</button>
-                <input type="button" class="commandbuttonx" id="btnaddrel" value="Edit mode"/>
+                <button id="btnToolsEraser"><i class="iconEraser"></i>Erase</button>   <!--
+                <input type="button" class="commandbuttonx" id="btnaddrel" value="Edit mode"/> -->
             </div>
         </fieldset>
         <fieldset id="fieldrelations">
@@ -169,15 +169,15 @@
                     <i id="icnActions" class="iconCollapse"></i>Actions
                 </button>
             </legend>
-            <input type="button" id="btn_finddim" value="Finn dimensjon"/>
+            <input type="button" id="btn_finddim" value="Find dimension (Rationals)"/>
             <form method="POST" action="http://localhost:8888/dump/">
-                <div id="actionsMenu">
+                <div id="actionsMenu"><!--
 
                     <select id="actionSelect" name="actionSelect"/>
                     <button id="Calculate"></button>
                     <input type="button" class="commandbuttonx" id="btnjson" value="Show JSON"/>
                     <textarea id="debug" name="debug"></textarea>
-                    <input type="submit" value="dump" />
+                    <input type="submit" value="dump" /> -->
                 </div>
             </form>
         </fieldset>     <!--
