@@ -1,35 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Quivertest</title>
-    <script src="lib/fabric.js/all.min.js"></script>
-    <script src="lib/jquery-1.9.1.js"></script>
-    <script src="jquery-ui-1.10.3.custom.min.js"></script>
-    <script src="lib/underscore.js"></script>
-    <script src="namegenerator.js"></script>
-    <script src="relations.js"></script>
-    <script src="relationpanel.js"></script>
-    <script src="quiver.js"></script>
-    <script src="jobs.js"></script>
-    <script src="jobupdater.js"></script>
-    <script src="resultpanel.js"></script>
-    <script src="quiverpanel.js"></script>
-    <script src="createquivermode.js"></script>
-    <script src="createmodeclassic.js"></script>
-    <script src="menutoggle.js"></script>
-    <script src="menubuilder.js"></script>
-    <script src="modulematrices.js"></script>
+{% extends "base2.html" %}
+
+<title>Quivertest</title>
 
 
-    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    {% load staticfiles %}
+    {% block script %}
+    <script src="{% static 'lib/fabric.js/all.min.js' %}"></script>
+    <script src="{% static 'lib/jquery-1.9.1.js' %}"></script>
+    <script src="{% static 'jquery-ui-1.10.3.custom.min.js' %}"></script>
+    <script src="{% static 'lib/underscore.js' %}"></script>
+    <script src="{% static 'namegenerator.js' %}"></script>
+    <script src="{% static 'relations.js' %}"></script>
+    <script src="{% static 'relationpanel.js' %}"></script>
+    <script src="{% static 'quiver.js' %}"></script>
+    <script src="{% static 'jobs.js' %}"></script>
+    <script src="{% static 'jobupdater.js' %}"></script>
+    <script src="{% static 'resultpanel.js' %}"></script>
+    <script src="{% static 'quiverpanel.js' %}"></script>
+    <script src="{% static 'createquivermode.js' %}"></script>
+    <script src="{% static 'createmodeclassic.js' %}"></script>
+    <script src="{% static 'menutoggle.js' %}"></script>
+    <script src="{% static 'menubuilder.js' %}"></script>
+    <script src="{% static 'modulematrices.js' %}"></script>
+    <script src="{% static 'erasemode.js' %}"></script>
+    {% endblock script %}
 
-    <link rel="stylesheet" href="css/thakulf.css">
-    <link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.10.3.custom.min.css">
-</head>
 
+	
+    {% block css %}
+    <link rel="stylesheet" href="{% static 'css/thakulf.css' %}">
+    <link rel="stylesheet" href="{% static 'css/ui-lightness/jquery-ui-1.10.3.custom.min.css' %}">
+    {% endblock css %}
 
-
+{% block body %}
 <body id="mainbody">
 <div id="leftpanel">
 <canvas id="qcanvas">
@@ -222,4 +225,5 @@
 
 </script>
 </body>
+{% endblock body %}
 </html>

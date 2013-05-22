@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-21 19:12+0200\n"
+"POT-Creation-Date: 2013-05-22 11:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,26 +17,51 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: templates/index.html:11
+#: templates/about.html:9 templates/help.html:8 templates/index.html:11
+#: templates/signup.html:12
 msgid "Quivers and Paths algorithm graphical webinterface"
 msgstr "Grafisk grensesnitt for kogger og veialgebra"
 
-#: templates/index.html:15
+#: templates/about.html:13
+msgid "About us"
+msgstr "Om oss"
+
+#: templates/base.html:32
+msgid "Home"
+msgstr ""
+
+#: templates/base.html:33
 msgid "Sign up"
 msgstr "Registrer deg"
 
-#: templates/index.html:15
+#: templates/base.html:34 templates/help.html:12
 msgid "Help"
 msgstr "Hjelp"
 
-#: templates/index.html:15
+#: templates/base.html:35
 msgid "About"
 msgstr "Om oss"
 
-#: templates/index.html:21
+#: templates/index.html:18 templates/signup.html:20
 msgid "E-mail"
 msgstr "E-post"
 
-#: templates/index.html:25
+#: templates/index.html:22 templates/signup.html:32
 msgid "Password"
 msgstr "Passord"
+
+#: templates/signup.html:16
+msgid "Register new user"
+msgstr "Registrer ny bruker"
+
+#: templates/signup.html:24
+msgid "Firstname"
+msgstr "Fornavn"
+
+#: templates/signup.html:28
+msgid "Lastname"
+msgstr "Etternavn"
+
+#: templates/signup.html:36
+msgid "Retype password"
+msgstr "Gjenta passord"
