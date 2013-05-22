@@ -29,12 +29,10 @@
 <nav>
     {% block nav %}
         <ul>
-            <li>Home</li>
-            <li> : menu1</li>
-            <li> : menu2</li>
-            <li> : menu3</li>
-            <li> <input type="button" id="btncreatemode" value="Add Quivers"/></li>
-            <li> <input type="button" id="btncreatemodeclassic" value="Add Quivers Classic"/></li>
+            <li><a href="{% url "index" %}" >{% trans "Home" %}</a></li>
+            <li> : <a href="{% url "signup" %}" >{% trans "Sign up" %}</a></li>
+            <li> : <a href="{% url "help" %}" >{% trans "Help" %}</a></li>
+            <li> : <a href="{% url "about" %}" >{% trans "About" %}</a></li>
         </ul>
     {% endblock nav %}
 </nav>

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+{% load staticfiles %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}" type="text/css" media="screen" />
+{% endblock css %}
+
+{% block header %}
+	<h1>QPAWeb</h1>
+	<h3>{% trans 'Quivers and Paths algorithm graphical webinterface' %}</h3>
+{% endblock header %}
+
+{% block content %}
+ <h2>{% trans 'About us' %}</h2>
+ 
+ <p>About us, lipsum lorum lei.</p>
+ 
+{% endblock content %}
+
+{% block footer %}
+
+{% endblock footer %}
