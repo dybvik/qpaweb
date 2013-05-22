@@ -14,6 +14,9 @@ window.onload = function () {
   document.getElementById("btnToolsEraser").onclick = function(e) {
     qpanel.setMode(qpanel.eraseMode);
   }
+  document.getElementById("btnShowQuiver").onclick = function(e) {
+    qpanel.setMode(qpanel.createModeClassic);
+  }
   document.getElementById("btnjson").onclick = function (e) {
 
     var jsn = JSON.stringify(quiver, function(key, val) {
