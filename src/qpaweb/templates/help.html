@@ -2,9 +2,6 @@
 
 {% load i18n %}
 {% load staticfiles %}
-{% block css %}
-    <link rel="stylesheet" href="{% static 'css/login.css' %}" type="text/css" media="screen" />
-{% endblock css %}
 
 {% block header %}
 	<h1>QPAWeb</h1>
@@ -14,7 +11,8 @@
 {% block content %}
  <h2>{% trans 'Help' %}</h2>
  
- <p>Instruction / Manual, FAQ, help.</p>
+ <p>Instruction / Manual with screenshots and text about how to use QPAQweb.</p>
+ <p>FAQ - Frequently Asked Questions</p>
  
 {% endblock content %}
 

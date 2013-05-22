@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-21 17:12+0200\n"
+"POT-Creation-Date: 2013-05-22 11:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,26 +17,51 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: templates/index.html:11
+#: templates/about.html:9 templates/help.html:8 templates/index.html:11
+#: templates/signup.html:12
 msgid "Quivers and Paths algorithm graphical webinterface"
 msgstr ""
 
-#: templates/index.html:15
+#: templates/about.html:13
+msgid "About us"
+msgstr "Über uns"
+
+#: templates/base.html:32
+msgid "Home"
+msgstr "Zuhause"
+
+#: templates/base.html:33
 msgid "Sign up"
-msgstr ""
+msgstr "Anmelden"
 
-#: templates/index.html:15
+#: templates/base.html:34 templates/help.html:12
 msgid "Help"
-msgstr ""
+msgstr "Hilfe"
 
-#: templates/index.html:15
+#: templates/base.html:35
 msgid "About"
-msgstr ""
+msgstr "Über"
 
-#: templates/index.html:21
+#: templates/index.html:18 templates/signup.html:20
 msgid "E-mail"
 msgstr ""
 
-#: templates/index.html:25
+#: templates/index.html:22 templates/signup.html:32
 msgid "Password"
-msgstr ""
+msgstr "Kennwort"
+
+#: templates/signup.html:16
+msgid "Register new user"
+msgstr "Neuen Benutzer anmelden"
+
+#: templates/signup.html:24
+msgid "Firstname"
+msgstr "Vorname"
+
+#: templates/signup.html:28
+msgid "Lastname"
+msgstr "Nachname"
+
+#: templates/signup.html:36
+msgid "Retype password"
+msgstr "Passwort wiederholen"

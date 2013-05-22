@@ -2,9 +2,7 @@
 
 {% load i18n %}
 {% load staticfiles %}
-{% block css %}
-    <link rel="stylesheet" href="{% static 'css/login.css' %}" type="text/css" media="screen" />
-{% endblock css %}
+
 
 {% block header %}
 	<h1>QPAWeb</h1>
@@ -14,7 +12,13 @@
 {% block content %}
  <h2>{% trans 'About us' %}</h2>
  
- <p>About us, lipsum lorum lei.</p>
+ <p>QPAWeb was developed as a bachelor project by a group students at <a href="http://www.hist.no/" target="blank">Høgskolen I Sør-Trøndelag (HiST)</a>. The members of the group are Ole Gunnar Dybvik, Jon Severin Eivik Jakobsen and Eskild André Kittelsen. They are graduating with BSC computerengineers with specializations in software engineering (Ole) and network architeture and design (Jon and Eskild).</p>
+ 
+ <p>Abstract from the present of the project at <a href="http://www.aitel.hist.no/prosjekter/hovedprosjekt/v2013/Oppgaver/34/034.html" target="blank">hist.no</a></p>
+ 
+<blockquote><em>We have developed a graphical web interface for the program package QPA. QPA is a program for doing calculations with quivers and paths algebras. The web application lets the user draw quivers and paths instead of textual inputs in a command line interface. Input from the user is cached and sent to a daemon which translates the data to GAP-code that uses QPA, and fetches the results which in turn is presented for the user.</em></blockquote>
+
+<p>During the whole process a big part of the focus was to make the code easy to maintain and develop further by a third party. Hopefully this product will continue to evolve under a third party, and be activley used by mathmaticians and students in the future.</p>
  
 {% endblock content %}
 

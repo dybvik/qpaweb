@@ -1,18 +1,13 @@
-body {
-	//background: #ddd;
-}
 
 
 #wrapper {
-    width: 600px;
-    background: #fff;
+    width: 500px;
     margin: auto;
 }
 
 header {
     text-align: center;
     padding: 40px;
-    background: 
 }
 
 nav {
@@ -26,9 +21,12 @@ nav li {
 }
 
 article {
-	text-align: center;
 	padding: 10px;
 	margin: auto;
+}
+
+article h2 {
+	text-align: center;
 }
 
 footer {
