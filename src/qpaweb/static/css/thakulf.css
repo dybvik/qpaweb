@@ -209,3 +209,6 @@ legend button {
 #finddim-diag {
     background-color: white;
 }
+#resultout {
+    resize:none;
+}

@@ -11,6 +11,9 @@ window.onload = function () {
     /*document.getElementById("btncreatemode").onclick = function (e) {
         qpanel.setMode(qpanel.createMode);
     }*/
+  document.getElementById("btnToolsEraser").onclick = function(e) {
+    qpanel.setMode(qpanel.eraseMode);
+  }
   document.getElementById("btnjson").onclick = function (e) {
 
     var jsn = JSON.stringify(quiver, function(key, val) {
@@ -105,6 +108,7 @@ function quiverPanel(id, quiver) {
   
   this.createMode = new CreateQuiverMode(this);
   this.createModeClassic = new CreateModeClassic(this);
+  this.eraseMode = new EraseMode(this);
   
   this.vertexNamer = new NumberNameGenerator(quiver);
   this.arrowNamer = new AlfabetNameGenerator(quiver);
@@ -146,8 +150,9 @@ function quiverPanel(id, quiver) {
             delete that.vertices[item.name];
         }
         else if (item instanceof Arrow) {
-            that.canvas.remove(that.arrows[item.name]);
-            delete that.arrows[item.name];
+          console.log("remove arrow");
+          that.canvas.remove(that.arrows[item.name]);
+          delete that.arrows[item.name];
         }
     });
 

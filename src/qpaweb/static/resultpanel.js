@@ -33,8 +33,7 @@ ResultPanel.prototype.rebuildList = function() {
   _.each(done, function(job) {
 
     var date = new Date(job.time_start);
-    console.log("DONE ADD TO RP " + $(that.element).val() + date.toLocaleString()+" " + job.command + ": " + job.result+"<br>");
-   $(that.element).val($(that.element).val() + date.toLocaleString()+" " + job.command + ": " + job.result+"\n");
+   $(that.element).val("<" + $(that.element).val() + date.toLocaleString()+"> " + job.command + ": " + job.result+"\n");
   });
 };
 

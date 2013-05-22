@@ -64,6 +64,18 @@ Quiver.prototype.remove = function(item) {
   if(typeof item.type == "undefined" || this._types.indexOf(item.type) == -1 || item._quiver != this) {
     return;
   }
+  if(item instanceof Vertex) {
+    for(var i = item.arrows.length-1; i >=0;i--) {
+      var other = (item.arrows[i].source == this?item.arrows[i].target:item.arrows[i].source);
+      for(var j = other.arrows.length-1; j >= 0;j--) {
+        if(other.arrows[j] == this) {
+          other.arrows.splice(j,1);
+        }
+      }
+      this.remove(item.arrows[i]);
+    }
+    
+  }
   delete item._quiver;
   delete this.items[item.name];
   $(this).trigger("remove_item", [item]);
