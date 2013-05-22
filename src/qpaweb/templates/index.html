@@ -12,7 +12,7 @@
 {% endblock header %}
 
 {% block nav %}
-{% trans "Sign up" %} : {% trans "Help" %} : {% trans "About" %} 
+<a href="{% url signup %}" >{% trans "Sign up" %}</a> : <a href="{% url help %}" >{% trans "Help" %}</a> : <a href="{% url about %}" >{% trans "About" %}</a> 
 {% endblock nav %}
 
 {% block content %}
@@ -32,5 +32,5 @@
 {% endblock content %}
 
 {% block footer %}
-Bachelorproject 34 - Jakobsen, Kittelsen og Dybvik. License GPL 2, 2013
+
 {% endblock footer %}
