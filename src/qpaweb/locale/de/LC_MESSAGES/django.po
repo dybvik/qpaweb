@@ -20,7 +20,7 @@ msgstr ""
 #: templates/about.html:9 templates/help.html:8 templates/index.html:11
 #: templates/signup.html:12
 msgid "Quivers and Paths algorithm graphical webinterface"
-msgstr ""
+msgstr "Köcher und Pfade Algorithmus grafische Web-Schnittstelle"
 
 #: templates/about.html:13
 msgid "About us"

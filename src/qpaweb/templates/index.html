@@ -16,16 +16,16 @@
  <form>
         <p>
             <label for="email">{% trans 'E-mail' %}:</label>
-            <input type="email" id="email" placeholder="name@domain.com" autocomplete="off" required>
+            <input type="email" id="email" placeholder="guest@example.com" autocomplete="off" required>
         </p>
         <p>
             <label for="passwd">{% trans 'Password' %}:</label>
-            <input type="password" id="passwd" required>
-        </p>
-        <p>
-        <input type="submit"  value="Login"> 
-        </p>    
+            <input type="password" id="passwd" placeholder="guest" required>
+        </p> 
  </form>
+		<p>
+        <input type="submit" value="Login" onclick='window.location.href="{% url "quiver" %}"'>
+        </p> 
 {% endblock content %}
 
 {% block footer %}

@@ -1,0 +1,27 @@
+{% load i18n %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}QPAWeb - a bachelorproject{% endblock title %}</title>
+    <meta charset="UTF-8">
+    
+    {% load staticfiles %}
+    
+    {% block script %}
+    {% endblock script %}
+    
+    {% block css %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" type="text/css" media="screen" />
+    {% endblock css %}
+</head>
+
+{% block body %}
+<body>
+
+
+
+
+</body>
+{% endblock body %}
+</html>
