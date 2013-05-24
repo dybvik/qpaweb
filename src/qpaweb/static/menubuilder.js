@@ -3,11 +3,12 @@
  * set, capabilities below is run (jsonpCallback). JSONP is used instead of JSON because of cross site security issues
  * @param parent
  * @param action
- * @param exposeurl Daemon Expose URL, usually /ExposeJSONP, see/set in /qpawebd/main.py
+ * @param exposeurl Daemon Expose URL, usually /ExposeJSONP, see/set it in /qpawebd/main.py
  */
 function menubuilder(parent, action, exposeurl) {
     // actionSelect and actionsMenu hard coded
     // lacks proper error handling
+    // will fix later
     $.ajax({
         url: exposeurl,
         type: "GET",
@@ -97,7 +98,5 @@ function capabilities(json) {
  * @returns {string} String in the format thekey
  */
 function removequotes(input) {
-    var cleaned;
-    cleaned = input.substring(1, input.length - 1);
-    return cleaned;
+    return input.substring(1, input.length - 1);
 }
