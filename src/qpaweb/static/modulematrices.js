@@ -3,7 +3,10 @@ var modules = [];
 function newModule() {
 
 }
-
+/**
+ * Discarded version of arrow matrices, draws input fields over the canvas. This javascript is not in use.
+ * @param quiver Canvas to get Cartesian coordinates for input fields for
+ */
 function findVertices(quiver) {
     var x1;
     var x2;

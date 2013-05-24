@@ -4,7 +4,11 @@
 <html>
 <head>
     <title>{% block title %}QPAWeb - a bachelorproject{% endblock title %}</title>
+    <!-- UTF 8, because ISO-xxxx-x is so 1990es -->
     <meta charset="UTF-8">
+    <!-- For full screen web app support on iOS devices. Rumors about support for the tag on Android devices too.
+         Don't remove! -->
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
     
     {% load staticfiles %}
     

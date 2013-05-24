@@ -1,4 +1,8 @@
-
+/**
+ * "Touch friendly" Quiver drawing code
+ * @param qc The canvas area to switch mode for
+ * @constructor
+ */
 var CreateQuiverMode = function(qc) {
   this.canvas = qc.getCanvas();
   this.panel = qc;

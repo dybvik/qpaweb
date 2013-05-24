@@ -1,4 +1,8 @@
-
+/**
+ * Classic creation mode (inspired from 2012 project / Quivers2.0.jar)
+ * @param qc The canvas area to switch mode for
+ * @constructor
+ */
 var CreateModeClassic = function(qc) {
   this.canvas = qc.getCanvas();
   this.panel = qc;

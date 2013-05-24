@@ -1,3 +1,10 @@
+/**
+ * Loader for dynamically generated menus reflecting the capability of the daemon. If successful in loading capability
+ * set, capabilities below is run (jsonpCallback). JSONP is used instead of JSON because of cross site security issues
+ * @param parent
+ * @param action
+ * @param exposeurl Daemon Expose URL, usually /ExposeJSONP, see/set in /qpawebd/main.py
+ */
 function menubuilder(parent, action, exposeurl) {
     // actionSelect and actionsMenu hard coded
     // lacks proper error handling
@@ -8,7 +15,11 @@ function menubuilder(parent, action, exposeurl) {
         jsonpCallback: "capabilities"
     });
 };
-
+/**
+ * Builds valid command menus with extra input fields as described in menubuilder. Loads and returns menu elements
+ * if menubuilder successfully loads the daemon exposed capabilities. This is the return method of menubuilder.
+ * @param json JSON formatted data returned from menubuilder
+ */
 function capabilities(json) {
     var tmp;
     var menuname;
@@ -79,6 +90,12 @@ function capabilities(json) {
         });
     }
 }
+
+/**
+ * Bad hack for removing eventual double quotes from key fields
+ * @param input String in the format "thekey"
+ * @returns {string} String in the format thekey
+ */
 function removequotes(input) {
     var cleaned;
     cleaned = input.substring(1, input.length - 1);

@@ -1,3 +1,8 @@
+/**
+ * Provides functionality for showing / hiding palette menus. Could probably be used for other stuff, too.
+ * @param elementToHide ID of palette menu element
+ * @param iconToChange ID of palette menu show / hide icon
+ */
 function menuToggle(elementToHide, iconToChange) {
   if (document.getElementById(elementToHide)) {
       if (document.getElementById(elementToHide).style.display=='block' ||
