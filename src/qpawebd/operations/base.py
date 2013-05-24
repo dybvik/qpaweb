@@ -95,6 +95,100 @@ class Quiver(qpawebd.gap.data):
     def hasVertex(self, vertexName):
         return vertexName in self.quiver["vertices"]
 
+## Path Algebra class
+# As path algebras don't return anything useful, this class only has a constructor and a conversion to GAP code,
+# not the other way around.
+# Debug: Class status by last revision: Class functions as it should.
+class PathAlgebra(qpawebd.gap.data):
+    ## Constructor.
+    # @name Path algebra name... Should be dynamic, God knows if it is in commands.py.
+    # @quiver The name of the quiver, previously defined (this is Sparta!) (No this is Patrick) (Anyway, it's the
+    # the quiver name.
+    # @field Field type (if galois then with (valid?) strange numbers.
+    # TODO: Only built for Rationals, let's make Galois supported! HAU RUCK. Also the comments above are retarded.
+    def __init__(self, name, field, quiver):
+        self.name = name
+        self.field = field
+        self.quiver = quiver
+
+    ## I guess you get the drift
+    # TODO: Replace the above comment with something useful
+    def toGap(self, gap):
+        name = self.name
+        gapstr = "".join([name, " := PathAlgebra(", self.field, ", ", self.quiver, ");"])
+        gap.write(gapstr)
+
+## Quotient Algebra class
+# As with path algebras, GAP doesn't return anything useful, this class only has a constructor and a conversion to
+# GAP code, not the other way around.
+# Debug: Class status by last revision: Class functions as it should.
+class QuotAlgebra(qpawebd.gap.data):
+    ## Copypaste constructor shit
+    # TODO: Replace shit with actual useful info
+    def __init__(self, name, pathAlg, relations):
+        self.name = name
+        self.pathAlg = pathAlg
+        self.relations = relations
+
+    ## Copypaste toGap shit
+    # TODO: Replace shit with actual useful info
+    def toGap(self, gap):
+        gapstr = "".join([self.name, " := ", self.pathAlg, "/", self.relations, ";"])
+        gap.write(gapstr, self.fromGap)
+
+    ## Copypaste fromGap shit
+    # TODO: Replace shit with actual useful info
+    def fromGap(self, data):
+        pass
+
+## Relations class
+# As with path algebras, GAP doesn't return anything useful, this class only has a constructor and a conversion to
+# GAP code, not the other way around.
+# Debug: Class status by last revision: Class functions as it should.
+class Relations(qpawebd.gap.data):
+    ## Copypaste constructor shit
+    # TODO: Replace shit with actual useful info
+    def __init__(self, name, pathAlg, relations):
+        self.name = name
+        self.pathAlg = pathAlg
+        self.relations = relations
+
+    ## Copypaste toGap shit
+    # TODO: Replace shit with actual useful info
+    def toGap(self, gap):
+        gaplist = [self.name, ":=", "["]
+        for rel in self.relations:
+            print("REL: " + rel)
+            for r in  re.finditer(r"[0-9]+((\.\d+)|(/\d+))?|\*|\+|\-|\^|[a-zA-Z]([a-zA-Z0-9]+)?", rel):
+                print("R: "+r.group(0))
+                if re.match(r"[a-zA-Z]([a-zA-Z0-9]+)?$", r.group(0)):
+                    gaplist.extend([self.pathAlg, "."])
+                gaplist.append(r.group(0))
+            gaplist.append(", ")
+        gaplist.append("];")
+        gap.write("".join(gaplist))
+
+## Dimension class
+# Debug: Class status by last revision: Class functions as it should.
+class Dimension(qpawebd.gap.data):
+    ## Copypaste constructor shit
+    # TODO: Replace shit with actual useful info
+    def __init__(self, name, quotalg):
+        self.name = name
+        self.quotalg = quotalg
+
+    ## Copypaste toGap shit
+    # TODO: Replace shit with actual useful info
+    def toGap(self, gap):
+        gap.write("".join([self.name, ":=Dimension(", self.quotalg, ");"]), self.fromGap)
+
+    ## Copypaste fromGap shit
+    # TODO: Replace shit with actual useful info
+    def fromGap(self, data):
+        # String, because this function could return infinity
+        self.value = str(data, "utf-8")
+        self.onResult()
+
 ## SimpleModule class.
 # TODO: I haven't got a clue what this is.
 # Debug: Class status by last revision: Class is a copy-paste of Quiver and doesn't do much, yet.
@@ -304,100 +398,6 @@ class GaloisField(qpawebd.gap.Field):
         jsonschema.validate(field, self.schema)
         return True
 
-## Path Algebra class
-# As path algebras don't return anything useful, this class only has a constructor and a conversion to GAP code,
-# not the other way around.
-# Debug: Class status by last revision: Class functions as it should.
-class PathAlgebra(qpawebd.gap.data):
-    ## Constructor.
-    # @name Path algebra name... Should be dynamic, God knows if it is in commands.py.
-    # @quiver The name of the quiver, previously defined (this is Sparta!) (No this is Patrick) (Anyway, it's the
-    # the quiver name.
-    # @field Field type (if galois then with (valid?) strange numbers.
-    # TODO: Only built for Rationals, let's make Galois supported! HAU RUCK. Also the comments above are retarded.
-    def __init__(self, name, field, quiver):
-        self.name = name
-        self.field = field
-        self.quiver = quiver
-
-    ## I guess you get the drift
-    # TODO: Replace the above comment with something useful
-    def toGap(self, gap):
-        name = self.name
-        gapstr = "".join([name, " := PathAlgebra(", self.field, ", ", self.quiver, ");"])
-        gap.write(gapstr)
-
-## Quotient Algebra class
-# As with path algebras, GAP doesn't return anything useful, this class only has a constructor and a conversion to
-# GAP code, not the other way around.
-# Debug: Class status by last revision: Class functions as it should.
-class QuotAlgebra(qpawebd.gap.data):
-    ## Copypaste constructor shit
-    # TODO: Replace shit with actual useful info
-    def __init__(self, name, pathAlg, relations):
-        self.name = name
-        self.pathAlg = pathAlg
-        self.relations = relations
-
-    ## Copypaste toGap shit
-    # TODO: Replace shit with actual useful info
-    def toGap(self, gap):
-        gapstr = "".join([self.name, " := ", self.pathAlg, "/", self.relations, ";"])
-        gap.write(gapstr, self.fromGap)
-
-    ## Copypaste fromGap shit
-    # TODO: Replace shit with actual useful info
-    def fromGap(self, data):
-        pass
-
-## Relations class
-# As with path algebras, GAP doesn't return anything useful, this class only has a constructor and a conversion to
-# GAP code, not the other way around.
-# Debug: Class status by last revision: Class functions as it should.
-class Relations(qpawebd.gap.data):
-    ## Copypaste constructor shit
-    # TODO: Replace shit with actual useful info
-    def __init__(self, name, pathAlg, relations):
-        self.name = name
-        self.pathAlg = pathAlg
-        self.relations = relations
-
-    ## Copypaste toGap shit
-    # TODO: Replace shit with actual useful info
-    def toGap(self, gap):
-        gaplist = [self.name, ":=", "["]
-        for rel in self.relations:
-            print("REL: " + rel)
-            for r in  re.finditer(r"[0-9]+((\.\d+)|(/\d+))?|\*|\+|\-|\^|[a-zA-Z]([a-zA-Z0-9]+)?", rel):
-                print("R: "+r.group(0))
-                if re.match(r"[a-zA-Z]([a-zA-Z0-9]+)?$", r.group(0)):
-                    gaplist.extend([self.pathAlg, "."])
-                gaplist.append(r.group(0))
-            gaplist.append(", ")
-        gaplist.append("];")
-        gap.write("".join(gaplist))
-
-## Dimension class
-# Debug: Class status by last revision: Class functions as it should.
-class Dimension(qpawebd.gap.data):
-    ## Copypaste constructor shit
-    # TODO: Replace shit with actual useful info
-    def __init__(self, name, quotalg):
-        self.name = name
-        self.quotalg = quotalg
-
-    ## Copypaste toGap shit
-    # TODO: Replace shit with actual useful info
-    def toGap(self, gap):
-        gap.write("".join([self.name, ":=Dimension(", self.quotalg, ");"]), self.fromGap)
-
-    ## Copypaste fromGap shit
-    # TODO: Replace shit with actual useful info
-    def fromGap(self, data):
-        # String, because this function could return infinity
-        self.value = str(data, "utf-8")
-        self.onResult()
-
 ## Indec[..] module class
 # TODO: Fix it so it works
 # Debug: Class status by last revision: Class is a copy paste of Rationals and doesn't do much, yet.
@@ -406,10 +406,10 @@ class IndecProjectiveModules(qpawebd.gap.data):
     def __init__(self, name, quotalg):
         self.name = name
         self.quotalg = quotalg
-    # ETC
+        # ETC
     def toGap(self, gap):
         gap.write("".join([self.name, ":=IndecProjectiveModules(", self.quotalg, ");"]), self.fromGap)
-    # ETC
+        # ETC
     def fromGap(self, data):
         self.value = str(data)
         self.onResult()
@@ -419,17 +419,19 @@ class IndecProjectiveModules(qpawebd.gap.data):
 # Debug: Class status by last revision: Class is a copy paste of Rationals and doesn't do much, yet.
 class RadicalSeries(qpawebd.gap.data):
 
-        def __init__(self, name, indproj, vertexIndex):
-            self.name = name
-            self.indproj = indproj
-            self.vertexIndex = vertexIndex
+    def __init__(self, name, indproj, vertexIndex):
+        self.name = name
+        self.indproj = indproj
+        self.vertexIndex = vertexIndex
 
-        def toGap(self, gap):
-            gap.write("".join([self.name, self.vertexIndex,":=RadicalSeries(", self.indproj,"[",self.vertexIndex,"]", ");"]), self.fromGap)
+    def toGap(self, gap):
+        gap.write("".join([self.name, self.vertexIndex,":=RadicalSeries(", self.indproj,"[",self.vertexIndex,"]", ");"]), self.fromGap)
 
-        def fromGap(self, data):
-            self.value = str(data)
-            self.onResult()
+    def fromGap(self, data):
+        self.value = str(data)
+        self.onResult()
 
         ## todo validering
+
+
 
