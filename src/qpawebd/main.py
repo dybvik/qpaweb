@@ -1,6 +1,12 @@
 import tornado.ioloop
 import tornado.web
-import qpawebd.gap
+import platform
+_p = platform.system()
+if (_p!='Windows'):
+  import qpawebd.gap
+else:
+  import gapwebd.gapWindows
+
 import qpawebd.jobs
 #import qpawebd.tornadoJSON
 

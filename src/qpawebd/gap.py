@@ -1,7 +1,8 @@
 import subprocess
 from qpawebd import settings
 import os
-import fcntl
+import fcntl # fcntl is a POSIX only function, use win32api for windows version
+# we do apologize that we didn't get this done.
 from queue import Queue
 import pkgutil
 import importlib
