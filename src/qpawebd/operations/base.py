@@ -141,6 +141,45 @@ class QuotAlgebra(qpawebd.gap.data):
     def fromGap(self, data):
         pass
 
+## Rationals field class
+# Debug: Class status by last revision: Class functions as it should.
+class Rationals(qpawebd.gap.Field):
+    schema = {
+        "type": "object",
+        "properties": {
+            "type": {
+                "type": "string",
+                "oneOf": ["rationals"]
+            }
+        }
+    }
+
+    ## Constructor
+    # @field Field from input
+    def __init__(self, field):
+        self.field = field
+
+    ## Converts field data from Python dictionary to GAP constructor command
+    #TODO: endre navn til toGAP ?
+    # @gap ????
+    def toGap(self, gap):
+        gap.write("K := Rationals;")
+
+    ## Checks if return value from GAP is kosher
+    #TODO: endre navn til fromGAP ? Og bytt ut kosher
+    # @data Return value from GAP command line
+    def fromGap(self, data):
+        if data != "Rationals":
+            return False
+        else:
+            return True
+
+    ## Validates input, used in __init__ ??
+    # TODO: verifisere dette ?
+    def validate(self, field):
+        jsonschema.validate(field, self.schema)
+        return True
+
 ## Relations class
 # As with path algebras, GAP doesn't return anything useful, this class only has a constructor and a conversion to
 # GAP code, not the other way around.
@@ -191,7 +230,7 @@ class Dimension(qpawebd.gap.data):
 
 ## SimpleModule class.
 # TODO: I haven't got a clue what this is.
-# Debug: Class status by last revision: Class is a copy-paste of Quiver and doesn't do much, yet.
+# Debug: Class status by last revision: TODO: Class is a copy-paste of Quiver and doesn't do much, yet.
 class SimpleModule(qpawebd.gap.data):
     schema = {
         "type": "object",
@@ -261,7 +300,7 @@ class SimpleModule(qpawebd.gap.data):
 
 ## RightModule class.
 # TODO: I haven't got a clue what this is.
-# Debug: Class status by last revision: Class is a copy-paste of Quiver and doesn't do much, yet.
+# Debug: Class status by last revision: TODO: Class is a copy-paste of Quiver and doesn't do much, yet.
 class RightModule(qpawebd.gap.data):
     schema = {
         "type": "object",
@@ -329,48 +368,10 @@ class RightModule(qpawebd.gap.data):
         #except jsonschema.ValidationError:
         return False
 
-## Rationals field class
-# Debug: Class status by last revision: Class functions as it should.
-class Rationals(qpawebd.gap.Field):
-    schema = {
-        "type": "object",
-        "properties": {
-            "type": {
-                "type": "string",
-                "oneOf": ["rationals"]
-            }
-        }
-    }
-
-    ## Constructor
-    # @field Field from input
-    def __init__(self, field):
-        self.field = field
-
-    ## Converts field data from Python dictionary to GAP constructor command
-    #TODO: endre navn til toGAP ?
-    # @gap ????
-    def toGap(self, gap):
-        gap.write("K := Rationals;")
-
-    ## Checks if return value from GAP is kosher
-    #TODO: endre navn til fromGAP ? Og bytt ut kosher
-    # @data Return value from GAP command line
-    def fromGap(self, data):
-        if data != "Rationals":
-            return False
-        else:
-            return True
-
-    ## Validates input, used in __init__ ??
-    # TODO: verifisere dette ?
-    def validate(self, field):
-        jsonschema.validate(field, self.schema)
-        return True
 
 ## Galois field class
 # TODO: Rewrite it and convert it for extra input field from the GUI
-# Debug: Class status by last revision: Class is a copy paste of Rationals and doesn't do much, yet.
+# Debug: Class status by last revision: TODO: Class is a copy paste of Rationals and doesn't do much, yet.
 class GaloisField(qpawebd.gap.Field):
     schema = {
         "type": "object",
@@ -400,7 +401,7 @@ class GaloisField(qpawebd.gap.Field):
 
 ## Indec[..] module class
 # TODO: Fix it so it works
-# Debug: Class status by last revision: Class is a copy paste of Rationals and doesn't do much, yet.
+# Debug: Class status by last revision: TODO: Class is a copy paste of Rationals and doesn't do much, yet.
 class IndecProjectiveModules(qpawebd.gap.data):
     # ETC
     def __init__(self, name, quotalg):
@@ -416,7 +417,7 @@ class IndecProjectiveModules(qpawebd.gap.data):
 
 ## Radical Series module class
 # TODO: Fix it so it works. Needs some input, defined by what?
-# Debug: Class status by last revision: Class is a copy paste of Rationals and doesn't do much, yet.
+# Debug: Class status by last revision: TODO: Class is a copy paste of Rationals and doesn't do much, yet.
 class RadicalSeries(qpawebd.gap.data):
 
     def __init__(self, name, indproj, vertexIndex):
