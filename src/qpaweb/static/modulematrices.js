@@ -61,3 +61,27 @@ function findVertices(quiver) {
  alert(quiver.get());
  }
  }*/
+
+var GetInput = function(title, x,y, callback) {
+  var tmp = document.createElement("div");
+
+  tmp.appendChild(document.createTextNode(title));
+  tmp.appendChild(document.createElement("br"));
+  var tmpTextArea = document.createElement("textarea");
+  //tmpTextArea.id = "matr[0][\"" + arrowname + "\"]";
+  tmp.appendChild(tmpTextArea);
+  var tmpBtnOk = document.createElement("button");
+  tmpBtnOk.value="OK";
+  $(tmpBtnOk).on("click", function(event) {
+    callback($(tmpTextArea).val());
+    $(tmp).remove();
+  });
+  tmp.appendChild(tmpBtnOk);
+  document.getElementById("mainbody").appendChild(tmp);
+  tmp.style.background = "#000";
+  tmp.style.color = "#FFF";
+  tmp.style.top =  y + "px";
+  tmp.style.left = x + "px";
+  tmp.style.position = "fixed";
+  tmp.style.zIndex = 523;//523?
+}

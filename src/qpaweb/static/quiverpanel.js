@@ -3,12 +3,15 @@ var qpanel = null;
 var jobs = new JobList();
 var updater = new Updater(jobs);
 var results = null;
+var workspaces = null;
 
 window.onload = function () {
   results = new ResultPanel(document.getElementById("resultout"), jobs);
+  
   var quiver = new Quiver();
-    qpanel = new quiverPanel("qcanvas", quiver);
-    /*document.getElementById("btncreatemode").onclick = function (e) {
+  qpanel = new quiverPanel("qcanvas", quiver);
+  workspaces = new Workspaces();
+  /*document.getElementById("btncreatemode").onclick = function (e) {
         qpanel.setMode(qpanel.createMode);
     }*/
   document.getElementById("btnToolsEraser").onclick = function(e) {
@@ -52,15 +55,6 @@ window.onload = function () {
   var relin = document.getElementById("relation");
   var relp = new RelationPanel(qpanel, null, relin);
 
-
-  $(function() {
-    $( "#finddim-diag" ).dialog({
-      height: 140,
-      modal: true,
-      dialogClass: "alert",
-      autoOpen: false,
-    });
-  });
   $("#btn_finddim").on("click", function(ev) {
     var job = {};
     var quiver = {arrows: {}, vertices: []};
@@ -111,6 +105,7 @@ function quiverPanel(id, quiver) {
   
   this.createMode = new CreateQuiverMode(this);
   this.createModeClassic = new CreateModeClassic(this);
+  this.moduleMode = new ModuleMode(this);
   this.eraseMode = new EraseMode(this);
   
   this.vertexNamer = new NumberNameGenerator(quiver);
@@ -407,6 +402,7 @@ quiverPanel.prototype.newVertex = function (data) {
     hasBorders: true,
     //perPixelTargetFind:true,
   }, name);
+
   vertex.data = data;
   //Could have set selectable=false instead of the following
   //attributes, then however, we would not receive any events.
@@ -539,19 +535,17 @@ var LoopArrowGFX = new fabric.util.createClass(fabric.Object, {
     this.set("offset", options.offset);
 
     this.callSuper("initialize", options);
+
+    this.label = new LabelGF("");
   },
 
   toObject: function(opts) {
     return fabric.util.object.extend(this.callSuper("toObject", opts));
   },
-  setLabel: function(num) {
-    this.label = num;
-
-    var top = 0;
-
-    this.numtx = new fabric.Text(num.toString(), {left: 0, top: top, fontsize: 10});
+  setLabel: function(label) {
+    this.label.setValue(label);
   },
-  _getnumtx: function() { return this.numtx; },
+  _getnumtx: function() { return this.label; },
   _render: function(ctx) {
 
     ctx.save();
@@ -569,8 +563,7 @@ var LoopArrowGFX = new fabric.util.createClass(fabric.Object, {
     var y = Math.sin(0.8*Math.PI) * 17;
 
 
-
-    ctx.translate(x,y+1);
+    ctx.transte(x,y+1);
     ctx.rotate(Math.PI*0.9);
 
 
@@ -587,12 +580,46 @@ var LoopArrowGFX = new fabric.util.createClass(fabric.Object, {
       ctx.save();
       ctx.translate(this.get("offset")+17*2, 0);
       ctx.rotate(-this.get("angle"));
-      this.numtx._render(ctx);
+      this.label._render(ctx);
       ctx.restore();
+      
+   
+
     }
     ctx.restore();
+  }
+});
 
-}});
+var LabelGF = fabric.util.createClass(fabric.Object, {
+  type: "label",
+
+  initialize: function(value, options) {
+    options || options == {};
+    this.callSuper("initialize", options);
+
+    this.textLabel = new fabric.Text("", {top:0,left:0});
+    this.setValue(value);
+  },
+
+  setValue: function(value) {
+    this.value = value;
+    if(typeof(value) == "string") {
+      this.textLabel.set("text", value);
+    }
+  },
+
+  _render: function(context) {
+    
+
+    if(typeof(this.value) == "string") {
+      
+      this.textLabel._render(context);
+    } else if(this.value instanceof fabric.Object) {
+      this.value._render(context);
+    }
+
+  }
+});
 
 var ArrowGFX = fabric.util.createClass(fabric.Line, {
     type: "arrow",
@@ -610,9 +637,7 @@ var ArrowGFX = fabric.util.createClass(fabric.Line, {
   toObject: function (opts) {
         return fabric.util.object.extend(this.callSuper("toObject", opts));
   },
-  setLabel: function (num) {
-    this.label = num;
-    
+  setLabel: function (label) {
     var top = 0, left = 0;
     if (Math.max(Math.abs(this.height),
                  Math.abs(this.width)) / Math.min(Math.abs(this.height), Math.abs(this.width)) < 1.4) {
@@ -628,33 +653,35 @@ var ArrowGFX = fabric.util.createClass(fabric.Line, {
 
   
 
-    this.numtx = new fabric.Text(num.toString(), {fontWeight: 'bold', left: left, top: top, fontsize: 10, strokeStyle: '#DDD', strokeWidth: 0.75});
+    //this.numtx = new fabric.Text(num.toString(), {fontWeight: 'bold', left: left, top: top, fontsize: 10, strokeStyle: '#DDD', strokeWidth: 0.75});
+    this.label = new LabelGF(label);
+    this.label.set({top:top, left:left});
   },
-  _render: function (ctx) {
-    this.callSuper("_render", ctx);
+  _render: function (context) {
+    this.callSuper("_render", context);
 
     
     //and now the arrowhead
     
     var angle = Math.atan2(this.height, this.width);
     
-    ctx.save();
+    context.save();
     
-    ctx.translate(this.width / 2, this.height / 2);
+    context.translate(this.width / 2, this.height / 2);
     
-    ctx.rotate(angle - Math.PI / 4);
-    this.head._render(ctx);
-    ctx.restore();
+    context.rotate(angle - Math.PI / 4);
+    this.head._render(context);
+    context.restore();
     
-    /*ctx.moveTo(0, 0);
-      ctx.lineTo(-10, 0);
-      ctx.stroke();
-      ctx.moveTo(0, 0);
-      ctx.lineTo(0, -10);
-      ctx.stroke();
-      ctx.restore();*/
+    /*context.moveTo(0, 0);
+      context.lineTo(-10, 0);
+      context.stroke();
+      context.moveTo(0, 0);
+      context.lineTo(0, -10);
+      context.stroke();
+      context.restore();*/
     if (this.label != null) {
-      this.numtx._render(ctx);
+      this.label._render(context);
     }
   }
 });
@@ -678,39 +705,39 @@ var CurvedArrowGFX = fabric.util.createClass(fabric.Object, {
     this.head = new ArrowHeadGFX({top: 0, left:0});
   },
 
-  _render: function(ctx) {
+  _render: function(context) {
     var len = Math.sqrt(Math.pow(this.width, 2)+Math.pow(this.height, 2));
     var angle = Math.atan(this.width/this.height);
     var angle2 = getVerticesAngle({x: this.left, y: this.top}, {x: this.left+this.width, y: this.top+this.height});
 
-    ctx.save();
-    ctx.translate(-this.width/2,-this.height/2);
-    ctx.rotate(-angle2);
-    ctx.beginPath();
-    ctx.moveTo(0,0)
-    ctx.quadraticCurveTo(Math.max(Math.abs(this.width),Math.abs(this.height))/2, this.offset, len, 0);
-    ctx.stroke();
-    ctx.save();
-    ctx.translate(len, 0);
+    context.save();
+    context.translate(-this.width/2,-this.height/2);
+    context.rotate(-angle2);
+    context.beginPath();
+    context.moveTo(0,0)
+    context.quadraticCurveTo(Math.max(Math.abs(this.width),Math.abs(this.height))/2, this.offset, len, 0);
+    context.stroke();
+    context.save();
+    context.translate(len, 0);
     var angle = getVerticesAngle({x: -len, y:-this.offset}, {x: 0, y:0});
-    ctx.rotate(angle-Math.PI/4);
-    this.head._render(ctx);
-    ctx.restore();
+    context.rotate(angle-Math.PI/4);
+    this.head._render(context);
+    context.restore();
     
     if(this.label != undefined) {
-      ctx.save();
-      ctx.translate(Math.max(Math.abs(this.width),Math.abs(this.height))/2, this.offset);
-      ctx.rotate(angle2);
-      this.label._render(ctx);
-      ctx.restore();
+      context.save();
+      context.translate(Math.max(Math.abs(this.width),Math.abs(this.height))/2, this.offset);
+      context.rotate(angle2);
+      this.label._render(context);
+      context.restore();
     }
 
-    ctx.restore();
+    context.restore();
     return;
   },
   
   setLabel: function(label) {
-    this.label = new fabric.Text(label, {top: 0, left:0, fontsize: 10});
+    this.label = new LabelGF(label);
   },
   
   _setWidthHeight: function(options) {
@@ -743,13 +770,13 @@ var ArrowHeadGFX = fabric.util.createClass(fabric.Object, {
     this.callSuper("initialize", opt);
   },
 
-  _render: function(ctx) {
-    ctx.moveTo(0, 0);
-    ctx.lineTo(-10, 0);
-    ctx.stroke();
-    ctx.moveTo(0, 0);
-    ctx.lineTo(0, -10);
-    ctx.stroke();
+  _render: function(context) {
+    context.moveTo(0, 0);
+    context.lineTo(-10, 0);
+    context.stroke();
+    context.moveTo(0, 0);
+    context.lineTo(0, -10);
+    context.stroke();
   },
   
 
