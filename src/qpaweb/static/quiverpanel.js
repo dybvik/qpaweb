@@ -605,7 +605,11 @@ var LabelGF = fabric.util.createClass(fabric.Object, {
     this.value = value;
     if(typeof(value) == "string") {
       this.textLabel.set("text", value);
-    }
+    } else {
+      this.width=value.width;
+      this.height = value.height;
+      this.setCoords();
+    }    
   },
 
   _render: function(context) {

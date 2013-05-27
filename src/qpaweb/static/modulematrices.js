@@ -67,7 +67,8 @@ var GetInput = function(title, x,y, callback) {
 
   tmp.appendChild(document.createTextNode(title));
   tmp.appendChild(document.createElement("br"));
-  var tmpTextArea = document.createElement("textarea");
+  var tmpTextArea = document.createElement("input");
+  tmpTextArea.type="text";
   //tmpTextArea.id = "matr[0][\"" + arrowname + "\"]";
   tmp.appendChild(tmpTextArea);
   var tmpBtnOk = document.createElement("button");
@@ -76,12 +77,65 @@ var GetInput = function(title, x,y, callback) {
     callback($(tmpTextArea).val());
     $(tmp).remove();
   });
+  $(tmpBtnOk).append("OK");
   tmp.appendChild(tmpBtnOk);
-  document.getElementById("mainbody").appendChild(tmp);
+  $("#mainbody").append(tmp);
   tmp.style.background = "#000";
   tmp.style.color = "#FFF";
-  tmp.style.top =  y + "px";
-  tmp.style.left = x + "px";
+
+  tmp.style.top =  Math.floor(y) + "px";
+  tmp.style.left = (Math.floor(x)) + "px";
+  tmp.style.position = "fixed";
+  tmp.style.zIndex = 523;//523?
+}
+
+var GetMatrix = function(title,x,y,matrix,callback) {
+
+  var tmp = document.createElement("div");
+  var i=0,j=0;
+  var input = null;
+  tmp.appendChild(document.createTextNode(title));
+  tmp.appendChild(document.createElement("br"));
+  var inputMatrix = Array(matrix.length);
+  for(i = 0;i < matrix.length;i++) {
+    inputMatrix[i] = Array(matrix[i].length);
+    for(j = 0; j < matrix[i].length;j++) {
+      input = document.createElement("input");
+      input.type = "text";
+      input.size = "4";
+      input.value = matrix[i][j].toString();
+      $(tmp).append(input);
+      input.style.display = "inline-block";
+      inputMatrix[i][j]=input;
+    }
+    $(tmp).append(document.createElement("br"));
+  }
+  btnOk = document.createElement("button");
+  btnOk.value = "OK";
+  btnOk.appendChild(document.createTextNode("OK"));
+  $(btnOk).on("click", function(ev) {
+    var newmatrix = Array(matrix.length);
+    for(i = 0;i < matrix.length;i++) {
+      newmatrix[i] = Array(matrix[i].length);
+      for(j = 0;j < matrix[i].length;j++) {
+        newmatrix[i][j] = parseInt(inputMatrix[i][j].value);
+      }
+    }
+   
+    callback(newmatrix);
+     $(tmp).remove();
+  });
+  $(tmp).append(btnOk);
+  $("#mainbody").append(tmp);
+  tmp.style.background = "#000";
+  tmp.style.color = "#FFF";
+  tmp.style.overflow = "scroll";
+  tmp.style["box-sizing"] = "border-box";
+  tmp.style["max-width"]="200px";
+  tmp.style.display = "inline-block";
+  tmp.style["white-space"] = "nowrap";
+  tmp.style.top =  Math.floor(y) + "px";
+  tmp.style.left = (Math.floor(x)) + "px";
   tmp.style.position = "fixed";
   tmp.style.zIndex = 523;//523?
 }

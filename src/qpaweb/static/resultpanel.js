@@ -1,4 +1,9 @@
-
+/**
+ * @classdesc A panel responsible for displaying results
+ * @constructor
+ * @param element An HTML input element that will display results.
+ * @param {JobList} joblist List of jobs to expect results for
+ */
 var ResultPanel = function(element, joblist) {
   this.joblist = joblist;
   var that = this;
@@ -14,9 +19,13 @@ var ResultPanel = function(element, joblist) {
  
 }
 
+
+/**
+ * Rebuilds the resultlist. This will be called automatically change of status of jobs.
+ * 
+ */
 ResultPanel.prototype.rebuildList = function() {
   var that = this;
-  console.log("REREBUILD");
   var done = [];
   var waiting = [];
   _.each(this.joblist.jobs, function(val,key,list) {

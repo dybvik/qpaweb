@@ -10,19 +10,20 @@ var MatrixGF = new fabric.util.createClass(fabric.Object, {
   },
 
   _render: function(context) {
-    var totalWidth = _.reduce(this.columns, function(sum, val) {return sum+val}, 0);
+    var totalWidth = _.reduce(this.columns, function(sum, val) {return sum+val.width}, 0);
     var height = this.columns[0].getHeight();//assume equal height
     //context.moveTo(-totalWidth/2, -height/2);
     var x = -totalWidth/2;
-    var y = -height/2;
+    var y = 0;//height/2;
 
     for(var i = 0; i < this.columns.length;i++) {
       context.save();
       context.translate(x,y);
-      this.columns[i].render(context);
+      this.columns[i]._render(context);
       context.restore();
-      x+=totalWidth/this.columns.length;
+      x+=this.columns[i].width+10;
     }
+    
 
   },
 
@@ -32,21 +33,29 @@ var MatrixGF = new fabric.util.createClass(fabric.Object, {
   },
 
   _makeMatrix: function() {
-    if(this.data.length == 0 || this.data[0].length == 0) {
+    console.log(this.data);
+    var i = 0;
+    if(this.data == 0 || this.data.length == 0 || this.data[0].length == 0) {
       this.columns = [new fabric.Text("0")];
       return;
     }
     this.columns = Array(this.data[0].length);
-    for(var i = 0; i < this.columns.length;i++) {
-      this.columns[i] = fabric.Text("");
+    for(i = 0; i < this.columns.length;i++) {
+      this.columns[i] = new fabric.Text("", {top:0,left:0});
       this.columns[i].textAlign = "center";
+      this.columns[i].fontSize = 20;
     }
     for(i = 0; i < this.data.length; i++) {
       for(var j = 0; j < this.data[i].length;j++) {
-        this.columns[j].set("text", this.columns[j].get("text") + "\n" + this.data[i][j]);
+        this.columns[j].set("text", this.columns[j].get("text") + this.data[i][j]);
+        if(i != this.data.length-1) {
+          this.columns[j].set("text", this.columns[j].get("text") + "\n");
+        }
       }
     };
-    
+    this.width = _.reduce(this.columns, function(sum, val) {return sum+val.width}, 0);
+    this.height = this.columns[0].getHeight();//assume equal height
+    this.setCoords();
   },
 
 });

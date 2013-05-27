@@ -1,6 +1,10 @@
 
 
-
+/**
+ * @classdesc A job, sent to a server for processing.
+ * @constructor
+ * @param data The job in the form of a JavaScript object
+ */
 var Job = function(data) {
   this.status = 0;
   this.data = data;
@@ -10,16 +14,20 @@ var Job = function(data) {
   this.w = 5;
 }
 Job.Status = {DONE: 1, WAITING: 3};
-console.log(Job.Status.DONE);
+
 
 
 Job.prototype.setStatus = function(newstatus) {
   var oldstatus = this.status;
   this.status = newstatus;
-  console.log("NEWS: "+ this.status);
+
   $(this).trigger("status_change", [oldstatus]);
 }
 
+/**
+ * @classdesc A list of jobs
+ * @constructor
+ */
 var JobList = function() {
   this.jobs = {};
 };

@@ -1,4 +1,11 @@
 
+
+/**
+ * Creates and instance of Module
+ * @classdesc A module of a quiver, containing vectorspaces for all vertices and matrices for all arrows.
+ * @constructor
+ * @param {Quiver} quiver
+ */
 var Module = function(quiver) {
   var that = this;
   this.quiver = quiver;
@@ -14,23 +21,14 @@ var Module = function(quiver) {
     
   });
 
-  $(this).on("vectorspace_change", function(ev, vector) {
-    var vsp = vectorSpaces[vector.name];
-    _.each(vector.arrows, function(val,key) {
+  $(this).on("vectorspace_change", function(ev, vertex) {
+    var vsp = vectorSpaces[vertex.name];
+    _.each(vertex.arrows, function(arrow,key) {
       if(vsp == 0) {
-        matrices[val.name] = [];
+        matrices[arrow.name] = [];
       }
       else {
-        var other = (val.source == this?val.target:val.source);
-        if(vectorSpaces[other.name] != 0) {
-          matrices[val.name] = Array(vectorSpaces[val.target]);
-          for(var i = 0; i < matrices[val.name].length;i++) {
-            matrices[val.name][i] = Array(vectorSpaces[val.source]);
-            for(var j = 0; j < matrices[val.name][i].length;j++) {
-              matrices[val.name][i][j] = 0;
-            }
-          }
-        }
+        that.updateMatrixSize(arrow);
       }
     });
   });
@@ -49,40 +47,51 @@ var Module = function(quiver) {
   
 }
 
-Module.prototype.setVectorSpace = function(vector, vectorSpace) {
+/**
+ * Change the vectorspace of a vertex.
+ * Will automatically update the size of matrices of any arrows connected to the vertex
+ * @param {Vertex} vertex
+ * @param {int} vectorSpace
+ */
+Module.prototype.setVectorSpace = function(vertex, vectorSpace) {
   var that = this;
-  this.vectorSpaces[vector.name] = vectorSpace;
-  var vsp = this.vectorSpaces[vector.name] = vectorSpace;
+  this.vectorSpaces[vertex.name] = vectorSpace;
+  var vsp = this.vectorSpaces[vertex.name] = vectorSpace;
   
-  _.each(vector.arrows, function(val,key) {
-    if(vsp == 0) {
-      that.matrices[val.name] = [];
-    }
-    else {
-      var other = (val.source == this?val.target:val.source);
-      if(that.vectorSpaces[other.name] != 0) {
-        that.matrices[val.name] = Array(that.vectorSpaces[val.target]);
-        for(var i = 0; i < that.matrices[val.name].length;i++) {
-          that.matrices[val.name][i] = Array(that.vectorSpaces[val.source]);
-          for(var j = 0; j < that.matrices[val.name][i].length;j++) {
-            that.matrices[val.name][i][j] = 0;
-          }
-        }
-      }
-    }
+  _.each(vertex.arrows, function(arrow,key) {
+    that.updateMatrixSize(arrow);
   });
+  $(this).trigger("vectorspace_change", [vertex, vectorSpace]);
+  
 }
 
+/**
+ * Updates the matrix of an array in this modules quiver.
+ * Will accept matrices of incorrect sizes.
+ * All array elements must be numbers.
+ * @param {Arrow} arrow
+ * @oaram matrix A two-dimensional array representing the matrix to set
+ */
+Module.prototype.setMatrix = function(arrow, matrix) {
+  this.matrices[arrow.name]=matrix;
+  $(this).trigger("matrix_change", [arrow, matrix]);
+}
+
+/**
+ * Recalculates the size of an arrows matrix based on the vectorSpaces of the arrows source and target.
+ * Note: Any data currently residing in the matrix before a call to this method will be lost.
+ * @param {Arrow} The arrows whose matrix to update
+ */
 Module.prototype.updateMatrixSize = function(arrow) {
-  var other = (val.source == this?arrow.target:arrow.source);
-  if(this.vectorSpaces[other.name] != 0) {
-    this.matrices[arrow.name] = Array(this.vectorSpaces[arrow.target]);
-    for(var i = 0; i < this.matrices[arrow.name].length;i++) {
-      this.matrices[arrow.name][i] = Array(this.vectorSpaces[arrow.source]);
-      for(var j = 0; j < this.matrices[arrow.name][i].length;j++) {
-        this.matrices[arrow.name][i][j] = 0;
-      }
+
+  this.matrices[arrow.name] = Array(this.vectorSpaces[arrow.source.name]);
+  for(var i = 0; i < this.matrices[arrow.name].length;i++) {
+    this.matrices[arrow.name][i] = Array(this.vectorSpaces[arrow.target.name]);
+    for(var j = 0; j < this.matrices[arrow.name][i].length;j++) {
+      this.matrices[arrow.name][i][j] = 0;
     }
+    
   }
+  $(this).trigger("matrix_change", [arrow, this.matrices[arrow.name]]);
 
 }
